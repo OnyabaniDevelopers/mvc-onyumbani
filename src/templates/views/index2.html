@@ -5,167 +5,68 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>  -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/index.css">
 </head>
-<style>
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color:  #F6F6F6;
-}
-.horizontal-list {
-    list-style: none; /* Removes the default bullet points */
-    padding: 0; /* Removes any default padding */
-  }
-.horizontal-list li {
-    display: inline-block; /* Displays the list items horizontally */
-    margin-right: 10px; /* Adds some space between the list items */
-  }
-.navbar {
-  margin-bottom: 0;
-  border-radius: 0;
-}
 
- /* Customize the label (the container) */
-.container1 {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
-/* Hide the browser's default checkbox */
-.container1 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container1:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container1 input:checked ~ .checkmark {
-  background-color: #000000;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-.container1 input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-.container1 .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-} 
-.footer {
-   /* position: fixed; */
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: #F6F6F6;
-   color: black;
-   text-align: center;
-   padding: 15px;
-}
-.custom-dropdown {
-  border: 2px solid yellow;
-  padding: 10px;
-  background-color: white;
-  color: black;
-  font-size: 14px;
-  border-radius: 4px;
-  width: 200px;
-}
-.form-check {
-  margin-right: 3%;
-}
-#chx {
-  margin-left: 15%;
-  margin-right: 15%:
-}
-</style>
 <body>
 <nav class="navbar navbar-light bg-light fixed-top sticky-top" style="background-color: white">
-  <div class="container-fluid">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
     <a class="navbar-brand" href="#">
       <img
-        src="/static/pics/Osuani-Final-White.jpg"
-        class="rounded-circle"
-        height="100"
+        src="../assets/pics/transparent2.png"
+        height="80"
         alt="Logo"
         loading="lazy"
       />
-      <!-- <small style="font-family: 'Times New Roman', Times, serif;">NYUMBANI</small> -->
     </a>
-
+<div class="row">
+  <div class="col-md-12">
     <span class="navbar-text">
-        <select class="custom-dropdown">
-          <option value="option1">Select Filter</option>
-          <option value="option2">Option 1</option>
-          <option value="option3">Option 2</option>
-          <option value="option3">Option 3</option>
-          <option value="option3">Option 4</option>
-        </select>
-    </span>
-
-    <span class="navbar-text">
-        <ul class="horizontal-list">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">{{ data['value'] }}</a>
-            </li>
-        </ul>
-    </span>
+      <select class="custom-dropdown">
+        <option value="option1">Select Filter</option>
+        <option value="option2">Option 1</option>
+        <option value="option3">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="option3">Option 4</option>
+      </select>
+  </span>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-md-12">
+    <span class="navbar-text">
+      <ul class="horizontal-list">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Login</a>
+          </li>
+      </ul>
+  </span>
+  </div>
+</div>
+  </div>
+</div>
+</div>
 </nav>
-<div class="container-fluid" id="chx">
+<div class="container">
 <div class="row" style="margin-bottom: 3%;">
 
           <!-- Default checkbox -->
@@ -224,14 +125,14 @@ body {
       
 
 </div>
-<div class="container-fluid">
+<div class="container">
 <div class="col-md-12">
           <!-- Image Row -->
           <div class="row">
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/1.png" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/05.jpg" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Ivan Lodge <br>
                       West Legon, Accra <br>
@@ -243,7 +144,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/2.jpg" alt="Nature" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/7b.jpg" alt="Nature" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Ideal Garden Flat <br>
                       Obuasi, Kumasi <br>
@@ -255,7 +156,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/3.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/8f.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Angela Holiday Letting <br>
                       Secondi, Takoradi <br>
@@ -267,7 +168,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/3.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/41.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Angela Holiday Letting <br>
                       Secondi, Takoradi <br>
@@ -283,7 +184,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/1.png" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/99.jpg" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Ivan Lodge <br>
                       West Legon, Accra <br>
@@ -295,7 +196,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/2.jpg" alt="Nature" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/93.jpg" alt="Nature" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Ideal Garden Flat <br>
                       Obuasi, Kumasi <br>
@@ -307,7 +208,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/3.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/64.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Angela Holiday Letting <br>
                       Secondi, Takoradi <br>
@@ -319,7 +220,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/3.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/18.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Angela Holiday Letting <br>
                       Secondi, Takoradi <br>
@@ -334,7 +235,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/1.png" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/7c.jpg" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Ivan Lodge <br>
                       West Legon, Accra <br>
@@ -346,7 +247,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/2.jpg" alt="Nature" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/41.jpg" alt="Nature" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Ideal Garden Flat <br>
                       Obuasi, Kumasi <br>
@@ -358,7 +259,7 @@ body {
             <div class="col-md-3">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/3.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/b2.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Angela Holiday Letting <br>
                       Secondi, Takoradi <br>
@@ -367,10 +268,10 @@ body {
                 </a>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-bottom: 100px;">
               <div class="thumbnail">
                 <a href="" style="text-decoration: none">
-                  <img src="assets/3.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
+                  <img src="../assets/homes/d9.jpg" alt="Fjords" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
                   <div class="caption">
                     <p style="color: black">Angela Holiday Letting <br>
                       Secondi, Takoradi <br>

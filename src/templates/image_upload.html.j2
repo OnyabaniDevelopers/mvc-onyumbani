@@ -34,7 +34,7 @@
 <body>
   <div class="container">
     <h2>Image Upload Form</h2>
-    <form id="imageForm">
+    <form id="imageForm" enctype="multipart/form-data" action="{{ url_for('upload') }}" method="POST">
       <div class="form-group">
         <label for="imageInput">Select an image:</label>
         <input type="file" id="imageInput" name="image" accept="image/*">
@@ -43,36 +43,6 @@
     </form>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const imageForm = document.getElementById('imageForm');
-      const imageInput = document.getElementById('imageInput');
-
-      imageForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        const file = imageInput.files[0];
-
-        if (file) {
-          const formData = new FormData();
-          formData.append('image', file);
-
-          fetch('{{ url_for('upload') }}', {
-            method: 'POST',
-            body: formData
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Image uploaded:', data);
-            // Handle the response from the backend, e.g., display uploaded image or show success message
-          })
-          .catch(error => {
-            console.error('Error uploading image:', error);
-            // Handle any errors, e.g., display error message to the user
-          });
-        }
-      });
-    });
-  </script>
+ 
 </body>
 </html>

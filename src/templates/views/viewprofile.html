@@ -45,12 +45,6 @@ body {
    text-align: center;
    padding: 0px;
 }
-#ctnt {
-    padding-right: 20%;
-    padding-left: 20%;
-    text-align: center;
-    
-}
 .custom-input {
     background-color: #D9D9D9;
     color: #333;
@@ -110,20 +104,64 @@ body {
 input[type="password"] {
       background-color: #D9D9D9;
 }
-input[type="email"] {
+input[type="text"], input[type="date"], input[type="email"] {
       background-color: #D9D9D9;
 }
 .input-group-text {
       background-color: #D9D9D9;
+}
+#img-section {
+    padding-right: 10%;
+    padding-left: 10%;
+}
+.upload-icon-container {
+      position: relative;
+      display: inline-block;
     }
+
+.upload-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 24px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 50%;
+      padding: 8px;
+}
+.upload-icon input[type="file"] {
+      display: none;
+}
+.larger-checkbox {
+        transform: scale(1.5);
+}
+.submit-button {
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+}
+  
+.submit-button:hover {
+    background-color: #333;
+}
+  
+#btn {
+    text-align: center;
+}
+
 </style>
 <body>
 <nav class="navbar navbar-light bg-white fixed-top sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img
-        src="../assets/pics/Osuani-Final-White.jpg"
-        class="rounded-circle"
+        src="../assets/pics/transparent2.png"
         height="120"
         width="160"
         alt="MDB Logo"
@@ -149,57 +187,111 @@ input[type="email"] {
     </span>
   </div>
 </nav>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-12" id="ctnt">
-            <img src="../assets/pics/Osuani-Final-White.jpg" height="250px" alt="" srcset="">
+      <form action="">
+        <div class="col-md-12">
             <div class="container-fluid" id="atn">
                 <div class="row">
-                    <div class="col-md-12">
-                    <form action="">
-                    <div class="form-group">
-                        <label for="password">Email</label>
-                        <div class="input-group">
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                        <div class="input-group-append">
-                            <span class="input-group-text password-toggle">
-                            <i class="fa fa-envelope"></i>
-                            </span>
-                        </div>
-                        </div>
+                <div class="col-md-6" id="img-section">
+                    <div class="upload-icon-container">
+                    <img src="../assets/pics/family.jpg" class="rounded-circle" style="width: 270px; height: 250px;" alt="Avatar" />
+                        <p style="text-align: center;"><strong>Kojo Poku</strong></p>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <div class="input-group">
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
-                        <div class="input-group-append">
-                            <span class="input-group-text password-toggle">
-                            <i class="fa fa-eye-slash"></i>
-                            </span>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="container">
+
+                </div>
+                <div class="col-md-6">
                         <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center">
-                            <button type="submit" class="login-button">LOGIN</button>
+                            <div class="col-md-12">
+                                <p><b>Home Address:</b> 789 star street, Uganda</p>
+                            </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>Email: </b>yemen@gmail.com</p>
+                            </div>
                         </div>
-                    </div>
-                    </form>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>Phone Number:</b> 02789292002</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Phone Number: 02789292002</p>
+                                <pre>
+name : Yaa Boateng
+number : 02999875885
+                                </pre>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><b>Bio and Interests</b></p>
+                                <p>Our premises offer a nice breeze, especially in the evening. From our roof-terrace you can also enjoy the great view of the city of Accra. Furthermore, owing to the numerous trees and flowers, our tropical garden is the perfect place for you to relax.  A grill and accessories are provided. The premises is about 4000 m², safe and well protected. </p>
+                            </div>
+                        </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
+        <!-- <div class="col-12" id="btn">
+            <button class="submit-button">NEXT</button>                            
+        </div> -->
+        </div>
     </div>
 </div>
 <div class="footer">
   <div class="row">
-    <div class="col-12" style="background-color: white">
+    <div class="col-md-12" style="background-color: white">
     <p>© Copyright Nyumbani 2022</p>
     </div>
   </div>
 </div>
+<script>
+    $(document).on('change', '.file-input', function() {
+
+
+var filesCount = $(this)[0].files.length;
+
+var textbox = $(this).prev();
+
+if (filesCount === 1) {
+var fileName = $(this).val().split('\\').pop();
+textbox.text(fileName);
+} else {
+textbox.text(filesCount + ' files selected');
+}
+
+
+
+if (typeof (FileReader) != "undefined") {
+var dvPreview = $("#divImageMediaPreview");
+dvPreview.html("");            
+$($(this)[0].files).each(function () {
+var file = $(this);                
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var img = $("<img />");
+        img.attr("style", "width: 270px; height: 250px; padding: 10px; border-radius: 50%");
+        img.attr("src", e.target.result);
+        dvPreview.append(img);
+    }
+    reader.readAsDataURL(file[0]);                
+});
+} else {
+alert("This browser does not support HTML5 FileReader.");
+}
+
+
+});
+</script>
 </body>
 </html>
