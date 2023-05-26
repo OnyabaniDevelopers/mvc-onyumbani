@@ -214,7 +214,7 @@ input[type="text"], input[type="date"], input[type="email"] {
         <div class="col-md-12 col-sm-12 col-xs-3">
     <a class="navbar-brand" href="#">
       <img
-        src="../assets/pics/transparent2.png"
+        src="/static/pics/Osuani-Final-White.jpg"
         height="120"
         width="160"
         alt="MDB Logo"
@@ -244,19 +244,19 @@ input[type="text"], input[type="date"], input[type="email"] {
 </nav>
 <div class="container" style="margin-bottom: 10%;">
     <div class="row">
-      <form action="">
+      <form action="{{ url_for('add_home') }}" method='POST' enctype='multipart/form-data'>
         <div class="col-md-12 sm-12">
             <div class="container-fluid" id="atn">
                 <form action="">
                 <div class="row">
-                <div class="col-md-6" id="img-section">
+                <div class="col-md-7" id="img-section">
 
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="homeaddress">Name of Home</label>
+                                <label for="homename">Name of Home</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" id="homeaddress" placeholder="Enter your name of home">
+                                <input type="text" class="form-control" name="homename" id="homename" placeholder="Enter your name of home">
                                 </div>
                             </div>
                         </div>
@@ -267,30 +267,26 @@ input[type="text"], input[type="date"], input[type="email"] {
                             <div class="form-group">
                                 <label for="homeaddress">Address of Home</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" id="homeaddress" placeholder="Enter your address of home">
+                                <input type="text" class="form-control" name="homeaddress" id="homeaddress" placeholder="Enter your address of home">
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
+                    
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
-                                <label for="homeaddress">Number of people in the house</label>
+                                <label for="numrooms">City</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" id="homeaddress" placeholder="Enter your number">
+                                <input type="text" class="form-control" name="city" id="city">
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
-                                <label for="homeaddress">What you like about the home?</label>
+                                <label for="numrooms">Country</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" id="homeaddress" placeholder="Tell us">
+                                <input type="text" class="form-control" name="country" id="country">
                                 </div>
                             </div>
                         </div>
@@ -299,116 +295,81 @@ input[type="text"], input[type="date"], input[type="email"] {
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="homeaddress">How many rooms are available?</label>
+                                <label for="homedescription">What you like about the home?</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" id="homeaddress" placeholder="Tell us">
+                                <input type="text" class="form-control" name="homedescription" id="homedescription" placeholder="Tell us">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span style="margin-right: 10px;">Ownership Evidence</span>
+                                    <span class="input-group-btn"><span class="btn btn-file"><span class="fa fa-upload"></span>
+                                    <input type="file" name='ownershipimg' accept="image/png, image/jpeg, image/gif"/></span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                         <div class="row">
                             <div class="col-12">
-                                <div class="container">
-                                    <span style="margin-right: 20%"><label for="checkbox">Electricity</label> </span>
-                                    <input type="checkbox" class="rounded-checkbox1" id="checkbox" />  
-                                    <input type="checkbox" class="rounded-checkbox2" id="checkbox" />                                                                                                              
-                                </div>
+                                    <input type="checkbox" id="checkbox" value="yes" name="amenity-electricity"/>  
+                                    <span style="margin-left: 10%"><label for="checkbox">Electricity</label> </span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="container">
-                                    <span style="margin-right: 20%"><label for="checkbox">Electricity</label> </span>
-                                    <input type="checkbox" class="rounded-checkbox1" id="checkbox" />
-                                    <input type="checkbox" class="rounded-checkbox2" id="checkbox" />                                                        
-                                </div>
+                                    <input type="checkbox" id="checkbox" value="yes" name="amenity-wifi"/>
+                                    <span style="margin-left: 10%"><label for="checkbox">WIFI</label> </span>                                        
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="container">
-                                    <span style="margin-right: 20%"><label for="checkbox">Electricity</label> </span>
-                                    <input type="checkbox" class="rounded-checkbox1" id="checkbox" />
-                                    <input type="checkbox" class="rounded-checkbox2" id="checkbox" />                                                        
-                                </div>
+                                    <input type="checkbox" id="checkbox" value="yes" name="amenity-gym"/>  
+                                    <span style="margin-left: 10%"><label for="checkbox">Gym</label> </span>                                                                                                           
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="container">
-                                    <span style="margin-right: 20%"><label for="checkbox">Electricity</label> </span>
-                                    <input type="checkbox" class="rounded-checkbox1" id="checkbox" />
-                                    <input type="checkbox" class="rounded-checkbox2" id="checkbox" />                                                        
-                                </div>
+                                    <input type="checkbox"id="checkbox" value="yes" name="amenity-air"/> 
+                                    <span style="margin-left: 10%"><label for="checkbox">Air Condition</label> </span>                                                                                                            
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="container">
-                                    <span style="margin-right: 20%"><label for="checkbox">Electricity</label> </span>
-                                    <input type="checkbox" class="rounded-checkbox1" id="checkbox" />
-                                    <input type="checkbox" class="rounded-checkbox2" id="checkbox" />                                                        
-                                </div>
+                                    <input type="checkbox" id="checkbox" value="yes" name="amenity-studyroom"/>
+                                    <span style="margin-left: 10%"><label for="checkbox">Study Room</label> </span>                                                                                                            
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="container">
-                                    <span style="margin-right: 20%"><label for="checkbox">Electricity</label> </span>
-                                    <input type="checkbox" class="rounded-checkbox1" id="checkbox" />
-                                    <input type="checkbox" class="rounded-checkbox2" id="checkbox" />                                                        
-                                </div>
+                                    <input type="checkbox" id="checkbox" value="yes" name="amenity-security"/>  
+                                    <span style="margin-left: 10%"><label for="checkbox">Security</label> </span>                                                                                                            
                             </div>
                         </div>
-
-
-
-                        
+                    
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="homeaddress">Other Amenities</label>
+                                    <label for="otheramenities">Other Amenities</label>
                                     <div class="input-group">
-                                    <input type="text" class="form-control" id="homeaddress" placeholder="Enter your homeaddress">
+                                    <input type="text" class="form-control" name="otheramenities" id="otheramenities" placeholder="Enter other amenities">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
-                                                
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span style="margin-right: 10px;">Ownership Evidence</span>
-                                      <span class="input-group-btn"><span class="btn btn-file"><span class="fa fa-upload"></span>
-                                        <input type="file" accept="image/png, image/jpeg, image/gif"/></span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span style="margin-right: 10px;">Upload at least 5 images of the home</span>
-                                      <span class="input-group-btn"><span class="btn btn-file"><span class="fa fa-upload"></span>
-                                        <input type="file" accept="image/png, image/jpeg, image/gif"/></span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
- 
                     </div>
                 </div>
             </div>

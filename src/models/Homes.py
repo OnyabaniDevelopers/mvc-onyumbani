@@ -1,21 +1,25 @@
 import  json
-"""
-Connections to Database
+import urllib3
+from src.models.constants import BASE_URL
+import json
+request_ref = BASE_URL + '/homes'
+class Homes:
 
-This can be empty if we use an API
-"""
-class Home:
-
-    def __init__(self):
+    def __init__():
         pass
-    
-    @staticmethod
-    def get_home():
 
-        #TODO: Load this from the API or directly
-        data = {
-        "title": "Onymbani",
-        "body": "This is the Home page"}
-        return data
-    
-    #TODO: Add other methods here - add_home, delete_home
+    @staticmethod
+    def add_home(sign_up_data):
+        
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        sign_up_data["returnSecureToken"] = True
+        data = json.dumps(sign_up_data)
+        request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)
+        return request_object.status
+
+    @staticmethod
+    def get_homes():
+        
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        request_object = urllib3.request(method="GET",url=request_ref, headers=headers)
+        return eval(request_object.data.decode())

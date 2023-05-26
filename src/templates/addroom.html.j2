@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Onyumbani - Reserve</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/reserve.css">
+</head>
+
+<body>
+  <div class="contain">
+    <nav class="navbar navbar-light bg-light fixed-top sticky-top" style="background-color: white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="../assets/pics/transparent2.png"
+            height="80"
+            alt="Logo"
+            loading="lazy"
+          />
+        </a>
+    
+        <span class="navbar-text">
+            <ul class="horizontal-list">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Login</a>
+                </li>
+            </ul>
+        </span>
+      </div>
+    </nav>
+    
+    <div class="home-edit-body" >
+        <!--- Scrollable Images --->
+
+        <div class="home-edit d-flex justify-content-center mt-5">
+            <form action="{{ url_for('add_room') }}" method='POST' enctype='multipart/form-data'>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="numpeople">Number of people in the house</label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" name="numpeople" id="numpeople">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="numrooms">Number of rooms</label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" name="numrooms" id="numrooms">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label class="upload-icon">Images of the house and rooms (at least 5)</label>
+                      <div class="input-group">
+                        <input type="file" class="file-input" name='roomimg' accept=".jfif,.jpg,.jpeg,.png,.gif"  multiple>
+                        <i class="fa fa-upload"></i>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                      <div class="form-group">
+                          <label for="price">Average Price of room (Ghc)</label>
+                          <div class="input-group">
+                          <input type="text" class="form-control" name="roomprice" id="roomprice" placeholder="Enter number of guests">
+                          </div>
+                      </div>
+                  </div>
+                </div> 
+                <div class="row">
+                  <div class="col-12">
+                      <div class="form-group">
+                          <label for="price">Description of the each room in the home</label>
+                          <div class="input-group">
+                          <textarea class="form-control" name="roomdescription" id="roomdescription" placeholder="room 1 -- queen size bed, AC, TV"></textarea>
+                          </div>
+                      </div>
+                  </div>
+                </div> 
+               <div class="row ending">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                <input type="submit" class="form-control" name="submit" id="submit" style="background-color: green; color: white">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                <input type="submit" class="form-control" name="submit_add" id="submit_add" style="background-color: blue; color: white" value="submit and add">
+                                </div>
+                            </div>
+                        </div>  
+                        
+                        <div class="col-3">
+                            <div class="form-group">
+                                <a class="form-control" href="" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none;">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                    </div> 
+                </div>
+            </form>
+        </div>
+    
+        <div class="footer">
+            <p>© Copyright O~Nyumbani 2023</p>
+        </div>
+    </div>
+
+    
+  </div>
+</body>
+</html>
