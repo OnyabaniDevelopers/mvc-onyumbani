@@ -45,7 +45,21 @@ def index():
 
     return render_template('index.html.j2', data=tabs, homes=all_homes)
     
- 
+
+@web_app.route('/about')
+def about():
+    '''About page controller'''
+
+    # change tab value for logout/login
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+    
+    all_homes = Homes.get_homes()
+
+    return render_template('about.html.j2', data=tabs, homes=all_homes)
 
 
 
