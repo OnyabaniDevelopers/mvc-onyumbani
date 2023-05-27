@@ -11,9 +11,9 @@ from src.models.Homes import Homes
 @web_app.route('/add_home', methods =['GET', 'POST'])
 def add_home():
     msg=''
-    if request.method == 'POST' and 'homename' in request.form and 'homeaddress' in request.form\
-        and 'homedescription' in request.form and 'ownershipimg' in request.files\
-                    and 'city' in request.form and 'country' in request.form:
+    if request.method == 'POST' and request.form['homename'] and request.form['homeaddress']\
+        and request.form['homedescription'] and request.files['ownershipimg']\
+                    and request.form['city'] and request.form['country']:
         
         session['homeId'] = f"{int(time.time() * 1000)}"
         session['amenities'] = {}
@@ -37,9 +37,9 @@ def add_home():
 @web_app.route('/add_room', methods =['GET', 'POST'])
 def add_room():
     msg=''
-    if request.method == 'POST' and 'numpeople' in request.form and 'roomprice' in request.form\
-        and 'homeimgs' in request.files and 'numrooms' in request.form\
-            and 'roomdescription' in request.form :
+    if request.method == 'POST' and request.form['numpeople'] and request.form['roomprice']\
+        and request.files['homeimgs'] and request.form['numrooms']\
+            and request.form['roomdescription']:
 
         for entry, value in request.form.to_dict().items():
             session[entry] = value 
