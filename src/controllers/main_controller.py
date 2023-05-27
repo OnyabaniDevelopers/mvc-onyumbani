@@ -4,9 +4,6 @@ from flask import render_template, redirect, url_for, request, session
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
-from src.models.FirebaseAuth import Authentication
-from src.models.Students import Students
-from src.models.Hosts import Hosts
 from src.models.Homes import Homes
 
 @web_app.route('/upload', methods=['POST'])

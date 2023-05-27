@@ -16,13 +16,13 @@ def add_home():
                     and 'city' in request.form and 'country' in request.form:
         
         session['homeId'] = f"{int(time.time() * 1000)}"
-        session['amenities'] = []
-        for entry in request.form.to_dict():
+        session['amenities'] = {}
+        for entry, value in request.form.to_dict().items():
             if 'amenity' in entry:
-                refined_entry = entry.split('-')[1]
-                session['amenities'].append(refined_entry)
+                refined_entry = value.split('-')[-1]
+                session['amenities'][entry] = refined_entry
                 continue
-            session[entry] = request.form[entry]
+            session[entry] = value
             
 
         session['ownershipimg'] = ImageProcessing.upload_img(request.files['ownershipimg'])
@@ -53,9 +53,13 @@ def add_room():
         home_data = {}
         for record_key, record_value in session.items():
 
+            if record_key in ['loggedin', 'usertype', 'userId']:
+                continue
+
             home_data[record_key] = record_value
 
         response = Homes.add_home(home_data)
+        print(response)
 
         images = SessionProcessing.clear_session(session)
 
@@ -65,7 +69,6 @@ def add_room():
             return redirect(url_for('index', msg=message))
         else:
             print(response)
-
-        SessionProcessing.clear_session_images(images)
+            SessionProcessing.clear_session_images(images)
     message = 'Sorry, Failed to add home'
     return render_template('addroom.html.j2', msg=message)
