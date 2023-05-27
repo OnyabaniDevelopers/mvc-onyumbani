@@ -1,5 +1,5 @@
 import time
-from src import web_app, socketio
+from src import web_app
 from flask import render_template, redirect, url_for, request, session
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
@@ -19,7 +19,7 @@ def add_home():
         session['amenities'] = {}
         for entry, value in request.form.to_dict().items():
             if 'amenity' in entry:
-                refined_entry = value.split('-')[-1]
+                refined_entry = entry.split('-')[-1]
                 session['amenities'][entry] = refined_entry
                 continue
             session[entry] = value
@@ -53,7 +53,7 @@ def add_room():
         home_data = {}
         for record_key, record_value in session.items():
 
-            if record_key in ['loggedin', 'usertype', 'userId']:
+            if record_key in ['loggedin', 'usertype']:
                 continue
 
             home_data[record_key] = record_value
