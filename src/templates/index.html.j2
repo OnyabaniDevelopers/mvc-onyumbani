@@ -70,7 +70,7 @@
       {% for home in homes %}
         <div class="home-box col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div class="thumbnail">
-            <a href="" style="text-decoration: none">
+            <a href="/view_home/{{ home.get('homeId')}} " style="text-decoration: none">
               <img src="{{home.get('homeimgs')[0]}}" alt="Lights" style="width:100%; height: 250px; border-radius: 20px; margin-bottom: 5%">
             </a>
             <div class="caption">

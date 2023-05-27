@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "parent.html.j2" %}
+
+{% block head %}
+  <title>About Us</title>
 
 <head>
   <meta charset="UTF-8">
@@ -16,6 +18,10 @@
   <title>About Us</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+{% endblock %}
+
+{% block style %}
+
 <style>
   * {
     margin:0;
@@ -197,13 +203,15 @@
     }
 </style>
 
-<body>
+{% endblock %}
 
-  <section class="section1">
+{% block content %}
+
+  
     <div class="container">
       <div class="row justify-content-center py-5" id="page-content">
         <div class="col-md-6 text-center">
-          <img src="../assets/pics/Onyabani.png" class="rounded-circle mb-3" height="200" alt="MDB Logo" loading="lazy">
+          <img src="{{ url_for('static', filename='pics/transparent1.png') }}" class="rounded-circle mb-3" height="200" alt="MDB Logo" loading="lazy">
           <p>O~Nyumbani offers university students a home away from home experience by giving them access to diverse, affordable housing options. Enjoy the company of family here to walk with you in every step of the way.</p>
           <button class="custom-button">EXPLORE</button>
         </div>
@@ -358,14 +366,20 @@
       </div>
     </div>
     
-  </section>
   
 
-  <a href="#" class="to-top">
+    <a href="#" class="to-top">
     <i class="fas fa-chevron-up"></i>
   </a>
 
-  <script>
+
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
   const toTop = document.querySelector(".to-top");
 
 window.addEventListener("scroll", () => {
@@ -376,6 +390,5 @@ window.addEventListener("scroll", () => {
   }
 })
   </script>
-</body>
 
-</html>
+{% endblock %}  

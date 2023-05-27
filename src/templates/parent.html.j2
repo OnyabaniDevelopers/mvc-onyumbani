@@ -24,7 +24,7 @@
                 <a class="navbar-brand" href="{{ url_for('index') }}">
                   <img
                     src="{{ url_for('static', filename='pics/transparent1.png') }}"
-                    height="80"
+                    height="50"
                     alt="Logo"
                     loading="lazy"
                   />
@@ -38,17 +38,17 @@
                         <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('login') }}">Contact</a>
-                        </li>
                         {% if  data['add_home'] != "" %}
                             <li class="nav-item">
                               <a class="nav-link" href="{{ url_for('add_home') }}">{{ data['add_home'] }}</a>
                             </li>
                         {% endif %}
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('add_home') }}">Profile</a>
+
+                        {% if  data['log_status'] == "Log out" %}
+                            <li class="nav-item">
+                          <a class="nav-link" href="{{ url_for('view_profile') }}">Profile</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('about') }}">About</a>
                         </li>
