@@ -4,6 +4,10 @@ body {
   padding: 0;
 }
 
+.container{
+  margin-bottom: 10%;
+}
+
 .horizontal-list {
     list-style: none; /* Removes the default bullet points */
     margin: 0; /* Removes any default padding */
@@ -18,10 +22,6 @@ body {
   margin-bottom: 0;
   border-radius: 0;
   padding: 5px 200px ;
-}
-
-.navbar-brand{
-  margin: auto;
 }
 
 li.nav-item .nav-link:hover{
@@ -43,6 +43,15 @@ li.nav-item a.active{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.home-box{
+  margin-bottom: 20px;
+}
+
+.caption{
+  font-size: 12px;
+  line-height: 3px;
 }
 
 /* Hide the browser's default checkbox */
@@ -109,7 +118,6 @@ li.nav-item a.active{
    color: black;
    text-align: center;
    padding: 10px;
-   
    border-top: 1px solid #FF3062;
 }
 
@@ -123,8 +131,12 @@ li.nav-item a.active{
   width: 200px;
 }
 
-.form-check {
-  margin-right: 3%;
+#chx {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  font-size: 13px;
 }
 
 

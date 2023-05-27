@@ -30,6 +30,7 @@ def clear_session():
 
 
 #route index
+@web_app.route('/index')
 @web_app.route('/')
 def index():
     '''Index page controller'''
@@ -44,7 +45,7 @@ def index():
     all_homes = Homes.get_homes()
 
     return render_template('index.html.j2', data=tabs, homes=all_homes)
-    
+
 
 @web_app.route('/about')
 def about():
@@ -60,7 +61,6 @@ def about():
     all_homes = Homes.get_homes()
 
     return render_template('about.html.j2', data=tabs, homes=all_homes)
-
 
 
 

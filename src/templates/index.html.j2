@@ -1,261 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Homepage</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<style>
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color:  #F6F6F6;
-}
-.horizontal-list {
-    list-style: none; /* Removes the default bullet points */
-    padding: 0; /* Removes any default padding */
-  }
-.horizontal-list li {
-    display: inline-block; /* Displays the list items horizontally */
-    margin-right: 10px; /* Adds some space between the list items */
-  }
-.navbar {
-  margin-bottom: 0;
-  border-radius: 0;
-}
+{% extends "parent.html.j2" %}
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+  
+{% block nav %}		
+  <span class="navbar-text">
+    <select class="custom-dropdown">
+      <option value="option1">Select Filter</option>
+      <option value="option2">Option 1</option>
+      <option value="option3">Option 2</option>
+      <option value="option3">Option 3</option>
+      <option value="option3">Option 4</option>
+    </select>
+  </span>
+{% endblock %}
 
- /* Customize the label (the container) */
-.container1 {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container1 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container1:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container1 input:checked ~ .checkmark {
-  background-color: #000000;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-.container1 input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-.container1 .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-} 
-.footer {
-   /* position: fixed; */
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: #F6F6F6;
-   color: black;
-   text-align: center;
-   padding: 15px;
-}
-.custom-dropdown {
-  border: 2px solid yellow;
-  padding: 10px;
-  background-color: white;
-  color: black;
-  font-size: 14px;
-  border-radius: 4px;
-  width: 200px;
-}
-.form-check {
-  margin-right: 3%;
-}
-#chx {
-  margin-left: 15%;
-  margin-right: 15%:
-}
-</style>
-<body>
-<nav class="navbar navbar-light bg-light fixed-top sticky-top" style="background-color: white">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img
-        src="/static/pics/Osuani-Final-White.jpg"
-        class="rounded-circle"
-        height="100"
-        alt="Logo"
-        loading="lazy"
-      />
-      <!-- <small style="font-family: 'Times New Roman', Times, serif;">NYUMBANI</small> -->
-    </a>
-
-    <span class="navbar-text">
-        <select class="custom-dropdown">
-          <option value="option1">Select Filter</option>
-          <option value="option2">Option 1</option>
-          <option value="option3">Option 2</option>
-          <option value="option3">Option 3</option>
-          <option value="option3">Option 4</option>
-        </select>
-    </span>
-
-    <span class="navbar-text">
-        <ul class="horizontal-list">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('about') }}">About</a>
-            </li>
-            {% if  data['add_home'] != "" %}
-             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('add_home') }}">{{ data['add_home'] }}</a>
-            </li>
-
-            {% endif %}
-
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">{{ data['log_status'] }}</a>
-            </li>
-        </ul>
-    </span>
-  </div>
-</nav>
-<div class="container-fluid" id="chx">
-<div class="row" style="margin-bottom: 3%;">
-
-          <!-- Default checkbox -->
-          <div class="form-check">
-            <label class="container1">WIFI
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>          
-          </div>
-          <!-- Default checkbox -->
-
-          <!-- Default checkbox -->
-          <div class="form-check">
-            <label class="container1">Air-Condition
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>          
-          </div>
-          <!-- Default checkbox -->
-
-          <!-- Default checkbox -->
-          <div class="form-check">
-            <label class="container1">Gym
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>          
-          </div>
-          <!-- Default checkbox -->
-          
-          <!-- Default checkbox -->
-          <div class="form-check">
-            <label class="container1">Study Room
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>          
-          </div>
-          <!-- Default checkbox -->
-          <!-- Default checkbox -->
-          <div class="form-check">
-            <label class="container1">Security
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>          
-          </div>
-          <!-- Default checkbox -->
-          <div class="form-check">
-            <label class="container1">Outdoor Space
-              <input type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>          
-          </div>
-
-
+{% block content %}	
+  <div class="" id="chx">
+    <div class="row">
+      <div class=" col-lg-2 col-sm-6">
+        <label class="container1">WIFI
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>          
       </div>
-      <!-- One Filter -->
-      
 
-</div>
-<div class="container-fluid">
-<div class="col-md-12">
-          <!-- Image Row -->
+      <div class="col-lg-2 col-sm-6">
+        <label class="container1">Air-Condition
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>          
+      </div>
 
-          {% for home in homes %}
+      <div class=" col-lg-2 col-sm-6">
+        <label class="container1">Gym
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>          
+      </div>
 
-            <div class="col-md-3">
-              <div class="thumbnail">
-                <a href="" style="text-decoration: none">
-                  <img src="assets/1.png" alt="Lights" style="width:100%; height: 250px; border-radius: 40px; margin-bottom: 5%">
-                  <div class="caption">
-                    <p style="color: black">Ivan Lodge <br>
-                      West Legon, Accra <br>
-                      Ghc 150 / month</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-            
-          {% endfor %}
+      <div class="col-lg-2 col-sm-6">
+        <label class="container1">Study Room
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>          
+      </div>
+
+      <div class="col-lg-2 col-sm-6">
+        <label class="container1">Security
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>          
+      </div>
+
+      <div class="col-lg-2 col-sm-6">
+        <label class="container1">Outdoor Space
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>          
+      </div>
     </div>
   </div>
-</div>
-<div class="footer">
-  <p>© Copyright Nyumbani 2022</p>
-</div>
+  
+  <!-- section -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Image Row -->
+
+      {% for home in homes %}
+        <div class="home-box col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+            <a href="" style="text-decoration: none">
+              <img src="{{home.get('homeimgs')[0]}}" alt="Lights" style="width:100%; height: 250px; border-radius: 20px; margin-bottom: 5%">
+            </a>
+            <div class="caption">
+              <p>{{home.get('homename')}}</p>
+              <p>{{home.get('homeaddress')}}, {{home.get('city')}}, {{home.get('country')}}</p>
+              <p>{{home.get('roomprice')}} / month / room</p>
+            </div>
+          </div>
+        </div> 
+      {% endfor %}
+      
+    </div>
+  </div>
+{% endblock %}
+
 </body>
 </html>

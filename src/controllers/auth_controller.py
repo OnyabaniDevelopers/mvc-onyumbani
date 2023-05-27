@@ -3,7 +3,6 @@ from src import web_app, socketio
 from flask import render_template, redirect, url_for, request, session
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
-
 from src.models.FirebaseAuth import Authentication
 from src.models.Students import Students
 from src.models.Hosts import Hosts
@@ -29,8 +28,7 @@ def login():
             return redirect(url_for('index'))
 
 
-    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
-
+    if request.method == 'POST' and request.form['email'] and request.form['password']:
         email = request.form['email']
         password = request.form['password']
 
@@ -61,9 +59,9 @@ Signing in process
     
 @web_app.route('/sign_up_one', methods =['GET', 'POST'])
 def sign_up_one():
-    if request.method == 'POST' and 'password' in request.form and 'confirmpassword' in request.form\
-        and 'lastname' in request.form and 'firstname' in request.form and 'homeaddress' in request.form\
-            and 'dob' in request.form and 'usertype' in request.form and 'email' in request.form\
+    if request.method == 'POST' and request.form['password'] and request.form['confirmpassword']\
+        and request.form['lastname'] and request.form['firstname'] and request.form['homeaddress']\
+            and request.form['dob'] and request.form['usertype'] and request.form['email']\
                 and request.form['password'] == request.form['confirmpassword']:
         # save session data
 
@@ -83,8 +81,8 @@ def sign_up_one():
 @web_app.route('/sign_up_two', methods =['GET','POST'])
 def sign_up_two():
     print(session['profileimg'])
-    if request.method == 'POST' and 'phonenumber' in request.form and 'nationalId' in request.form\
-        and 'bio' in request.form and 'nationalidimg' in request.files and request.files['nationalidimg'].filename != '':
+    if request.method == 'POST' and request.form['phonenumber'] and request.form['nationalId']\
+        and request.form['bio'] and request.files['nationalidimg'] and request.files['nationalidimg'].filename != '':
 
         # save session data
         for entry, value in request.form.to_dict().items():
@@ -142,8 +140,8 @@ def sign_up_student():
 @web_app.route('/sign_up_host', methods =['GET','POST'])
 def sign_up_host():
     
-    if request.method == 'POST' and 'nokfullname' in request.form and 'noknumber' in request.form\
-          and 'nokaddress' in request.form:
+    if request.method == 'POST' and request.form['nokfullname'] and request.form['noknumber']\
+          and request.form['nokaddress']:
         
         session['nextofkin'] = {'name': request.form['nokfullname'], 'number': request.form['noknumber'], 'address': request.form['nokaddress']}
 
