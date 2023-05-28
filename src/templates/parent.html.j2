@@ -37,15 +37,9 @@
                 {% block nav %}			
 	        {% endblock %}
             
-                <span class="navbar-text">
-                
+                <span class="navbar-text"> 
                     {% if error_message %}
                         <ul class="horizontal-list">
-                    <ul class="horizontal-list">
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
-                        </li>
-                        {% if  data['add_home'] != "" %}
                             <li class="nav-item">
                               <a class="nav-link active" aria-current="page" href="{{ url_for('end_process') }}">Cancel</a>
                             </li>
@@ -80,21 +74,6 @@
                             </li>
                         </ul>
                     {% endif %}
-                    
-                        {% endif %}
-
-                        {% if  data['log_status'] == "Log out" %}
-                            <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('view_profile') }}">Profile</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('login') }}">{{ data['log_status'] }}</a>
-                        </li>
-                    </ul>
                 </span>
               </div>
             </nav>
