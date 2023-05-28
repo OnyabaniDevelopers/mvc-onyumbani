@@ -15,3 +15,10 @@ class Hosts:
         data = json.dumps(sign_up_data)
         request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)
         return request_object.status
+
+    @staticmethod
+    def get_host(owner_id):
+        
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        request_object = urllib3.request(method="GET",url=request_ref+f'/{owner_id}', headers=headers)
+        return eval(request_object.data.decode())

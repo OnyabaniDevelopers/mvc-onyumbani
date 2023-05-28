@@ -22,3 +22,10 @@ class Homes:
         headers = {"content-type": "application/json; charset=UTF-8"}
         request_object = urllib3.request(method="GET",url=request_ref, headers=headers)
         return eval(request_object.data.decode())
+    
+    @staticmethod
+    def get_home(home_id):
+        
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        request_object = urllib3.request(method="GET",url=request_ref+f'/{home_id}', headers=headers)
+        return eval(request_object.data.decode())

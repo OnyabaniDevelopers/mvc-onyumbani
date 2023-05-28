@@ -1,6 +1,7 @@
 import time
 from src import web_app
 from flask import render_template, redirect, url_for, request, session
+from src.models.Hosts import Hosts
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
@@ -70,3 +71,31 @@ def add_room():
         msg = '*Sorry, some required information are missing'
         
     return render_template('addroom.html.j2', error_message=msg)
+
+    message = 'Sorry, Failed to add home'
+    return render_template('addroom.html.j2', msg=message)
+
+@web_app.route('/view_home/<id>', methods =['GET', 'POST'])
+def view_room(id):
+    # change tab value for logout/login
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+      
+    home_data = Homes.get_home(id)
+    host_data = Hosts.get_host(home_data['userId'])  
+    return render_template('individualhome.html.j2', home_data=home_data, data=tabs, host_data=host_data)
+
+@web_app.route('/reserve')
+def reserve_room():
+
+    if 'loggedin' not in session or session['loggedin'] == False:
+         
+         msg = "Please Log in first"
+         return redirect(url_for('login', msg=msg))
+
+
+
+    return render_template('payment.html.j2')
