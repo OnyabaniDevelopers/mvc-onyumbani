@@ -1,82 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Onyumbani - Reserve</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/static/css/index.css">
-    <link rel="stylesheet" href="/static/css/reserve.css">
-</head>
+{% extends "parent.html.j2" %}
 
-<body>
-  <div class="contain">
-    <nav class="navbar navbar-light bg-light fixed-top sticky-top" style="background-color: white">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            src="../assets/pics/transparent2.png"
-            height="80"
-            alt="Logo"
-            loading="lazy"
-          />
-        </a>
-    
-        <span class="navbar-text">
-            <ul class="horizontal-list">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                  </li>
-                  <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Login</a>
-                </li>
-            </ul>
-        </span>
-      </div>
-    </nav>
-    
+{% block content %}	
     <div class="home-edit-body" >
-        <!--- Scrollable Images --->
-
         <div class="home-edit d-flex justify-content-center mt-5">
-            <form action="{{ url_for('add_room') }}" method='POST' enctype='multipart/form-data'>
+            <form action="{{ url_for('add_room') }}" method='POST' class="addroomform" enctype='multipart/form-data'>
+                {% if error_message %}
+                    <p style="text-align: center; color: #FF3062">{{error_message}}</p>
+                {% endif %}
                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="numpeople">Number of people in the house</label>
-                            <div class="input-group">
-                            <input type="text" class="form-control" name="numpeople" id="numpeople">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="numrooms">Number of rooms</label>
-                            <div class="input-group">
-                            <input type="text" class="form-control" name="numrooms" id="numrooms">
-                            </div>
-                        </div>
-                    </div>
+                  <div class="col-6">
+                      <div class="form-group">
+                          <label for="numpeople">Number of people in the house</label>
+                          <div class="input-group">
+                          <input type="text" class="form-control" name="numpeople" id="numpeople">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-6">
+                      <div class="form-group">
+                          <label for="numrooms">Number of rooms</label>
+                          <div class="input-group">
+                          <input type="text" class="form-control" name="numrooms" id="numrooms">
+                          </div>
+                      </div>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-12">
                     <div class="form-group">
-                      <label class="upload-icon">Images of the house and rooms (at least 5)</label>
+                      <label class="upload-icon">Images of the house and rooms (2 to 5 images) (250kb max)</label>
                       <div class="input-group">
                         <input type="file" class="file-input" name='homeimgs' accept=".jfif,.jpg,.jpeg,.png,.gif"  multiple>
                         <i class="fa fa-upload"></i>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -100,33 +56,24 @@
                       </div>
                   </div>
                 </div> 
-               <div class="row ending">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <div class="input-group">
-                                <input type="submit" class="form-control" name="submit" id="submit" style="background-color: green; color: white">
-                                </div>
+                <div class="row ending">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                            <input type="submit" class="form-control" name="submit" id="submit" style="background-color: green; color: white">
                             </div>
                         </div>
-                        
-                        
-                        <div class="col-4">
-                            <div class="form-group">
-                                <a class="form-control" href="" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none;">Cancel</a>
-                            </div>
+                    </div>    
+                    <div class="col-4">
+                        <div class="form-group">
+                            <a class="form-control" href="{{ url_for('end_process') }}" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none;">Cancel</a>
                         </div>
-                        <div class="col-1"></div>
-                    </div> 
-                </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div> 
+              </div>
             </form>
         </div>
-    
-        <div class="footer">
-            <p>© Copyright O~Nyumbani 2023</p>
-        </div>
     </div>
-
-    
   </div>
-</body>
-</html>
+{% endblock %}    

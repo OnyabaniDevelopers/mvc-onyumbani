@@ -10,10 +10,11 @@ from src.models.Homes import Homes
 
 @web_app.route('/add_home', methods =['GET', 'POST'])
 def add_home():
-    msg=''
+    msg=' '
     if request.method == 'POST' and request.form['homename'] and request.form['homeaddress']\
         and request.form['homedescription'] and request.files['ownershipimg']\
-                    and request.form['city'] and request.form['country']:
+                    and request.form['city'] and request.form['country']\
+                    and request.form['initdate'] and request.form['enddate']:
         
         session['homeId'] = f"{int(time.time() * 1000)}"
         session['amenities'] = {}
@@ -23,20 +24,18 @@ def add_home():
                 session['amenities'][entry] = refined_entry
                 continue
             session[entry] = value
-            
-
         session['ownershipimg'] = ImageProcessing.upload_img(request.files['ownershipimg'])
 
         return redirect(url_for('add_room'))
-    else:
+    elif request.method == 'POST':
         SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
-        msg = "Sorry, we are missing some required fields, re-enter again"
+        msg = "*Sorry, some required fields are missing, re-enter information"
     return render_template('addhome.html.j2', error_message=msg)
 
 
 @web_app.route('/add_room', methods =['GET', 'POST'])
 def add_room():
-    msg=''
+    msg=' '
     if request.method == 'POST' and request.form['numpeople'] and request.form['roomprice']\
         and request.files['homeimgs'] and request.form['numrooms']\
             and request.form['roomdescription']:
@@ -59,16 +58,15 @@ def add_room():
             home_data[record_key] = record_value
 
         response = Homes.add_home(home_data)
-        print(response)
 
         images = SessionProcessing.clear_session(session)
 
         if response == 200:
-            print('we are here')
             message = 'Home added successfully'
-            return redirect(url_for('index', msg=message))
+            return redirect(url_for('index', error_message=msg))
         else:
-            print(response)
             SessionProcessing.clear_session_images(images)
-    message = 'Sorry, Failed to add home'
-    return render_template('addroom.html.j2', msg=message)
+    elif request.method == 'POST':
+        msg = '*Sorry, some required information are missing'
+        
+    return render_template('addroom.html.j2', error_message=msg)

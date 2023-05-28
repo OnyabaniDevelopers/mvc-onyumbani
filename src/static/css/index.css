@@ -4,6 +4,14 @@ body {
   padding: 0;
 }
 
+p{
+  margin-bottom: 5px;
+}
+
+a{
+  text-decoration: none;
+}
+
 .container{
   margin-bottom: 10%;
 }
@@ -15,7 +23,6 @@ body {
   
 .horizontal-list li {
     display: inline-block; /* Displays the list items horizontally */
-    margin-right: 10px; /* Adds some space between the list items */
   }
   
 .navbar {
@@ -49,9 +56,13 @@ li.nav-item a.active{
   margin-bottom: 20px;
 }
 
+.home-box img{
+  box-shadow: 0px 0px 10px 2px #888888;
+}
+
 .caption{
   font-size: 12px;
-  line-height: 3px;
+  line-height: 18px;
 }
 
 /* Hide the browser's default checkbox */
@@ -122,7 +133,7 @@ li.nav-item a.active{
 }
 
 .custom-dropdown {
-  border: 2px solid yellow;
+  border: 2px solid #FF3062;
   padding: 10px;
   background-color: white;
   color: black;
@@ -143,11 +154,6 @@ li.nav-item a.active{
 .horizontal-list {
     list-style: none; /* Removes the default bullet points */
     padding: 0; /* Removes any default padding */
-  }
-  
-.horizontal-list li {
-    display: inline-block; /* Displays the list items horizontally */
-    margin-right: 10px; /* Adds some space between the list items */
   }
   
 /* --------------------------home section--------------------------- */
@@ -188,14 +194,169 @@ li.nav-item a.active{
   margin-bottom: 100px;
 }
 
-.home-edit .upload-icon{
-  margin-bottom: 20px;
-}
-
 .home-edit-body{
   margin: 10px auto;
 }
 
 .ending{
   margin-top: 20px;
+}
+
+
+/* for addhome */
+.custom-input {
+  background-color: #D9D9D9;
+  color: #333;
+  border-color: transparent;
+}
+
+.small-text {
+  font-size: 14px;
+}
+
+input[type="text"], input[type="date"], input[type="email"] {
+    background-color: #D9D9D9;
+}
+
+.img-section {
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.img-section .row{
+  margin-bottom: 16px;
+}
+
+.img-section .row .col-6{
+  margin-bottom: 15px;
+}
+
+.img-section #checkbox{
+  outline: 1px solid black;
+  accent-color:  #FF3062;
+}
+
+#addhomeform{
+  margin-top: 5%;
+}
+
+.larger-checkbox {
+      transform: scale(1.5);
+}
+.submit-button {
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 200px;
+}
+
+.submit-button:hover {
+  background-color: #333;
+}
+
+#btn {
+  text-align: center;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  background-color: #D9D9D9;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 999px;
+  text-align: right;
+  opacity: 0;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+  display: block;
+}
+
+/* addroom */
+.addroomform .form-group{
+  margin-bottom: 16px;
+}
+
+/* login */
+#ctnt {
+  padding-right: 30%;
+  padding-left: 30%;
+  text-align: center;
+  margin-top: 5%;
+}
+.custom-input {
+  background-color: #D9D9D9;
+  color: #333;
+  border-color: transparent;
+}
+
+.small-text {
+  font-size: 14px;
+}
+
+.small-text-left {
+  justify-content: flex-start;
+}
+
+.small-text-right {
+  justify-content: flex-end;
+}
+
+.small-text-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.custom-button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 30%;
+}
+.password-container {
+  position: relative;
+  display: inline-block;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #999;
+  cursor: pointer;
+}
+
+#atn {
+  text-align: left;
+}
+
+.login-button {
+    background-color: #000;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    width: 200px;
+}
+
+.login{
+  text-align: right;
+}
+
+.input-group-text {
+  height: 100%
 }

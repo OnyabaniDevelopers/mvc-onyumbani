@@ -4,13 +4,15 @@
 		<meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>O~Nyumbani</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pics/transparent1.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <link type="text/css"  rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"/>
 		{% block head %}			
 		{% endblock %}
@@ -21,41 +23,59 @@
         <div>
             <nav class="navbar navbar-light bg-light fixed-top sticky-top" style="background-color: white">
               <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('index') }}">
-                  <img
-                    src="{{ url_for('static', filename='pics/transparent1.png') }}"
-                    height="80"
-                    alt="Logo"
-                    loading="lazy"
-                  />
-                </a>
+                {% if not log %}
+                    <a class="navbar-brand" href="{{ url_for('index') }}">
+                      <img
+                        src="{{ url_for('static', filename='pics/transparent1.png') }}"
+                        height="80"
+                        alt="Logo"
+                        loading="lazy"
+                      />
+                    </a>
+                {% endif %}
                 
                 {% block nav %}			
 	            {% endblock %}
             
                 <span class="navbar-text">
-                    <ul class="horizontal-list">
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('login') }}">Contact</a>
-                        </li>
-                        {% if  data['add_home'] != "" %}
+                
+                    {% if error_message %}
+                        <ul class="horizontal-list">
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ url_for('add_home') }}">{{ data['add_home'] }}</a>
+                              <a class="nav-link active" aria-current="page" href="{{ url_for('end_process') }}">Cancel</a>
                             </li>
-                        {% endif %}
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('add_home') }}">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('login') }}">{{ data['log_status'] }}</a>
-                        </li>
-                    </ul>
+                        </ul>
+                    {% elif log %}
+                        <ul class="horizontal-list">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="{{ url_for('index') }} ">Home</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="horizontal-list">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                            </li>
+                            {% if  data['add_home'] != "" %}
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{{ url_for('add_home') }}">{{ data['add_home'] }}</a>
+                                </li>
+                            {% endif %}
+                            
+                            {% if  data['log_status'] == "Log out" %}
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{{ url_for('view_profile') }}">Profile</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ url_for('login') }}">{{ data['log_status'] }}</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    
                 </span>
               </div>
             </nav>

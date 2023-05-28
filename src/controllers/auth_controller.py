@@ -9,12 +9,11 @@ from src.models.Hosts import Hosts
 from src.models.Homes import Homes
 
 
-
 @web_app.route('/login', methods =['GET', 'POST'])
 def login():
     '''Logging in controller'''
 
-    msg = ''
+    msg = ' '
 
     #log out user
     if 'loggedin' in session and session['loggedin'] == True:
@@ -48,10 +47,11 @@ def login():
             return redirect(url_for('index'))
         
         else:
-
             msg = 'Incorrect username / password !'
-
-    return render_template('login.html.j2', msg = msg)
+    elif request.method == 'POST':
+        msg = '*Fill all fields'
+    
+    return render_template('login.html.j2', log = msg)
 
 '''
 Signing in process
@@ -59,6 +59,7 @@ Signing in process
     
 @web_app.route('/sign_up_one', methods =['GET', 'POST'])
 def sign_up_one():
+    msg=' '
     if request.method == 'POST' and request.form['password'] and request.form['confirmpassword']\
         and request.form['lastname'] and request.form['firstname'] and request.form['homeaddress']\
             and request.form['dob'] and request.form['usertype'] and request.form['email']\
@@ -74,8 +75,10 @@ def sign_up_one():
 
             
         return redirect(url_for('sign_up_two'))
+    elif request.method == 'POST':
+        msg = '*Sorry, some required information are missing'
 
-    return render_template('signup.html.j2')
+    return render_template('signup.html.j2', log=msg)
 
 
 @web_app.route('/sign_up_two', methods =['GET','POST'])
@@ -168,8 +171,8 @@ def sign_up_host():
 
     return render_template('signup4.html.j2')
 
-@web_app.route('/end_signup', methods =['GET','POST'])
-def end_signup():
+@web_app.route('/end_process', methods =['GET','POST'])
+def end_process():
 
     images = SessionProcessing.clear_session(session)
     SessionProcessing.clear_session_images(images)
