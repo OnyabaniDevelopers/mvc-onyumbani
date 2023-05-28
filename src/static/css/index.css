@@ -28,7 +28,23 @@ a{
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
-  padding: 5px 200px ;
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    padding: 5px 200px ;
+  }
+  
+}
+
+@media (max-width: 900px) { 
+  .navbar-brand{
+    margin: auto;
+  }
+  
+  .navbar-text{
+    margin: auto;
+  }
 }
 
 li.nav-item .nav-link:hover{
@@ -51,7 +67,7 @@ li.nav-item a.active{
   -ms-user-select: none;
   user-select: none;
 }
-
+box
 .home-box{
   margin-bottom: 20px;
 }
@@ -359,4 +375,16 @@ input[type="text"], input[type="date"], input[type="email"] {
 
 .input-group-text {
   height: 100%
+}
+
+/* about page */
+#page-content{
+    
+    background-image: 
+    linear-gradient(to bottom, rgba(240, 241, 248, 0.901), rgba(89, 15, 70, 0.73)),
+    url('../pics/bernard.jpg');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    background-color: #FF3062;
 }

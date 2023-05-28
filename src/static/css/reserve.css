@@ -6,20 +6,22 @@
 @media (max-width: 768px) {
     .container{
         display: block !important;
+        height: 90vh;
     }
     
     body{
         text-align: center;
     }
     
-    .navbar{
-        padding: 10px !important;
-    }
+    #subbody{
+        padding: 10px 50px !important;
+      }
+
     
     .card{
         width: 180%
     }
-}
+} 
 
 @media (max-width: 991px) {
     .container{
@@ -28,10 +30,6 @@
 }
 
 @media (min-width: 100px) {  
-    .navbar-brand{
-      margin: auto;
-    }
-    
     .card{
       width: 100%;
     }
@@ -40,10 +38,10 @@
         max-width: 100%;
     }
     
-    .container {
+    /* .container {
         display: flex;
         height: 90vh;
-    }
+    } */
     
   }
 
@@ -57,17 +55,17 @@
     }
     
     .card-group {
-        max-width: 70%;
+        max-width: 90%;
     }
     
     .tab-pane .wrapper .also-card {
         max-width: 95%;
     }
     
-    .container {
+    /* .container {
         display: flex;
         height: 70vh;
-    }
+    } */
 }
 
 .another-card {
@@ -107,8 +105,12 @@
   
   /* ------subbody--------- */
   #subbody{
-    padding-top: 30px;  
+    padding: 30px 140px;  
   }
+  
+  #subbody .nav-link{
+    width: fit-content !important;
+}
   
   #pills-desc{
     text-align: justify;
@@ -126,11 +128,16 @@
     border: 1px solid black;
     border-radius: 10px;
     height: fit-content;
+    padding: 20px;
   }
   
   #reservation input[type=submit]{
     background-color: #FF3062;
     color: white; 
+  }
+  
+  #reservation .row{
+    margin-bottom: 10px;
   }
 
 
@@ -146,7 +153,6 @@
     font-weight: bold;
 }
 
-
 /* --------calender------*/
 #calendar{
     margin: auto;
@@ -158,3 +164,4 @@
     background-color: #FF3062 !important;
 
 }
+

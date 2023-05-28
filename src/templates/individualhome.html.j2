@@ -1,27 +1,16 @@
 {% extends "parent.html.j2" %}
 {% block head %}
-    <title>View Home</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Onyumbani - Reserve</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reserve.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="stylesheet" type="text/css" href=""{{ url_for('static', filename='css/smart.default.css') }}"/>
+    
 {% endblock %}
 
 
 {% block content %} 
-
   <div class="contain">
-
     <!--- Title ------>
     <div class="house-title d-flex align-items-center justify-content-center">
-        <h4><span>{{ home_data['homename'] }}</span>- <span>{{ home_data['roomprice'] }} /month/room</span></h4>
+        <h4><span>{{ home_data['homename'] }}</span> - <span>{{ home_data['roomprice'] }} / month / room</span></h4>
     </div>
 
     <!--- Scrollable Images --->
@@ -37,8 +26,7 @@
     </div>
 
     <!-- house information -->
-
-    <div id='subbody' class="container">
+    <div id='subbody' class="container row">
         <div class="col-lg-7 col-md-12">
           <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -68,7 +56,7 @@
               {% for amenity in home_data['amenities'] %}
                 <div class="col-sm-3">
                   <div class="row">
-                    <div class="col-sm-3"><i class="fa-regular fa-circle fa-lg" style="color: rgb(15, 207, 15);"></i></div>
+                    <div class="col-sm-3"><i class="fa fa-circle fa-lg" style="color: rgb(15, 207, 15);"></i></div>
                     <div class="col-sm-9"><p>{{ home_data['amenities'][amenity] }}</p></div>              
                   </div>
                 </div>
@@ -82,9 +70,12 @@
                       <img src="{{ host_data['profileimageurl'] }}" class="rounded-circle" style="width: 100%; height: 100%;" alt="Avatar" />
                   </div>
                   <div class="col-md-4 col-sm-12">
-                    <p>Name: {{ host_data['firstname'] }} {{ host_data['lastname'] }}</p>
-                    <p>Contact: {{ host_data['phonenumber'] }}</p>
-                    <p>Email: {{ host_data['email'] }}</p>
+                    <p>Name: </p>
+                    <p>{{ host_data['firstname'] }} {{ host_data['lastname'] }}</p>
+                    <p>Contact: </p>
+                    <p>{{ host_data['phonenumber'] }}</p>
+                    <p>Email: </p>
+                    <p>{{ host_data['email'] }}</p>
                   </div>
                   <div class="col-md-4 col-sm-12">
                     <a href="/view_profile/owner/{{ host_data['nationalId'] }}">show more</a>
