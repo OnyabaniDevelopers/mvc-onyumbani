@@ -1,7 +1,7 @@
 {% extends "parent.html.j2" %}
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reserve.css') }}">
-    <link rel="stylesheet" type="text/css" href=""{{ url_for('static', filename='css/smart.default.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="/static/node_modules/smart-webcomponents/source/styles/smart.default.css" />
     
 {% endblock %}
 
@@ -10,7 +10,7 @@
   <div class="contain">
     <!--- Title ------>
     <div class="house-title d-flex align-items-center justify-content-center">
-        <h4><span>{{ home_data['homename'] }}</span> - <span>{{ home_data['roomprice'] }} / month / room</span></h4>
+        <h4><span>{{ home_data['homename'] }}</span> - <span>{{ home_data['enc_price'] }} / month / room</span></h4>
     </div>
 
     <!--- Scrollable Images --->
@@ -103,7 +103,7 @@
         </div>
         
         <div id="reservation" class="col-lg-4 col-md-12">
-          <form class="w-full max-w-lg" action="{{ '/reserve/'+ home_data['homeId'] }}">
+          <form class="w-full max-w-lg" action="{{ '/reserve/'+ home_data['homeId'] + '/' + home_data['encryptprice']  }}">
               <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -125,38 +125,33 @@
             <div class="row">
               <div class="col-12">
                   <div class="form-group">
-                      <label for="roomnumber">Room Number</label>
+                      <label for="numrooms">Number of rooms</label>
                       <div class="input-group">
-                        <select class="form-control" id="grid-state">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                        </select>
-                        <div class="input-group-append">
-                          <span class="input-group-text">
-                            <i class="fa fa-chevron-down"></i>
-                          </span>
-                        </div>
-                      </div>
+                    <input type="text" class="form-control" name="numrooms id="numrooms" placeholder="Enter number of rooms to reserve">
+                    </div>
                   </div>
               </div>
           </div> 
           <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                    <label for="firstname">Number of Guests</label>
+                    <label for="firstname">Upload School Reference</label>
                     <div class="input-group">
-                    <input type="email" class="form-control" id="guests" placeholder="Enter number of guests">
+                    <input type="file" class="form-control" id="guests" placeholder="Enter number of guests">
                     </div>
                 </div>
             </div>
-          </div> 
+          </div>
+          <div class="form-group">
+                    <label for="text">Lets get to know you</label>
+                    <br><a href="https://nyumbani.form.temperamentassessment">https://nyumbani...</a>
+                </div> 
           <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="form-group">
                     <div class="input-group">
-                    <input type="submit" class="form-control" id="submit">
+                    <input type="submit" class="form-control" id="submit" value="Reserve">
                     </div>
                 </div>
             </div>
@@ -173,7 +168,7 @@
 {% endblock %}
 
 {% block script %}
-    <script type="module" src="{{ url_for('static', filename='js/smart.calendar.js') }}"></script>
+    <script type="module" src="/static/node_modules/smart-webcomponents/source/modules/smart.calendar.js"></script>
     <script src="{{ url_for('static', filename='js/reserve.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {% endblock %} 
