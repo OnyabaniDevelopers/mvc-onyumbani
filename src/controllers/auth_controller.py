@@ -32,6 +32,7 @@ def login():
         password = request.form['password']
 
         user = Authentication.login(email, password)
+        print(user.status)
 
         if str(user.status) == '200':
             user_info = Authentication.get_user_info(email)

@@ -1,5 +1,6 @@
 import json
 import urllib3
+from src import API_KEY
 from src.models.constants import BASE_URL
 request_ref = BASE_URL + '/userinfo'
 
@@ -13,7 +14,8 @@ class Authentication:
     
     @staticmethod
     def login(email, password):
-        request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={0}".format('AIzaSyBOx2Perl8ixzncFwkjV5SdDgFDI12xUqY')
+        print(API_KEY)
+        request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={0}".format(API_KEY)
         headers = {"content-type": "application/json; charset=UTF-8"}
         data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
         request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)
@@ -22,7 +24,7 @@ class Authentication:
     @staticmethod
     def signup(email, password):
         try:
-            request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={0}".format('AIzaSyBOx2Perl8ixzncFwkjV5SdDgFDI12xUqY')
+            request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={0}".format(API_KEY)
             headers = {"content-type": "application/json; charset=UTF-8"}
             data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
             request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)

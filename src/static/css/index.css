@@ -176,6 +176,10 @@ box
 #main-body{
   margin-bottom: 100px;
 }
+#calendar{
+  --smart-calendar-default-width: 400px;
+  --smart-calendar-default-height: 350px;
+}
 
 #main-body .home-tabb{
   border: 1px solid black;

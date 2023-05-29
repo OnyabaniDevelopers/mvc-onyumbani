@@ -48,7 +48,13 @@
           
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-desc" role="tabpanel" aria-labelledby="pills-desc-tab">
-              {{ home_data['homedescription']}} 
+              {{ home_data['homedescription']}}
+            <div><p><b>Location: </b> {{home_data['homeaddress']}} </p></div>
+            <div id="map" style="height: 400px; width: 100%;">
+              
+              
+            </div>
+
             </div>
             <div class="tab-pane fade" id="pills-amenities" role="tabpanel" aria-labelledby="pills-amenities-tab">
               <div class="row">
@@ -83,7 +89,8 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="pills-availability" role="tabpanel" aria-labelledby="pills-availability-tab">
-                <smart-calendar id="calendar" important-dates='["2023-05-27", "2023-05-28", "2023-05-29", "2023-05-30", "2023-05-31"]'>
+                <smart-calendar id="calendar" important-dates="{{ home_data['dateslist'] }}"
+                
                 
                 </smart-calendar>
             </div>
@@ -144,7 +151,7 @@
           </div>
           <div class="form-group">
                     <label for="text">Lets get to know you</label>
-                    <br><a href="https://nyumbani.form.temperamentassessment">https://nyumbani...</a>
+                    <br><a href="https://nyumbani.form.temperamentassessment" target='_blank'>https://nyumbani...</a>
                 </div> 
           <div class="row">
             <div class="col-2"></div>
@@ -168,7 +175,24 @@
 {% endblock %}
 
 {% block script %}
+    <script>
+     
+      let map;
+
+      async function initMap() {
+        const { Map } = await google.maps.importLibrary("maps");
+        map = new Map(document.getElementById("map"), {
+          center: { lat: {{location[0]}}, lng: {{location[1]}} },
+          zoom: 8,
+        });
+      }
+
+      initMap();
+    
+    </script>
     <script type="module" src="/static/node_modules/smart-webcomponents/source/modules/smart.calendar.js"></script>
     <script src="{{ url_for('static', filename='js/reserve.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOx2Perl8ixzncFwkjV5SdDgFDI12xUqY&callback=initMap"></script>
+
 {% endblock %} 

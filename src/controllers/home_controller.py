@@ -2,36 +2,13 @@ import time
 import codecs
 from src import web_app
 from flask import jsonify, render_template, redirect, url_for, request, session
+from src.controllers.helper_functions import decrypt_num, encrypt_num, get_dates_between, get_geocode
 from src.models.Hosts import Hosts
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
 
 from src.models.Homes import Homes
-
-
-
-def encrypt_num(num):
-    num_alpha = {'1':'y', '2':'x', '3':'w', '4':'v', '5':'u', '6':'t', '7':'s', '8':'r', '9':'q', '0':'a'}
-    num_str = ''
-    for digit in num:
-        num_str += num_alpha[digit]
-
-    return codecs.encode(num_str, 'rot_13')
-
-def decrypt_num(enc_str):
-    alpha_num = {'y':'1', 'x':'2', 'w':'3', 'v':'4', 'u':'5', 't':'6', 's':'7', 'r':'8', 'q':'9', 'a':'0'}
-    num_str = codecs.decode(enc_str, 'rot_13')
-    num = ''
-
-    for letter in num_str:
-        num += alpha_num[letter]
-    
-    return num
-
-
-
-
 
 @web_app.route('/add_home', methods =['GET', 'POST'])
 def add_home():
@@ -52,6 +29,7 @@ def add_home():
         session['ownershipimg'] = ImageProcessing.upload_img(request.files['ownershipimg'])
 
         return redirect(url_for('add_room'))
+    
     elif request.method == 'POST':
         SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
         msg = "*Sorry, some required fields are missing, re-enter information"
@@ -99,6 +77,7 @@ def add_room():
 @web_app.route('/view_home/<id>', methods =['GET', 'POST'])
 def view_room(id):
     session['currentpage'] = f'/view_room/{id}'
+
     # change tab value for logout/login
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
     if 'loggedin' in session and session['loggedin'] == True:
@@ -107,10 +86,29 @@ def view_room(id):
         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
       
     home_data = Homes.get_home(id)
+
+    # encrypt prize before adding data
     encrypt_price = encrypt_num(home_data['roomprice'])
     home_data['encryptprice'] = encrypt_price
-    host_data = Hosts.get_host(home_data['userId'])  
-    return render_template('individualhome.html.j2', home_data=home_data, data=tabs, host_data=host_data)
+
+    host_data = Hosts.get_host(home_data['userId'])
+
+    # get dates list
+    print(home_data['initdate'])
+    dates_list = get_dates_between(home_data['initdate'], home_data['enddate'])
+    home_data['dateslist'] = dates_list
+
+    print(dates_list)
+
+    # get latitude and longitude for location
+    full_address = f"{home_data['homeaddress']}, {home_data['city']}, {home_data['country']}"
+    city_country = f"{home_data['city']}, {home_data['country']}"
+    location = get_geocode(full_address)
+    if location == None:
+        location = get_geocode(city_country)
+
+    return render_template('individualhome.html.j2', home_data=home_data, data=tabs, host_data=host_data, location=location)
+
 
 @web_app.route('/reserve/<id>/<price>')
 def reserve_room(id, price):
