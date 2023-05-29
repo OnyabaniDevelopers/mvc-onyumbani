@@ -47,7 +47,8 @@ def index():
     
     all_homes = Homes.get_homes()
 
-    return render_template('index.html.j2', data=tabs, homes=all_homes)
+    # return render_template('index.html.j2', data=tabs, homes=all_homes)
+    return render_template('calendar.html')
 
 #TODO: Fix it so that it works with the edit profile
 @web_app.route('/view_profile')
