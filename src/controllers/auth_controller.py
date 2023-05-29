@@ -84,6 +84,7 @@ def sign_up_one():
 
 @web_app.route('/sign_up_two', methods =['GET','POST'])
 def sign_up_two():
+    msg=' '
     print(session['profileimg'])
     if request.method == 'POST' and request.form['phonenumber'] and request.form['nationalId']\
         and request.form['bio'] and request.files['nationalidimg'] and request.files['nationalidimg'].filename != '':
@@ -100,12 +101,14 @@ def sign_up_two():
             return redirect(url_for('sign_up_student'))
         else:
             return redirect(url_for('sign_up_host'))
-    return render_template('signup2.html.j2')
+    elif request.method == 'POST':
+        msg = '*Sorry, some required information are missing'
+    return render_template('signup2.html.j2', log=msg)
 
 
 @web_app.route('/sign_up_student', methods =['GET','POST'])
 def sign_up_student():
-    message = ''
+    msg=' '
     if request.method == 'POST' and 'studentidimg' in request.files\
           and request.files['studentidimg'].filename != '' and 'referenceimg' in request.files\
           and request.files['referenceimg'].filename != '' and "emergencycontact" in request.form:
@@ -137,13 +140,15 @@ def sign_up_student():
         SessionProcessing.clear_session_images(images)
         message = 'Sorry, Failed to create account'
         return redirect(url_for('sign_up_one', msg=message))
+    elif request.method == 'POST':
+        msg = '*Sorry, some required information are missing'
 
-    return render_template('signup3.html.j2')
+    return render_template('signup3.html.j2', log=msg)
 
 
 @web_app.route('/sign_up_host', methods =['GET','POST'])
 def sign_up_host():
-    
+    msg=' '
     if request.method == 'POST' and request.form['nokfullname'] and request.form['noknumber']\
           and request.form['nokaddress']:
         
@@ -169,8 +174,10 @@ def sign_up_host():
         SessionProcessing.clear_session_images(images)
         message = 'Sorry, Failed to create account'
         return redirect(url_for('sign_up_one', msg=message))
-
-    return render_template('signup4.html.j2')
+    elif request.method == 'POST':
+        msg = '*Sorry, some required information are missing'
+        
+    return render_template('signup4.html.j2', log=msg)
 
 @web_app.route('/end_process', methods =['GET','POST'])
 def end_process():
@@ -178,5 +185,4 @@ def end_process():
     images = SessionProcessing.clear_session(session)
     SessionProcessing.clear_session_images(images)
     
-
     return redirect(url_for('index', msg="Sign up cancelled"))

@@ -118,12 +118,27 @@ def reserve_room(id, price):
 
         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
     
-    else:
-         
-         msg = "Please Log in first"
-         return redirect(url_for('login', msg=msg))
+    else:      
+        msg = "Please Log in first"
+        return redirect(url_for('login', msg=msg))
 
     new_price = decrypt_num(price)
 
-    return render_template('payment.html.j2', data=tabs, price=new_price)
+    return render_template('reservation.html.j2', data=tabs, price=new_price)
+
+# @web_app.route('/reserve/<id>/<price>')
+# def reserve_room(id, price):
+#     session['currentpage'] = f'/reserve/{id}/{price}'
+#     if 'loggedin' in session and session['loggedin'] == True:
+#         tabs = {'log_status': 'Log out'}
+
+#         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+    
+#     else:      
+#         msg = "Please Log in first"
+#         return redirect(url_for('login', msg=msg))
+
+#     new_price = decrypt_num(price)
+
+#     return render_template('payment.html.j2', data=tabs, price=new_price)
 
