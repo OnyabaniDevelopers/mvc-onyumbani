@@ -304,12 +304,12 @@ input[type="text"], input[type="date"], input[type="email"] {
 }
 
 /* login */
-/* #ctnt {
+#ctnt {
   padding-right: 30%;
   padding-left: 30%;
   text-align: center;
   margin-top: 5%;
-} */
+}
 .custom-input {
   background-color: #D9D9D9;
   color: #333;
