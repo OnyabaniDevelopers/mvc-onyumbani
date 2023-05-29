@@ -1,0 +1,86 @@
+{% extends "parent.html.j2" %}
+
+{% block content %}	
+<div style="margin-top: 3%;">
+    <p style='text-align:center; color:#FF3062'> {{log}} </p>
+    <div class="row">
+      <form action="" enctype="multipart/form-data" method="POST" >
+        <div class="col-md-12">
+            <div class="container-fluid" id="atn">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6" id="sec-section">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="buddy">Do you prefer to stay with other students?</label>
+                                    <div class="input-group">
+                                        <select name="buddy" id="buddy" class="form-control">
+                                          <option value="1">Not necessarily</option>
+                                          <option value="2">Yes</option>
+                                          <option value="3">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="guests">Number of Guests excluding you</label>
+                                    <div class="input-group">
+                                        <select name="guests" id="guests" class="form-control">
+                                          <option value="0">0</option>
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div id="mainbody">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="btn">
+            <button type="submit" class="submit-button" id="popUpYes" disabled>NEXT</button>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).on('change', '#guests', function() {
+                const guestVal = document.getElementById('guests').value;
+                const insert = document.getElementById('mainbody');
+                
+                insert.innerHTML = "";       
+                for (let i = 1; i <= guestVal; i++) {
+                  insert.innerHTML += '<p style="color:#FF3062"> Guest '+ i + '</p>' +
+                            '<div class="row"><div class="col-md-6"><div class="form-group">'+
+                            '<label for="fullname">Full Name</label><div class="input-group">'+
+                            '<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter the full name" required>'+
+                            '</div> </div> </div>'+
+                            '<div class="col-md-6"><div class="form-group"><label for="idnum">ID Number</label>'+
+                            '<div class="input-group">'+
+                            '<input type="text" class="form-control" id="idnum" name="idnum" placeholder="Enter the ID number" required>'+
+                            '</div></div></div></div><div class="row"><div class="col-md-12">'+
+                            '<div class="form-group"><label for="firstname">Email</label><div class="input-group">'+
+                            '<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>'+
+                            '<div class="input-group-append"><span class="input-group-text"><i class="fa fa-envelope"></i>'+
+                            '</span></div></div></div></div></div>';
+                            
+                }
+            }
+        )        
+    </script>
+{% endblock %}  
+
