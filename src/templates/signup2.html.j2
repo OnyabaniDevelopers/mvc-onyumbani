@@ -1,43 +1,66 @@
 {% extends "parent.html.j2" %}
 
 {% block content %}	
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row" style="margin-top: 2%">
+        <p style='text-align:center; color:#FF3062'> {{log}} </p>
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="sec-section">
             <form action="{{ url_for('sign_up_two') }}" method="POST" enctype="multipart/form-data">
 
-                <div class="form-group">
-                    <label for="text">Phone Number</label>
-                    <div class="input-group">
-                    <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Enter your phone number">
-                    <div class="input-group-append">
-                        <span class="input-group-text password-toggle">
-                        <i class="fa fa-eye-slash"></i>
-                        </span>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span style="margin-right: 10px;">Submit National Id here</span>
-                      <span class="input-group-btn"><span class="btn btn-file"><span class="fa fa-upload"></span>
-                        <input type="file" id="nationalidimg" name="nationalidimg" accept="image/png, image/jpeg, image/gif"/></span></span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="text">Phone Number</label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Enter your phone number">
+                            <div class="input-group-append">
+                                <span class="input-group-text password-toggle">
+                                <i class="fa-solid fa-phone"></i>
+                                </span>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span style="margin-right: 2%;">ID Number</span>
-                    <input type="text" class="form-control" id="idnumber" name="nationalId" placeholder="Enter your ID number">
-                    <div class="input-group-append">
-                        <span class="input-group-text password-toggle">
-                        <i class="fa fa-eye-slash"></i>
-                        </span>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-btn">
+                                <span style="margin-right: 10px;">Submit National Id here</span>
+                                <span class="btn btn-file">
+                                    <span class="fa fa-upload">
+                                        <label class="upload-icon">
+                                            <input type="file" id="nationalidimg" onchange="previewImage(event)" name="nationalidimg" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif">
+                                        </label>
+                                    </span>
+                                </span>
+                                <span id="divImageMediaPreview">
+                                    <img src="/static/pics/Osuani-Final-Colour.jpg" style="width: 240px;" alt="Avatar" />
+                                </span>
+                              </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span style="margin-right: 2%;">ID Number</span>
+                            <input type="text" class="form-control" id="idnumber" name="nationalId" placeholder="Enter your ID number">
+                            <div class="input-group-append">
+                                <span class="input-group-text password-toggle">
+                                <i class="fa-solid fa-id-card"></i>
+                                </span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
                 <div class="form-outline">
                     <label class="form-label" for="textAreaExample">Bio and Interests</label>
                     <textarea class="form-control" type="text" id="textAreaExample1" name="bio" rows="4"></textarea>
@@ -49,45 +72,40 @@
 
             </form>        
         </div>
+        <div class="col-md-3"></div>
     </div>
 {% endblock %}
 
 {% block script %}
     <script>
         $(document).on('change', '.file-input', function() {
+            var filesCount = $(this)[0].files.length;
+            var textbox = $(this).prev();
+            
+            if (filesCount === 1) {
+                var fileName = $(this).val().split('\\').pop();
+                textbox.text(fileName);
+                } else {
+                textbox.text(filesCount + ' files selected');
+            }
     
-    
-    var filesCount = $(this)[0].files.length;
-    
-    var textbox = $(this).prev();
-    
-    if (filesCount === 1) {
-    var fileName = $(this).val().split('\\').pop();
-    textbox.text(fileName);
-    } else {
-    textbox.text(filesCount + ' files selected');
-    }
-    
-    
-    
-    if (typeof (FileReader) != "undefined") {
-    var dvPreview = $("#divImageMediaPreview");
-    dvPreview.html("");            
-    $($(this)[0].files).each(function () {
-    var file = $(this);                
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var img = $("<img />");
-            img.attr("style", "width: 270px; height: 250px; padding: 10px; border-radius: 50%");
-            img.attr("src", e.target.result);
-            dvPreview.append(img);
-        }
-        reader.readAsDataURL(file[0]);                
-    });
-    } else {
-    alert("This browser does not support HTML5 FileReader.");
-    }
-    
-    
-    });
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview = $("#divImageMediaPreview");
+                dvPreview.html("");            
+                $($(this)[0].files).each(function () {
+                    var file = $(this);                
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "width: 240px; padding: 10px;");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                reader.readAsDataURL(file[0]);                
+                }
+            );} else {
+                alert("This browser does not support HTML5 FileReader.");
+            } 
+        });
+    </script>
 {% endblock %}

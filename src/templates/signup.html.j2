@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label for="homeaddress">Home Address</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="homeaddress" name="homeaddress" placeholder="Enter your homeaddress">
+                                    <input type="text" class="form-control" id="homeaddress" name="homeaddress" placeholder="Enter your home address">
                                     <div class="input-group-append">
                                     <span class="input-group-text password-toggle">
                                     <i class="fa-solid fa-location-dot"></i>
@@ -93,11 +93,12 @@
                         </div>
                     </div>    
                     <div class="row">
+                        <p id="addhere" style="color:red;"></p>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                                    <input type="password" class="form-control password" id="password" name="password" placeholder="Enter your password">
                                     <div class="input-group-append">
                                         <span class="input-group-text password-toggle">
                                         <i class="fa fa-lock"></i>
@@ -110,7 +111,7 @@
                             <div class="form-group">
                                 <label for="password">Confirm Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Enter your password">
+                                    <input type="password" class="form-control password" id="confirmpassword" name="confirmpassword" placeholder="Enter your password">
                                     <div class="input-group-append">
                                         <span class="input-group-text password-toggle">
                                         <i class="fa fa-lock"></i>
@@ -127,7 +128,7 @@
             </div>
         </div>
         <div class="col-md-12" id="btn">
-            <button class="submit-button">NEXT</button>
+            <button type="submit" class="submit-button" id="popUpYes" disabled>NEXT</button>
         </div>
       </form>
     </div>
@@ -136,6 +137,33 @@
 
 {% block script %}
     <script>
+        $(document).on('change', '.password', function() {
+                const password1 = document.getElementById('password');
+                const password2 = document.getElementById('confirmpassword');
+                const addhere = document.getElementById('addhere');
+                const btn = document.getElementById("popUpYes");
+                const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+                
+                if (passwordRegex.test(password1.value)) {                 
+                    if (password1.value == password2.value) {
+                        password1.style.border = "green solid 2px";
+                        password2.style.border = "green solid 2px";
+                        addhere.innerHTML = "";
+                        btn.removeAttribute("disabled");
+                    }
+                    else{
+                        password1.style.border = "red solid 2px";
+                        password2.style.border = "red solid 2px";
+                        addhere.innerHTML = "*There's a mismatch in the password";
+                    } 
+                } 
+                else{
+                  password1.style.border = "red solid 2px";
+                  password2.style.border = "red solid 2px";
+                  addhere.innerHTML = "*Password must have a combination of letters, numbers and symbols and between 7 and 15 characters";
+                }    
+            }
+        )
         $(document).on('change', '.file-input', function() {
             var filesCount = $(this)[0].files.length;
             var textbox = $(this).prev();
