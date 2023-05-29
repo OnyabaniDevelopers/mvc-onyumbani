@@ -388,3 +388,32 @@ input[type="text"], input[type="date"], input[type="email"] {
     background-size: cover;
     background-color: #FF3062;
 }
+
+/* sign up */
+#img-section1{
+  margin: auto;
+  text-align: center;
+}
+
+.upload-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* .upload-icon input {
+  display: flex ;
+  justify-content: center;
+  text-align: center;
+} */
+
+.larger-checkbox {
+    transform: scale(1.5);
+}
+
+.submit-button{
+  margin-top: 20px;
+}
+
+#sec-section .row{
+  margin-bottom: 20px;
+}
