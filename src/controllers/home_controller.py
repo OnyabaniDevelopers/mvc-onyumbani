@@ -72,11 +72,9 @@ def add_room():
         
     return render_template('addroom.html.j2', error_message=msg)
 
-    message = 'Sorry, Failed to add home'
-    return render_template('addroom.html.j2', msg=message)
-
 @web_app.route('/view_home/<id>', methods =['GET', 'POST'])
 def view_room(id):
+    session['currentpage'] = f'/view_room/{id}'
     # change tab value for logout/login
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
     if 'loggedin' in session and session['loggedin'] == True:
@@ -88,9 +86,9 @@ def view_room(id):
     host_data = Hosts.get_host(home_data['userId'])  
     return render_template('individualhome.html.j2', home_data=home_data, data=tabs, host_data=host_data)
 
-@web_app.route('/reserve')
-def reserve_room():
-
+@web_app.route('/reserve/<id>')
+def reserve_room(id):
+    session['currentpage'] = f'/reserve/{id}'
     if 'loggedin' not in session or session['loggedin'] == False:
          
          msg = "Please Log in first"
