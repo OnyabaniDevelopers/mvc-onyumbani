@@ -103,7 +103,7 @@
         </div>
         
         <div id="reservation" class="col-lg-4 col-md-12">
-          <form class="w-full max-w-lg" action="{{ url_for('reserve_room')}}">
+          <form class="w-full max-w-lg" action="{{ '/reserve/'+ home_data['homeId'] }}">
               <div class="row">
                 <div class="col-6">
                     <div class="form-group">

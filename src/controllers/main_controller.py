@@ -36,6 +36,7 @@ def clear_session():
 @web_app.route('/')
 def index():
     '''Index page controller'''
+    session['currentpage'] = 'index'
 
     # change tab value for logout/login
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
@@ -48,8 +49,10 @@ def index():
 
     return render_template('index.html.j2', data=tabs, homes=all_homes)
 
+#TODO: Fix it so that it works with the edit profile
 @web_app.route('/view_profile')
 def view_profile():
+    
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
     profile_data = {}
     if 'loggedin' in session and session['loggedin'] == True:

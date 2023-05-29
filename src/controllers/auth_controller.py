@@ -44,7 +44,7 @@ def login():
         
 
             msg = 'Logged in successfully !'
-            return redirect(url_for('index'))
+            return redirect(session['currentpage'])
         
         else:
             msg = 'Incorrect username / password !'
