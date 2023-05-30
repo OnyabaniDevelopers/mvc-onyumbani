@@ -3,60 +3,93 @@
     <title>View Profile</title>
 {% endblock %}
 
-{% block style %}
-    <style>
-body {
-    font-family: 'Montserrat', sans-serif;
-}
-</style>
 
-{% endblock %}
 {% block content %} 
-<div class="row">
-    <div class="col-md-12">
-        <div class="container-fluid" id="atn">
-            <div class="row">
-                <div class="col-md-6" id="img-section">
-                    <div class="upload-icon-container">
-                        <img src="{{ profile_data['profileimageurl'] }}" class="rounded-circle" style="width: 270px; height: 250px;" alt="Avatar" />
-                        <p style="text-align: center;"><strong>{{ profile_data['firstname'] }} {{ profile_data['lastname'] }}</strong></p>
-                    </div>
-                </div>
-                <div class="col-md-6">
+    <div style="margin-top: 3%;">
+    <p style='text-align:center; color:#FF3062'> {{log}} </p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid" id="atn">
                     <div class="row">
-                        <div class="col-md-12">
-                            <p><b>Home Address:</b> {{ profile_data['homeaddress'] }}</p>
+                    <div class="col-md-6" id="img-section1">
+                        <div id="divImageMediaPreview">
+                            <img src="{{ profile_data['profileimageurl'] }}" class="rounded-circle" style="width: 350px; height: 320px" alt="Avatar" />
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><b>Email: </b>{{ profile_data['email'] }}</p>
+                    <div class="col-md-6" id="sec-section">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname">First Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your firstname" value="{{ profile_data['firstname'] }}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your lastname" value="{{ profile_data['lastname'] }}" disabled>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><b>Phone Number:</b> {{ profile_data['phonenumber'] }}</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="homeaddress">Home Address</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="homeaddress" name="homeaddress" placeholder="Your home address" value="{{ profile_data['homeaddress'] }}" disabled>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text password-toggle">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p></p>
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><b>Bio and Interests</b></p>
-                            <p>{{ profile_data['bio'] }}</p>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="firstname">Email</label>
+                                    <div class="input-group">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="{{ profile_data['email'] }}" disabled>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text password-toggle">
+                                        <i class="fa fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="number">Phone Number</label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" id="number" name="number" placeholder="Enter your number" value="{{ profile_data['phonenumber'] }}" disabled>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text password-toggle">
+                                        <i class="fa-solid fa-phone"></i>
+                                        </span>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="form-outline" style="margin-top: 20px;">
+                            <label class="form-label" for="textAreaExample">Bio and Interests</label>
+                            <textarea class="form-control" type="text" id="textAreaExample1" name="bio" rows="4" disabled>{{ profile_data['bio'] }}
+                            </textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-    {%endblock%}
+    </div>    
+{%endblock%}

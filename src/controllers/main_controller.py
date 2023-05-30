@@ -66,8 +66,6 @@ def view_profile():
              tabs['add_home'] = ""
              profile_data = Students.get_student(userId) 
 
-
-    
     return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data)
 
 @web_app.route('/about')
@@ -100,6 +98,9 @@ def view_profile_all(userId, usertype):
         profile_data = Hosts.get_host(userId)  
     else:
         profile_data = Students.get_student(userId) 
+        
+    if 'profileimageurl' not in profile_data:
+        profile_data['profileimageurl'] = url_for('static', filename='pics/profile.png')
     
     return render_template('viewprofile2.html.j2', data=tabs, profile_data=profile_data)
 

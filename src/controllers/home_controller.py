@@ -88,12 +88,16 @@ def view_home(id):
         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
       
     home_data = Homes.get_home(id)
+    home_data['numpeople'] = int(home_data['numpeople'])
 
     # encrypt prize before adding data
     encrypt_price = encrypt_num(home_data['roomprice'])
     home_data['encryptprice'] = encrypt_price
 
     host_data = Hosts.get_host(home_data['userId'])
+    
+    if 'profileimageurl' not in host_data:
+        host_data['profileimageurl'] = url_for('static', filename='pics/profile.png')
 
     # get dates list
     dates_list = get_dates_between(home_data['initdate'], home_data['enddate'])

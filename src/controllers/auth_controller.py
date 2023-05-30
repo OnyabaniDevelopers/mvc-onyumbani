@@ -12,8 +12,12 @@ from src.models.Homes import Homes
 @web_app.route('/login', methods =['GET', 'POST'])
 def login():
     '''Logging in controller'''
-
+    
     msg = ' '
+    msg1 = ''
+    
+    if 'msg' in request.args:
+        msg1 = request.args.get('msg')
 
     #log out user
     if 'loggedin' in session and session['loggedin'] == True:
@@ -33,14 +37,14 @@ def login():
 
         user = Authentication.login(email, password)
         
-        split1 = user.data.decode().split('"idToken": "')[1]
-        split2 = split1.split('"registered":')[0]
-        split3 = split2.strip()[:-2]
-        
-        session['idToken'] = split3
-        
         if str(user.status) == '200':
             user_info = Authentication.get_user_info(email)
+            
+            split1 = user.data.decode().split('"idToken": "')[1]
+            split2 = split1.split('"registered":')[0]
+            split3 = split2.strip()[:-2]
+        
+            session['idToken'] = split3
             
             for key, value in user_info.items():
                 session[key] = value
@@ -50,14 +54,18 @@ def login():
         
 
             msg = 'Logged in successfully !'
-            return redirect(session['currentpage'])
+            
+            if 'currentpage' in session and session['currentpage']: 
+                return redirect(session['currentpage'])
+            else:
+                return redirect(url_for('index'))
         
         else:
             msg = 'Incorrect username / password !'
     elif request.method == 'POST':
         msg = '*Fill all fields'
     
-    return render_template('login.html.j2', log = msg)
+    return render_template('login.html.j2', log = msg, msg1=msg1)
 
 '''
 Signing in process
@@ -90,7 +98,7 @@ def sign_up_one():
 @web_app.route('/sign_up_two', methods =['GET','POST'])
 def sign_up_two():
     msg=' '
-    print(session['profileimg'])
+    
     if request.method == 'POST' and request.form['phonenumber'] and request.form['nationalId']\
         and request.form['bio'] and request.files['nationalidimg'] and request.files['nationalidimg'].filename != '':
 
@@ -115,11 +123,10 @@ def sign_up_two():
 def sign_up_student():
     msg=' '
     if request.method == 'POST' and 'studentidimg' in request.files\
-          and request.files['studentidimg'].filename != '' and 'referenceimg' in request.files\
-          and request.files['referenceimg'].filename != '' and "emergencycontact" in request.form:
+          and request.files['studentidimg'].filename != ''\
+          and "emergencycontact" in request.form:
         
         session['studentidimg'] = ImageProcessing.upload_img(request.files['studentidimg'])
-        session['referenceimg'] = ImageProcessing.upload_img(request.files['referenceimg'])
         session['emergencycontact'] = request.form['emergencycontact']
 
         user_data = {}
@@ -127,7 +134,7 @@ def sign_up_student():
         password = session['password']
         for record_key, record_value in session.items():
 
-            if record_key == 'password':
+            if record_key in ['password', 'loggedin']:
                 continue
             user_data[record_key] = record_value
 
