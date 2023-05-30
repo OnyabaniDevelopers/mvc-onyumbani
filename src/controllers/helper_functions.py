@@ -2,6 +2,7 @@ import codecs
 import geocoder
 from datetime import datetime, timedelta
 from src import API_KEY
+import re
 
 def encrypt_num(num):
     num_alpha = {'1':'y', '2':'x', '3':'w', '4':'v', '5':'u', '6':'t', '7':'s', '8':'r', '9':'q', '0':'a'}
@@ -41,3 +42,16 @@ def get_dates_between(start_date, end_date):
         current_date += timedelta(days=1)
 
     return dates_list
+ 
+ 
+def check_availability(A, B):
+  # convert list A to string
+    A_str = ' '.join(map(str, A))
+    # convert list B to string
+    B_str = ' '.join(map(str, B))
+    # find all instances of A within B
+    instances = re.findall(A_str, B_str)
+ 
+    # return True if any instances were found, False otherwise
+    return len(instances) > 0
+ 

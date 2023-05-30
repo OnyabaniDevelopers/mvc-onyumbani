@@ -14,7 +14,7 @@ class Authentication:
     
     @staticmethod
     def login(email, password):
-        print(API_KEY)
+        
         request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={0}".format(API_KEY)
         headers = {"content-type": "application/json; charset=UTF-8"}
         data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
