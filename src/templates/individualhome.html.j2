@@ -8,9 +8,13 @@
 
 {% block content %} 
   <div class="contain">
+  {% if errors %}
+
+    <p>{{ errors }}</p>
+  {% endif %}
     <!--- Title ------>
     <div class="house-title d-flex align-items-center justify-content-center">
-        <h4><span>{{ home_data['homename'] }}</span> - <span>{{ home_data['enc_price'] }} / month / room</span></h4>
+        <h4><span>{{ home_data['homename'] }}</span> - <span>{{ home_data['roomprice'] }} / month / room</span></h4>
     </div>
 
     <!--- Scrollable Images --->
@@ -50,7 +54,7 @@
             <div class="tab-pane fade show active" id="pills-desc" role="tabpanel" aria-labelledby="pills-desc-tab">
               {{ home_data['homedescription']}}
             <div><p><b>Location: </b> {{home_data['homeaddress']}} </p></div>
-            <div id="map" style="height: 400px; width: 100%;">
+            <div id="map" style="height: 200px; width: 100%;">
               
               
             </div>
@@ -90,7 +94,7 @@
             </div>
             <div class="tab-pane fade" id="pills-availability" role="tabpanel" aria-labelledby="pills-availability-tab">
                 <smart-calendar id="calendar" important-dates="{{ home_data['dateslist'] }}"
-                
+
                 
                 </smart-calendar>
             </div>
@@ -110,13 +114,16 @@
         </div>
         
         <div id="reservation" class="col-lg-4 col-md-12">
-          <form class="w-full max-w-lg" action="{{ '/reserve/'+ home_data['homeId'] + '/' + home_data['encryptprice']  }}">
-              <div class="row">
+          <form class="w-full max-w-lg" action="{{ '/reserve/'+ home_data['homeId'] + '/' + home_data['encryptprice']  }}" method='POST' enctype="multipart/form-data">
+
+            {% if  data['log_status'] == "Log out" %}
+
+                          <div class="row">
                 <div class="col-6">
                     <div class="form-group">  
                         <label for="checkin">Check-In</label>
                         <div class="input-group">
-                          <input type="date" class="form-control" id="password">
+                          <input type="date" class="form-control" id="checkin" name="checkin">
                         </div>
                     </div>
                 </div>
@@ -124,7 +131,7 @@
                   <div class="form-group">
                       <label for="checkout">Check-Out</label>
                       <div class="input-group">
-                        <input type="date" class="form-control" id="password"">
+                        <input type="date" class="form-control" id="checkout" name="checkout">
                       </div>
                   </div>
               </div>    
@@ -134,7 +141,7 @@
                   <div class="form-group">
                       <label for="numrooms">Number of rooms</label>
                       <div class="input-group">
-                    <input type="text" class="form-control" name="numrooms id="numrooms" placeholder="Enter number of rooms to reserve">
+                    <input type="text" class="form-control" name="numrooms" id="numrooms" placeholder="Enter number of rooms to reserve">
                     </div>
                   </div>
               </div>
@@ -144,7 +151,7 @@
                 <div class="form-group">
                     <label for="firstname">Upload School Reference</label>
                     <div class="input-group">
-                    <input type="file" class="form-control" id="guests" placeholder="Enter number of guests">
+                    <input type="file" class="form-control" id="guests" name="schoolrefimg" placeholder="School Reference">
                     </div>
                 </div>
             </div>
@@ -153,7 +160,11 @@
                     <label for="text">Lets get to know you</label>
                     <br><a href="https://nyumbani.form.temperamentassessment" target='_blank'>https://nyumbani...</a>
                 </div> 
-          <div class="row">
+          
+            
+                                
+            {% endif %}
+            <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="form-group">
@@ -183,7 +194,7 @@
         const { Map } = await google.maps.importLibrary("maps");
         map = new Map(document.getElementById("map"), {
           center: { lat: {{location[0]}}, lng: {{location[1]}} },
-          zoom: 8,
+          zoom: 9,
         });
       }
 

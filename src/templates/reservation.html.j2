@@ -4,7 +4,7 @@
 <div style="margin-top: 3%;">
     <p style='text-align:center; color:#FF3062'> {{log}} </p>
     <div class="row">
-      <form action="" enctype="multipart/form-data" method="POST" >
+      <form action="/apply/{{homeId}}" enctype="multipart/form-data" method="POST" >
         <div class="col-md-12">
             <div class="container-fluid" id="atn">
                 <div class="row">
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="col-md-12" id="btn">
-            <button type="submit" class="submit-button" id="popUpYes" disabled>NEXT</button>
+            <button type="submit" class="submit-button" id="popUpYes">APPLY</button>
         </div>
       </form>
     </div>
@@ -67,14 +67,14 @@
                   insert.innerHTML += '<p style="color:#FF3062"> Guest '+ i + '</p>' +
                             '<div class="row"><div class="col-md-6"><div class="form-group">'+
                             '<label for="fullname">Full Name</label><div class="input-group">'+
-                            '<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter the full name" required>'+
+                            '<input type="text" class="form-control" id="fullname" name="fullname'+i+'" placeholder="Enter the full name" required>'+
                             '</div> </div> </div>'+
                             '<div class="col-md-6"><div class="form-group"><label for="idnum">ID Number</label>'+
                             '<div class="input-group">'+
-                            '<input type="text" class="form-control" id="idnum" name="idnum" placeholder="Enter the ID number" required>'+
+                            '<input type="text" class="form-control" id="idnum" name="idnum'+i+'" placeholder="Enter the ID number" required>'+
                             '</div></div></div></div><div class="row"><div class="col-md-12">'+
                             '<div class="form-group"><label for="firstname">Email</label><div class="input-group">'+
-                            '<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>'+
+                            '<input type="email" class="form-control" id="email" name="email'+1+'" placeholder="Enter your email" required>'+
                             '<div class="input-group-append"><span class="input-group-text"><i class="fa fa-envelope"></i>'+
                             '</span></div></div></div></div></div>';
                             
