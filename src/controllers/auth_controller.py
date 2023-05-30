@@ -74,6 +74,10 @@ Signing in process
 @web_app.route('/sign_up_one', methods =['GET', 'POST'])
 def sign_up_one():
     msg=' '
+    
+    if 'msg' in request.args:
+        msg = request.args['msg']
+    
     if request.method == 'POST' and request.form['password'] and request.form['confirmpassword']\
         and request.form['lastname'] and request.form['firstname'] and request.form['homeaddress']\
             and request.form['dob'] and request.form['usertype'] and request.form['email']\
@@ -168,7 +172,7 @@ def sign_up_host():
 
         user_data = {}
         for record_key, record_value in session.items():
-            if record_key == 'password':
+            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken', 'usertype']:
                 continue
             user_data[record_key] = record_value
         
@@ -187,7 +191,7 @@ def sign_up_host():
                 return redirect(url_for('login', msg=message))
             
         SessionProcessing.clear_session_images(images)
-        message = 'Sorry, Failed to create account'
+        message = '*Sorry, Failed to create account'
         return redirect(url_for('sign_up_one', msg=message))
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
