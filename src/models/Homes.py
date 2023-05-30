@@ -3,6 +3,7 @@ import urllib3
 from src.models.constants import BASE_URL
 import json
 request_ref = BASE_URL + '/homes'
+
 class Homes:
 
     def __init__():
@@ -29,3 +30,4 @@ class Homes:
         headers = {"content-type": "application/json; charset=UTF-8"}
         request_object = urllib3.request(method="GET",url=request_ref+f'/{home_id}', headers=headers)
         return eval(request_object.data.decode())
+    

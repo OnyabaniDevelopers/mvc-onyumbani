@@ -85,6 +85,7 @@ def about():
 
     return render_template('about.html.j2', data=tabs, homes=all_homes)
 
+# endpoint to view otheer users profile e.g student viewing owner or owner viewing student
 @web_app.route('/view_profile/<usertype>/<userId>')
 def view_profile_all(userId, usertype):
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
