@@ -256,6 +256,10 @@ input[type="text"], input[type="date"], input[type="email"] {
   accent-color:  #FF3062;
 }
 
+#checkthis{
+  accent-color:  #FF3062;
+}
+
 #addhomeform{
   margin-top: 5%;
 }

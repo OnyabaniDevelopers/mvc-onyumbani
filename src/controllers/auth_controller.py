@@ -138,7 +138,7 @@ def sign_up_student():
         password = session['password']
         for record_key, record_value in session.items():
 
-            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken', 'usertype']:
+            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken']:
                 continue
             user_data[record_key] = record_value
 
@@ -154,7 +154,7 @@ def sign_up_student():
                 return redirect(url_for('login', msg=message))
         
         SessionProcessing.clear_session_images(images)
-        message = 'Sorry, Failed to create account'
+        message = '*Sorry, Failed to create account'
         return redirect(url_for('sign_up_one', msg=message))
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
@@ -172,7 +172,7 @@ def sign_up_host():
 
         user_data = {}
         for record_key, record_value in session.items():
-            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken', 'usertype']:
+            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken']:
                 continue
             user_data[record_key] = record_value
         

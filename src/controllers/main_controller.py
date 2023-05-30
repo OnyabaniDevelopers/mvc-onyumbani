@@ -63,9 +63,13 @@ def view_profile():
         if session['usertype'] == 'owner':
            tabs['add_home'] = 'Add Home'
            profile_data = Hosts.get_host(userId)  
+           
         else:
              tabs['add_home'] = ""
              profile_data = Students.get_student(userId) 
+             
+        if 'profileimg' not in profile_data:
+                profile_data['profileimg'] = url_for('static', filename='pics/profile.png')
 
     return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data)
 
