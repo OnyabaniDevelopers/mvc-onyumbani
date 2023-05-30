@@ -32,8 +32,13 @@ def login():
         password = request.form['password']
 
         user = Authentication.login(email, password)
-        print(user.status)
-
+        
+        split1 = user.data.decode().split('"idToken": "')[1]
+        split2 = split1.split('"registered":')[0]
+        split3 = split2.strip()[:-2]
+        
+        session['idToken'] = split3
+        
         if str(user.status) == '200':
             user_info = Authentication.get_user_info(email)
             
@@ -129,7 +134,7 @@ def sign_up_student():
         response = Students.add_student(user_data)
 
         images = SessionProcessing.clear_session(session)
-        print(response)
+        
         if response == 200:
             create_user_response = Authentication.signup(email, password)
             session.clear()
@@ -161,11 +166,14 @@ def sign_up_host():
             user_data[record_key] = record_value
         
         response = Hosts.add_host(user_data)
+        
+        email = session['email']
+        password = session['password']
 
         images = SessionProcessing.clear_session(session)
         
         if response == 200:
-            create_user_response = Authentication.signup(session['email'], session['password'])
+            create_user_response = Authentication.signup(email, password)
             session.clear()
             if create_user_response == 200:
                 message = 'Account created successfully'
@@ -186,3 +194,26 @@ def end_process():
     SessionProcessing.clear_session_images(images)
     
     return redirect(url_for('index', msg="Sign up cancelled"))
+    
+    
+@web_app.route('/delete<owner_id>', methods =['GET','POST'])
+def delete(owner_id):
+    msg = ' '
+    if 'loggedin' in session and session['loggedin'] == True and request.method == 'POST':
+        delete_user_response = Authentication.delete_user(session['idToken'])
+
+        if delete_user_response == 200:
+            success = Hosts.delete_host(owner_id)
+            
+            if success:
+                return redirect(url_for('index'))
+        
+    else:      
+        msg = "Please Log in first"
+        return redirect(url_for('login', msg=msg))
+    
+    
+    
+@web_app.route('/updateprofile', methods =['GET','POST'])
+def updateprofile():
+    return redirect(url_for('index'))   

@@ -14,7 +14,6 @@ class Authentication:
     
     @staticmethod
     def login(email, password):
-        print(API_KEY)
         request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={0}".format(API_KEY)
         headers = {"content-type": "application/json; charset=UTF-8"}
         data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
@@ -39,7 +38,17 @@ class Authentication:
         request_object = urllib3.request(method="GET",url=request_ref+f"/{email}", headers=headers)
         return eval(request_object.data.decode())
 
-
+    @staticmethod
+    def delete_user(uid):
+        try:
+            request_ref = "https://identitytoolkit.googleapis.com/v1/accounts:delete?key={0}".format(API_KEY)
+            headers = {"content-type": "application/json; charset=UTF-8"}
+            data = json.dumps({"returnSecureToken": True, "idToken":uid})
+            request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)
+            print("status", request_object.status)        
+            return request_object.status
+        except:
+            print("failed")
    
             
     

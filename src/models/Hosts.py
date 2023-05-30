@@ -22,3 +22,10 @@ class Hosts:
         headers = {"content-type": "application/json; charset=UTF-8"}
         request_object = urllib3.request(method="GET",url=request_ref+f'/{owner_id}', headers=headers)
         return eval(request_object.data.decode())
+        
+    @staticmethod
+    def delete_host(owner_id):
+
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        request_object = urllib3.request(method="DELETE",url=request_ref+f'/{owner_id}', headers=headers)
+        return request_object.status

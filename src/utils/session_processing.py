@@ -29,7 +29,7 @@ class SessionProcessing:
             session_values.append(record_key)
 
         for record_key in session_values:
-            if record_key in ['loggedin', 'userId', 'usertype']:
+            if record_key in ['loggedin', 'userId', 'usertype', 'idToken']:
                 continue
             session.pop(record_key)
         return images

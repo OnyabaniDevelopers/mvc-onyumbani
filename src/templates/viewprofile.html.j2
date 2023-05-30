@@ -1,108 +1,157 @@
 {% extends "parent.html.j2" %}
 
 {% block content %} 
-    <div class="row">
-      <form action="">
-        <div class="col-md-12">
-            <div class="container-fluid" id="atn">
-                <div class="row">
-                <div class="col-md-6" id="img-section">
-                    <div class="upload-icon-container">
-                    <img src="{{ profile_data['profileimageurl'] }}" class="rounded-circle" style="width: 270px; height: 250px;" alt="Avatar" />
-                        <p style="text-align: center;"><strong>{{ profile_data['firstname'] }} {{ profile_data['lastname'] }}</strong></p>
+    <div style="margin-top: 3%;">
+    <p style='text-align:center; color:#FF3062'> {{log}} </p>
+        <div class="row">
+          <form action="{{ url_for('updateprofile') }}" enctype="multipart/form-data" method="POST" >
+            <div class="col-md-12">
+                <div class="container-fluid" id="atn">
+                    <div class="row">
+                    <div class="col-md-6" id="img-section1">
+                        <p> Upload new image </p>
+                        <div id="divImageMediaPreview">
+                            <img src="{{ profile_data['profileimageurl'] }}" class="rounded-circle" style="width: 350px; height: 320px" alt="Avatar" />
+                        </div>
+                        <label class="upload-icon">
+                            <input type="file" onchange="previewImage(event)" name="profileimage" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif">
+                        </label>
                     </div>
-
-                </div>
-                <div class="col-md-6">
+                    <div class="col-md-6" id="sec-section">
                         <div class="row">
-                            <div class="col-md-12">
-                                <p><b>Home Address:</b> {{ profile_data['homeaddress'] }}</p>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname">First Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your firstname" value="{{ profile_data['firstname'] }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your lastname" value="{{ profile_data['lastname'] }}" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-12">
-                                <p><b>Email: </b>{{ profile_data['email'] }}</p>
+                                <div class="form-group">
+                                    <label for="homeaddress">Home Address</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="homeaddress" name="homeaddress" placeholder="Your home address" value="{{ profile_data['homeaddress'] }}" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text password-toggle">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-md-12">
-                                <p><b>Phone Number:</b> {{ profile_data['phonenumber'] }}</p>
+                                <div class="form-group">
+                                    <label for="firstname">Email</label>
+                                    <div class="input-group">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="{{ profile_data['email'] }}" disabled>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text password-toggle">
+                                        <i class="fa fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
+                        </div>    
+                        
                         <div class="row">
                             <div class="col-md-12">
-                                <p></p>
-                                
+                                <div class="form-group">
+                                    <label for="number">Phone Number</label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" id="number" name="number" placeholder="Enter your number" value="{{ profile_data['phonenumber'] }}" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text password-toggle">
+                                        <i class="fa-solid fa-phone"></i>
+                                        </span>
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p><b>Bio and Interests</b></p>
-                                <p>{{ profile_data['bio'] }}</p>
-                            </div>
-                        </div>
-
+                        </div>   
+                        <div class="form-outline" style="margin-top: 20px;">
+                            <label class="form-label" for="textAreaExample">Bio and Interests</label>
+                            <textarea class="form-control" type="text" id="textAreaExample1" name="bio" rows="4" required>{{ profile_data['bio'] }}
+                            </textarea>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="row ending">  
+                <div class="col-md-3" ></div>
+                <div class="col-md-2" id="btn">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <a class="submit-button" href="{{ url_for('index') }}" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none;">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" id="btn">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <button type="submit" class="submit-button" style="background-color: #3DB249;" id="popUpYes">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" id="btn">
+                    <div class="form-group">
+                        <div class="input-group">
+                           <a class="submit-button" href="delete/{{ profile_data["nattionalId"] }}" style="background-color: black; color: white; text-align: center; text-decoration: none;">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </form>
         </div>
-        <!-- <div class="col-12" id="btn">
-            <button class="submit-button">NEXT</button>                            
-        </div> -->
-        </div>
-    </div>
-
-<div class="footer">
-  <div class="row">
-    <div class="col-md-12" style="background-color: white">
-    <p>© Copyright Nyumbani 2022</p>
-    </div>
-  </div>
-</div>                           
+    </div>                       
 {% endblock %}
+
 {% block script %}
 <script>
     $(document).on('change', '.file-input', function() {
-
-
-var filesCount = $(this)[0].files.length;
-
-var textbox = $(this).prev();
-
-if (filesCount === 1) {
-var fileName = $(this).val().split('\\').pop();
-textbox.text(fileName);
-} else {
-textbox.text(filesCount + ' files selected');
-}
-
-
-
-if (typeof (FileReader) != "undefined") {
-var dvPreview = $("#divImageMediaPreview");
-dvPreview.html("");            
-$($(this)[0].files).each(function () {
-var file = $(this);                
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        var img = $("<img />");
-        img.attr("style", "width: 270px; height: 250px; padding: 10px; border-radius: 50%");
-        img.attr("src", e.target.result);
-        dvPreview.append(img);
-    }
-    reader.readAsDataURL(file[0]);                
-});
-} else {
-alert("This browser does not support HTML5 FileReader.");
-}
-
-
-});
+        var filesCount = $(this)[0].files.length;
+        
+        var textbox = $(this).prev();
+        
+        if (filesCount === 1) {
+            var fileName = $(this).val().split('\\').pop();
+            textbox.text(fileName);
+        } else {
+            textbox.text(filesCount + ' files selected');
+        }
+          
+        
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#divImageMediaPreview");
+            dvPreview.html("");            
+            $($(this)[0].files).each(function () {
+                var file = $(this);                
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = $("<img />");
+                    img.attr("style", "width: 350px; height: 320px; border-radius: 50%");
+                    img.attr("src", e.target.result);
+                    dvPreview.append(img);
+                }
+                reader.readAsDataURL(file[0]);                
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        } 
+    });
 </script>
 {% endblock %}  
