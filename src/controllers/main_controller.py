@@ -50,7 +50,6 @@ def index():
     return render_template('index.html.j2', data=tabs, homes=all_homes)
     # return render_template('map.html')
 
-#TODO: Fix it so that it works with the edit profile
 @web_app.route('/view_profile')
 def view_profile():
     
@@ -101,7 +100,7 @@ def view_profile_all(userId, usertype):
     else:
         profile_data = Students.get_student(userId) 
     
-    return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data)
+    return render_template('viewprofile2.html.j2', data=tabs, profile_data=profile_data)
 
 
 

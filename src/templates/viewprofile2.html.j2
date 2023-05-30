@@ -1,0 +1,62 @@
+{% extends "parent.html.j2" %}
+{% block head %}
+    <title>View Profile</title>
+{% endblock %}
+
+{% block style %}
+    <style>
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+</style>
+
+{% endblock %}
+{% block content %} 
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid" id="atn">
+            <div class="row">
+                <div class="col-md-6" id="img-section">
+                    <div class="upload-icon-container">
+                        <img src="{{ profile_data['profileimageurl'] }}" class="rounded-circle" style="width: 270px; height: 250px;" alt="Avatar" />
+                        <p style="text-align: center;"><strong>{{ profile_data['firstname'] }} {{ profile_data['lastname'] }}</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>Home Address:</b> {{ profile_data['homeaddress'] }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>Email: </b>{{ profile_data['email'] }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>Phone Number:</b> {{ profile_data['phonenumber'] }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p></p>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><b>Bio and Interests</b></p>
+                            <p>{{ profile_data['bio'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {%endblock%}
