@@ -1,6 +1,7 @@
 import time
 from src import web_app, socketio
 from flask import render_template, redirect, url_for, request, session
+from src.controllers.helper_functions import send_email
 from src.models.Students import Students
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
@@ -68,9 +69,10 @@ def view_profile():
 
     return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data)
 
-@web_app.route('/about')
+@web_app.route('/about', methods=['GET', 'POST'])
 def about():
     '''About page controller'''
+    msg=""
 
     # change tab value for logout/login
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
@@ -81,7 +83,15 @@ def about():
     
     all_homes = Homes.get_homes()
 
-    return render_template('about.html.j2', data=tabs, homes=all_homes)
+    if request.method == 'POST' and request.form['senderemail'] and request.form['sendername']\
+    and request.form['message']:
+        
+        send_email(request.form['senderemail'], request.form['message'], request.form['sendername'])
+        msg="Message was sent successfully"
+        # return redirect('/about#contactForm', about_msg=msg)
+        return render_template('about.html.j2', data=tabs, homes=all_homes, about_msg=msg)
+
+    return render_template('about.html.j2', data=tabs, homes=all_homes, about_msg=msg)
 
 # endpoint to view otheer users profile e.g student viewing owner or owner viewing student
 @web_app.route('/view_profile/<usertype>/<userId>')
