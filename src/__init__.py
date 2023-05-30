@@ -23,6 +23,8 @@ PRIVATE_KEY_ID = os.getenv('PRIVATE_KEY_ID')
 CLIENT_CERT = os.getenv('CLIENT_CERT')
 AUTH_PROVIDER_CERT = os.getenv('AUTH_PROVIDER_CERT')
 BASE_URL= os.getenv('BASE_URL')
+PASSWORD = os.getenv('PASSWORD')
+EMAIL= os.getenv('EMAIL')
 
 cred = credentials.Certificate({
   "type": "service_account",

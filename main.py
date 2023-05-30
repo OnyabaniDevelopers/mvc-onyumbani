@@ -1,5 +1,5 @@
 '''
-File to run start the web application
+File to run/start the web application
 '''
 
 from src import web_app

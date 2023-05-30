@@ -3,6 +3,7 @@ from src import web_app
 from flask import render_template, redirect, url_for, request, session
 from src.controllers.helper_functions import check_availability, decrypt_num, get_dates_between
 from src.models.Homes import Homes
+from src.models.Hosts import Hosts
 from src.models.Students import Students
 from datetime import datetime, date
 from src.utils.image_processing import ImageProcessing
@@ -61,6 +62,8 @@ def reserve_room(id, price):
 @web_app.route('/apply/<homeId>', methods=['POST', 'GET'])
 def apply_housing(homeId):
 
+    host_data = Hosts.get_host(session['ownerId'])
+
     application_data = {}
 
     application_data['Prefer-students'] = request.form['buddy']
@@ -70,6 +73,10 @@ def apply_housing(homeId):
     application_data['application-date'] = str(date.today())
     application_data['studentId'] = session['userId']
     application_data['guests'] = {}
+    application_data['applicant_email'] = session['email']
+    application_data['owner_email'] = host_data['email']
+
+    
 
 
     if request.form['guests'] != '0':
