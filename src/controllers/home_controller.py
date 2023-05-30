@@ -76,7 +76,13 @@ def add_room():
 @web_app.route('/view_home/<id>', methods =['GET', 'POST'])
 def view_home(id):
     session['currentpage'] = f'/view_room/{id}'
-    msg=''
+    
+    msg=' '
+    errors = ''
+    
+    if 'errors' in request.args:
+        msg = request.args['errors']
+    
     if 'error_messages' in session:
         msg = session['error_messages']
 
@@ -88,7 +94,7 @@ def view_home(id):
         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
       
     home_data = Homes.get_home(id)
-    home_data['numpeople'] = int(home_data['numpeople'])
+    home_data['numrooms'] = int(home_data['numrooms'])
 
     # encrypt prize before adding data
     encrypt_price = encrypt_num(home_data['roomprice'])

@@ -12,7 +12,8 @@ from src.utils.session_processing import SessionProcessing
 def reserve_room(id, price):
 
     
-    error_messages = ''
+    error_messages = ' '
+    errors = ' '
     session['currentpage'] = f'/reserve/{id}/{price}'
 
     if 'loggedin' in session and session['loggedin'] == True:
@@ -54,7 +55,7 @@ def reserve_room(id, price):
         else:
             SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
             # session['error_messages'] = error_messagesd TODO: Find a way to show the errors
-    return redirect(f'/view_home/{id}')
+    return redirect(f'/view_home/{id}', errors=error_messages)
 
 #TODO: Send th data to the home owner(as email and show it on the website) for review
 @web_app.route('/apply/<homeId>', methods=['POST', 'GET'])
