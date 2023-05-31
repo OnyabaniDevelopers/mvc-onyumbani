@@ -113,11 +113,14 @@ def view_profile():
         if 'profileimg' not in profile_data:
                 profile_data['profileimg'] = url_for('static', filename='pics/profile.png')
                 
-    if 'log' in request.args:
-        log = request.args.get('log')
-        color = request.args.get('color')
-
-    return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data, log=log, color=color)
+        if 'log' in request.args:
+            log = request.args.get('log')
+            color = request.args.get('color')
+    
+        return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data, log=log, color=color)
+     
+    msg = "Please Log in first"
+    return redirect(url_for('login', msg=msg))
 
 
 
