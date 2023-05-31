@@ -64,14 +64,14 @@ def login():
             if 'currentpage' in session and session['currentpage']: 
                 return redirect(session['currentpage'])
             else:
-                return redirect(url_for('index'))
+                return redirect(url_for('index', msg = msg, color = 'green'))
         
         else:
             msg = 'Incorrect username / password !'
     elif request.method == 'POST':
         msg = '*Fill all fields'
     
-    return render_template('login.html.j2', log = msg, msg1=msg1)
+    return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
 
 '''
 Signing in process
