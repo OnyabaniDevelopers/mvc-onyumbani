@@ -18,11 +18,11 @@ def add_home():
                     and request.form['initdate'] and request.form['enddate']:
         
         session['homeId'] = f"{int(time.time() * 1000)}"
-        session['amenities'] = {}
+        session['amenities'] = []
         for entry, value in request.form.to_dict().items():
             if 'amenity' in entry:
                 refined_entry = entry.split('-')[-1]
-                session['amenities'][entry] = refined_entry
+                session['amenities'].append(refined_entry)
                 continue
             session[entry] = value
         session['ownershipimg'] = ImageProcessing.upload_img(request.files['ownershipimg'])
