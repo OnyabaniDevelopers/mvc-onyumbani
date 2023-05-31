@@ -77,8 +77,10 @@ li.nav-item a.active{
 }
 
 .caption{
-  font-size: 12px;
+  font-size: 12px; 
   line-height: 18px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Hide the browser's default checkbox */

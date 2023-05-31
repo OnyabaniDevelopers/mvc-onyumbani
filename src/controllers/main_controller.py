@@ -122,6 +122,28 @@ def view_profile():
     msg = "Please Log in first"
     return redirect(url_for('login', msg=msg))
 
+# endpoint to view otheer users profile e.g student viewing owner or owner viewing student
+@web_app.route('/view_profile/<usertype>/<userId>')
+def view_profile_all(userId, usertype):
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    profile_data = {}
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+        tabs['add_home'] = 'Add Home'
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "" 
+
+    if usertype == 'owner':
+        profile_data = Hosts.get_host(userId)  
+    else:
+        profile_data = Students.get_student(userId) 
+        
+    if 'profileimg' not in profile_data:
+        profile_data['profileimg'] = url_for('static', filename='pics/profile.png')
+    
+    return render_template('viewprofile2.html.j2', data=tabs, profile_data=profile_data)
+
+
 @web_app.route('/about', methods=['GET', 'POST'])
 def about():
     '''About page controller'''
@@ -145,27 +167,6 @@ def about():
         return render_template('about.html.j2', data=tabs, homes=all_homes, about_msg=msg)
 
     return render_template('about.html.j2', data=tabs, homes=all_homes, about_msg=msg)
-
-# endpoint to view otheer users profile e.g student viewing owner or owner viewing student
-@web_app.route('/view_profile/<usertype>/<userId>')
-def view_profile_all(userId, usertype):
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
-    profile_data = {}
-    if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
-        tabs['add_home'] = 'Add Home'
-
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "" 
-
-    if usertype == 'owner':
-        profile_data = Hosts.get_host(userId)  
-    else:
-        profile_data = Students.get_student(userId) 
-        
-    if 'profileimageurl' not in profile_data:
-        profile_data['profileimageurl'] = url_for('static', filename='pics/profile.png')
-    
-    return render_template('viewprofile2.html.j2', data=tabs, profile_data=profile_data)
 
     
 @web_app.route('/updateprofile', methods =['GET','POST'])

@@ -34,10 +34,10 @@ class Students:
         return eval(request_object.data.decode())
         
     @staticmethod
-    def delete_student(student_id):
+    def delete_student(student_id, email):
 
         headers = {"content-type": "application/json; charset=UTF-8"}
-        request_object = urllib3.request(method="DELETE",url=request_ref+f'/{student_id}', headers=headers)
+        request_object = urllib3.request(method="DELETE",url=request_ref+f'/{email}/{student_id}', headers=headers)
         return request_object.status
     
     @staticmethod

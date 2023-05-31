@@ -75,29 +75,36 @@ function dropDownFunc() {
 
 <script>
 
-//TODO: Fix bug - The nice line by line display is destroyed after a search
+//TODO: Fix bug - The highlight does not remove for the first search of the second and third paragraphs
 function searchFunc() {
-    var searchVal, p, i;
+    var searchVal, p;
     searchVal = document.getElementById("searchBox").value.toUpperCase();
     homediv = document.querySelectorAll(".homediv"); 
 
     for (let j = 0; j < homediv.length; j++) {
 
-      p = homediv[j].querySelectorAll(".caption")
-      for (i = 0; i < p.length; i++) {
+      
+      p = homediv[j].querySelector(".thumbnail").querySelector(".caption").querySelectorAll("p")
+
+      for (let i = 0; i < p.length; i++) {
+        
 
         txtValue = p[i].textContent || p[i].innerText;
         index = txtValue.toUpperCase().indexOf(searchVal)
 
         if (index > -1) {
-          homediv[j].style.display = "";
+          homediv[j].style.display = 'block';
+          
           newInnerText = txtValue.substring(0,index) + "<span class='highlight'>" + txtValue.substring(index,index+searchVal.length) + "</span>" + txtValue.substring(index + searchVal.length);
           p[i].innerHTML = "<p>" + newInnerText + "</p>"
+          
+          
           break;
 
         } else {
 
           homediv[j].style.display = "none";
+          
         }
     }
 
