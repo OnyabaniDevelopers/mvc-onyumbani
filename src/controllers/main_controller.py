@@ -53,7 +53,8 @@ def index():
 
 @web_app.route('/view_profile')
 def view_profile():
-    
+    log = ' '
+    color = ' '
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
     profile_data = {}
     if 'loggedin' in session and session['loggedin'] == True:
@@ -70,8 +71,13 @@ def view_profile():
              
         if 'profileimg' not in profile_data:
                 profile_data['profileimg'] = url_for('static', filename='pics/profile.png')
+                
+    if 'log' in request.args:
+        log = request.args.get('log')
+        color = request.args.get('color')
 
-    return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data)
+    return render_template('viewprofile.html.j2', data=tabs, profile_data=profile_data, log=log, color=color)
+
 
 @web_app.route('/about', methods=['GET', 'POST'])
 def about():
@@ -118,9 +124,79 @@ def view_profile_all(userId, usertype):
     
     return render_template('viewprofile2.html.j2', data=tabs, profile_data=profile_data)
 
-
-
     
+@web_app.route('/updateprofile', methods =['GET','POST'])
+def updateprofile():
+    msg=' '
+    color = '#FF3062'
+    url = ''
+    del_pic =''
+    
+    if 'loggedin' in session and session['usertype']:
+        if request.method == 'POST' and request.form['firstname'] and request.form['homeaddress']\
+              and request.form['lastname'] and request.form['bio']\
+              and request.form['phonenumber']:
+              
+            user_data = {}
+            for entry, value in request.form.to_dict().items():
+                user_data[entry] = value
+                
+            if 'profileimage' in request.files and request.files['profileimage'].filename != '':
+                url = ImageProcessing.upload_img(request.files['profileimage'])
+                user_data['profileimg'] = url
+                
+                if session['usertype'] == 'owner':
+                    response0 = Hosts.get_host(session['userId'])
+                elif session['usertype'] == 'student':
+                    response0 = Students.get_student(session['userId'])
+                    
+                if 'profileimg' in response0:
+                    del_pic = response0['profileimg']
+                
+            user_data['nationalId'] = session['userId']
+            
+            if session['usertype'] == 'owner':
+                response = Hosts.update_host(user_data, user_data['nationalId'])
+            elif session['usertype'] == 'student':
+                response = Students.update_student(user_data, user_data['nationalId'])
+            
+            if response == 200:
+                msg = 'Successfully updated'
+                color = 'green'
+                
+                if del_pic:
+                    SessionProcessing.clear_session_images({'profileimg':del_pic})
+                
+                return redirect(url_for('view_profile', log=msg, color=color))
+                
+            if url:
+                SessionProcessing.clear_session_images({'profileimg':url})                
+                            
+            msg = '*Sorry, Failed to create account'
+            return redirect(url_for('view_profile', msg=msg, color=color))
+            
+        elif request.method == 'POST':
+            msg = '*Sorry, some required information are missing'     
+            return redirect(url_for('view_profile', log=msg, color=color))
+    else:
+        msg = "Sign up first"
+        return redirect(url_for('login', msg=msg,))
 
 
+@web_app.route('/delete<owner_id>', methods =['GET','POST'])
+def delete(owner_id):
+    msg = ' '
+    if 'loggedin' in session and session['loggedin'] == True and request.method == 'POST':
+        delete_user_response = Authentication.delete_user(session['idToken'])
 
+        if delete_user_response == 200:
+            success = Hosts.delete_host(owner_id)
+            
+            if success:
+                return redirect(url_for('index'))
+        
+    else:      
+        msg = "Please Log in first"
+        return redirect(url_for('login', msg=msg))
+    
+    
