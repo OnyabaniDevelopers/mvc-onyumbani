@@ -27,8 +27,14 @@ def login():
             session.pop('userId', None)
             session.pop('usertype', None)
             
-            msg = 'Logged out successfully !'
-            return redirect(url_for('index'))
+            color = 'green'
+            
+            if 'log' in request.args:
+                msg = request.args.get('log')
+                
+            else:
+                msg = 'Logged out successfully !'
+            return redirect(url_for('index', msg = msg, color = color))
 
 
     if request.method == 'POST' and request.form['email'] and request.form['password']:
@@ -37,7 +43,7 @@ def login():
 
         user = Authentication.login(email, password)
         
-        if str(user.status) == '200':
+        if user.status == 200:
             user_info = Authentication.get_user_info(email)
             
             split1 = user.data.decode().split('"idToken": "')[1]
@@ -208,24 +214,3 @@ def end_process():
     return redirect(url_for('index', msg="Sign up cancelled"))
     
     
-@web_app.route('/delete<owner_id>', methods =['GET','POST'])
-def delete(owner_id):
-    msg = ' '
-    if 'loggedin' in session and session['loggedin'] == True and request.method == 'POST':
-        delete_user_response = Authentication.delete_user(session['idToken'])
-
-        if delete_user_response == 200:
-            success = Hosts.delete_host(owner_id)
-            
-            if success:
-                return redirect(url_for('index'))
-        
-    else:      
-        msg = "Please Log in first"
-        return redirect(url_for('login', msg=msg))
-    
-    
-    
-@web_app.route('/updateprofile', methods =['GET','POST'])
-def updateprofile():
-    return redirect(url_for('index'))   

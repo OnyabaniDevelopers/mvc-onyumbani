@@ -27,10 +27,10 @@ class Authentication:
             headers = {"content-type": "application/json; charset=UTF-8"}
             data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
             request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)
-            print("status", request_object.status)        
+            # print("status", request_object.status)        
             return request_object.status
         except:
-            print("failed")
+            return 404
 
     @staticmethod
     def get_user_info(email):
@@ -45,10 +45,10 @@ class Authentication:
             headers = {"content-type": "application/json; charset=UTF-8"}
             data = json.dumps({"returnSecureToken": True, "idToken":uid})
             request_object = urllib3.request(method="POST",url=request_ref, headers=headers, body=data)
-            print("status", request_object.status)        
+            # print("status", request_object.status)        
             return request_object.status
         except:
-            print("failed")
+            return 404
    
             
     
