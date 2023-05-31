@@ -43,7 +43,7 @@ def login():
 
         user = Authentication.login(email, password)
         
-        if str(user.status) == '200':
+        if user.status == 200:
             user_info = Authentication.get_user_info(email)
             
             split1 = user.data.decode().split('"idToken": "')[1]

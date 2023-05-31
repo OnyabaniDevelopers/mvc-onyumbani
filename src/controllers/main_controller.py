@@ -5,7 +5,7 @@ from src.controllers.helper_functions import send_email
 from src.models.Students import Students
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
-
+from src.models.FirebaseAuth import Authentication
 from src.models.Homes import Homes
 from src.models.Hosts import Hosts
 
@@ -196,7 +196,7 @@ def delete():
     if 'loggedin' in session and session['loggedin'] == True:
         delete_user_response = Authentication.delete_user(session['idToken'])
 
-        if str(delete_user_response) == '200':
+        if delete_user_response == 200:
             if session['usertype'] == 'owner':
                 response = Hosts.delete_host(session['userId'])
             elif session['usertype'] == 'student':
