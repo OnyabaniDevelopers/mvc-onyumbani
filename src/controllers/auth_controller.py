@@ -27,8 +27,14 @@ def login():
             session.pop('userId', None)
             session.pop('usertype', None)
             
-            msg = 'Logged out successfully !'
-            return redirect(url_for('index'))
+            color = 'green'
+            
+            if 'log' in request.args:
+                msg = request.args.get('log')
+                
+            else:
+                msg = 'Logged out successfully !'
+            return redirect(url_for('index', msg = msg, color = color))
 
 
     if request.method == 'POST' and request.form['email'] and request.form['password']:

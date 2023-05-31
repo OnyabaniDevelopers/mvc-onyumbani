@@ -38,6 +38,8 @@ def clear_session():
 def index():
     '''Index page controller'''
     session['currentpage'] = 'index'
+    msg = ''
+    color = ''
 
     # change tab value for logout/login
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
@@ -47,8 +49,12 @@ def index():
         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
     
     all_homes = Homes.get_homes()
+    
+    if 'msg' in request.args:
+        msg = request.args.get('msg')
+        color = request.args.get('color')
 
-    return render_template('index.html.j2', data=tabs, homes=all_homes)
+    return render_template('index.html.j2', msg=msg, color=color, data=tabs, homes=all_homes)
     # return render_template('map.html')
 
 @web_app.route('/view_profile')
@@ -179,24 +185,32 @@ def updateprofile():
             msg = '*Sorry, some required information are missing'     
             return redirect(url_for('view_profile', log=msg, color=color))
     else:
-        msg = "Sign up first"
+        msg = "Please Log in first"
         return redirect(url_for('login', msg=msg,))
 
 
-@web_app.route('/delete<owner_id>', methods =['GET','POST'])
-def delete(owner_id):
+@web_app.route('/delete', methods =['GET'])
+def delete():
     msg = ' '
-    if 'loggedin' in session and session['loggedin'] == True and request.method == 'POST':
+    
+    if 'loggedin' in session and session['loggedin'] == True:
         delete_user_response = Authentication.delete_user(session['idToken'])
 
-        if delete_user_response == 200:
-            success = Hosts.delete_host(owner_id)
-            
-            if success:
-                return redirect(url_for('index'))
+        if str(delete_user_response) == '200':
+            if session['usertype'] == 'owner':
+                response = Hosts.delete_host(session['userId'])
+            elif session['usertype'] == 'student':
+                response = Students.delete_student(session['userId'])
+                
+            if response == 200:
+                msg='Delete successful'
+                return redirect(url_for('login', log=msg))
+         
+        msg='Failed to delete'
+        return redirect(url_for('view_profile', log=msg, color='#FF3062'))
         
     else:      
         msg = "Please Log in first"
-        return redirect(url_for('login', msg=msg))
+        return redirect(url_for('login', log=msg))
     
     
