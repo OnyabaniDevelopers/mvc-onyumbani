@@ -1,17 +1,18 @@
+from datetime import timedelta
 from flask import Flask, session
 from flask_session import Session
 import firebase_admin
 import os
 from dotenv import load_dotenv
-from firebase_admin import credentials, storage
+from firebase_admin import credentials, storage, firestore
 from flask_socketio import SocketIO
 
 web_app = Flask("src")
 web_app.config["SESSION_PERMANENT"] = False
 web_app.config["SESSION_TYPE"] = "filesystem"
+web_app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=15)
 
 Session(web_app)
-
 web_app.config['SECRET_KEY'] = 'onyumbani'
 
 socketio = SocketIO(web_app)
@@ -41,5 +42,6 @@ cred = credentials.Certificate({
 })
 firebase_admin.initialize_app(credential=cred, options={'storageBucket': 'onyumbanihousing-1cc4d.appspot.com'})
 bucket = storage.bucket()
+database = firestore.client()
 
 from src.controllers import *

@@ -1,7 +1,9 @@
+from datetime import date, timedelta
 import time
 from src import web_app, socketio
 from flask import render_template, redirect, url_for, request, session
 from src.controllers.helper_functions import check_availability, get_dates_between
+from src.models.Reviews import Reviews
 from src.models.Students import Students
 from src.utils.email_notification_processing import EmailNotifier
 from src.utils.image_processing import ImageProcessing
@@ -29,7 +31,6 @@ def clear_session():
     session.pop('email', None)
     session.pop('userId', None)
     session.pop('usertype', None)
-
 
 #route index
 @web_app.route('/index')
@@ -249,5 +250,35 @@ def delete():
     else:      
         msg = "Please Log in first"
         return redirect(url_for('login', log=msg))
+    
+
+@web_app.route('/review/<type>/<id>', methods =['POST'])
+def review(type, id):
+
+    if request.method == 'POST' and request.form['rating'] and request.form['reviewmessage']:
+
+        review_data = {}
+        review_data['dateposted'] = str(date.today())
+        review_data['rating'] = request.form['rating']
+        review_data['reviewmessage'] = request.form['reviewmessage']
+        review_data['email'] = session['email']
+        review_data['image'] = ''
+
+        response = Reviews.add_review(id, type, review_data)
+
+        if response[1] == 200:
+
+            if type == 'home':
+
+                return redirect(url_for('view_home', id=id))
+            #TODO: add else for student review (only for home owners)
+    return redirect(url_for('view_home', id=id, errors='Failed to add comment'))       
+    
+    
+
+
+
+
+
     
     

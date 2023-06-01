@@ -47,6 +47,8 @@ def login():
             user_info = Authentication.get_user_info(email)
 
             user_dict = json.loads(user.data.decode())
+
+            session.permanent = True
             
             # split1 = user.data.decode().split('"idToken": "')[1]
             # split2 = split1.split('"registered":')[0]
@@ -63,10 +65,10 @@ def login():
 
             msg = 'Logged in successfully !'
             
-            if 'currentpage' in session and session['currentpage']: 
-                return redirect(session['currentpage'])
-            else:
-                return redirect(url_for('index', msg = msg, color = 'green'))
+            # if 'currentpage' in session and session['currentpage']: 
+            #     return redirect(session['currentpage'])
+            # else:
+            return redirect(url_for('index', msg = msg, color = 'green'))
         
         else:
             msg = 'Incorrect username / password !'

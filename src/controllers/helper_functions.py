@@ -30,12 +30,10 @@ def get_geocode(address):
 
 
 def get_dates_between(start_date, end_date):
-    print("started")
+    
     dates_list = []
     current_date = datetime.strptime(start_date, '%Y-%m-%d').date()
     end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
-
-    print(current_date, end_date)
 
     while current_date <= end_date:
         dates_list.append(current_date.strftime("%Y-%m-%d"))
