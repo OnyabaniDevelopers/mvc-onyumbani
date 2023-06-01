@@ -77,8 +77,7 @@ def add_room():
 def view_home(id):
     session['currentpage'] = f'/view_room/{id}'
     
-    msg=' '
-    errors = ''
+    msg=''
     
     if 'errors' in request.args:
         msg = request.args['errors']

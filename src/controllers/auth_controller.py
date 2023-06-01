@@ -1,6 +1,6 @@
 import time
 from src import web_app, socketio
-from flask import render_template, redirect, url_for, request, session
+from flask import json, render_template, redirect, url_for, request, session
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 from src.models.FirebaseAuth import Authentication
@@ -45,12 +45,14 @@ def login():
         
         if user.status == 200:
             user_info = Authentication.get_user_info(email)
+
+            user_dict = json.loads(user.data.decode())
             
-            split1 = user.data.decode().split('"idToken": "')[1]
-            split2 = split1.split('"registered":')[0]
-            split3 = split2.strip()[:-2]
+            # split1 = user.data.decode().split('"idToken": "')[1]
+            # split2 = split1.split('"registered":')[0]
+            # split3 = split2.strip()[:-2]
         
-            session['idToken'] = split3
+            session['idToken'] = user_dict['idToken']
             
             for key, value in user_info.items():
                 session[key] = value

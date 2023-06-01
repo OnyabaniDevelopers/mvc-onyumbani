@@ -35,8 +35,9 @@
 {% endblock %}
 
 {% block content %}
-<a href="{{ url_for('index' ) }}">Clear Filters</a>
+
 <div id="searchBoxDiv">
+<a href="{{ url_for('index' ) }}">Clear Filters</a>
    <input type="text" placeholder="Type keyword" id="searchBox" onkeyup="searchFunc()">
    <p style='text-align:center; color:{{color}}'>{{msg}}</p>
 </div>

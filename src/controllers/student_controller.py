@@ -6,15 +6,16 @@ from src.models.Homes import Homes
 from src.models.Hosts import Hosts
 from src.models.Students import Students
 from datetime import datetime, date
+from src.utils.email_notification_processing import EmailNotifier
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
-@web_app.route('/reserve/<id>/<price>', methods =['GET', 'POST'])
-def reserve_room(id, price):
+@web_app.route('/reserve/<homeid>/<price>', methods =['GET', 'POST'])
+def reserve_room(homeid, price):
 
     
-    error_messages = ' '
-    errors = ' '
+    error_messages = ''
+    errors = ''
     session['currentpage'] = f'/reserve/{id}/{price}'
 
     if 'loggedin' in session and session['loggedin'] == True:
@@ -27,14 +28,14 @@ def reserve_room(id, price):
         return redirect(url_for('login', msg=msg))
     new_price = decrypt_num(price)
 
-    home_data = Homes.get_home(id)
+    home_data = Homes.get_home(homeid)
     if request.method == 'POST' and request.form['numrooms'] and request.form['checkin']\
         and request.form['checkout'] and request.files['schoolrefimg']:
 
         
 
         # check number of rooms
-        if home_data['numrooms'] < request.form['numrooms']:
+        if int(home_data['numrooms']) < int(request.form['numrooms']):
             error_messages = "Required number of rooms is not available\n"
 
         # confirm dates
@@ -52,13 +53,13 @@ def reserve_room(id, price):
         if not error_messages:
             session['schoolrefimg'] = ImageProcessing.upload_img(request.files['schoolrefimg'])
             session['ownerId'] = home_data['userId']
-            return render_template('reservation.html.j2', data=tabs, homeId=id)
+            return render_template('reservation.html.j2', data=tabs, homeId=homeid)
         else:
             SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
-            # session['error_messages'] = error_messagesd TODO: Find a way to show the errors
-    return redirect(f'/view_home/{id}', errors=error_messages)
+            
+    return redirect(url_for('view_home', id=homeid, errors=error_messages))
 
-#TODO: Send th data to the home owner(as email and show it on the website) for review
+
 @web_app.route('/apply/<homeId>', methods=['POST', 'GET'])
 def apply_housing(homeId):
 
@@ -76,9 +77,7 @@ def apply_housing(homeId):
     application_data['applicant_email'] = session['email']
     application_data['owner_email'] = host_data['email']
 
-    
-
-
+    guests_emails = []
     if request.form['guests'] != '0':
         num_guests = request.form['guests']
         for i in range(int(num_guests)):
@@ -87,8 +86,13 @@ def apply_housing(homeId):
             idnum = request.form[f"idnum{i}"]
             email = request.form[f"email{i}"]
             application_data['guests'][i] = [fullname, idnum, email]
+            guests_emails.append(email)
 
     response = Students.submit_application(application_data)
+
+    if guests_emails:
+        message = f"{session['email']}, entered you as guests. Please follow this link to confirm"
+        EmailNotifier.send_email(guests_emails, message, ' ')
 
     SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
 

@@ -1,6 +1,4 @@
-
 from src.utils.image_processing import ImageProcessing
-from flask import render_template, redirect, url_for
 
 class SessionProcessing:
 

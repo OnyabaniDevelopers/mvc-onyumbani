@@ -1,8 +1,9 @@
 import time
 from src import web_app, socketio
 from flask import render_template, redirect, url_for, request, session
-from src.controllers.helper_functions import check_availability, get_dates_between, send_email
+from src.controllers.helper_functions import check_availability, get_dates_between
 from src.models.Students import Students
+from src.utils.email_notification_processing import EmailNotifier
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 from src.models.FirebaseAuth import Authentication
@@ -16,8 +17,6 @@ def upload():
     image = request.files['image']
     
     url = ImageProcessing.upload_img(image)
-    
-    print(url)
     
     return redirect(url_for('index'))
 
@@ -160,10 +159,10 @@ def about():
 
     if request.method == 'POST' and request.form['senderemail'] and request.form['sendername']\
     and request.form['message']:
-        
-        send_email(request.form['senderemail'], request.form['message'], request.form['sendername'])
+        message =  f"Your message: \t{request.form['message']} \n\nThank you for your message, customer service will get back to you soon"
+        EmailNotifier.send_email(request.form['senderemail'], message, request.form['sendername'])
         msg="Message was sent successfully"
-        # return redirect('/about#contactForm', about_msg=msg)
+        
         return render_template('about.html.j2', data=tabs, homes=all_homes, about_msg=msg)
 
     return render_template('about.html.j2', data=tabs, homes=all_homes, about_msg=msg)
@@ -171,7 +170,7 @@ def about():
     
 @web_app.route('/updateprofile', methods =['GET','POST'])
 def updateprofile():
-    msg=' '
+    msg=''
     color = '#FF3062'
     url = ''
     del_pic =''
@@ -236,9 +235,9 @@ def delete():
 
         if delete_user_response == 200:
             if session['usertype'] == 'owner':
-                response = Hosts.delete_host(session['userId'])
+                response = Hosts.delete_host(session['userId'], session['email'])
             elif session['usertype'] == 'student':
-                response = Students.delete_student(session['userId'])
+                response = Students.delete_student(session['userId'], session['email'])
                 
             if response == 200:
                 msg='Delete successful'

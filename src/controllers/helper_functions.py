@@ -1,8 +1,7 @@
 import codecs
-import smtplib
 import geocoder
 from datetime import datetime, timedelta
-from src import API_KEY, EMAIL, PASSWORD
+from src import API_KEY
 import re
 
 def encrypt_num(num):
@@ -57,13 +56,4 @@ def check_availability(A, B):
     return len(instances) > 0
 
 
-def send_email(sender_email, message, sender_name):       
-    # Set up the SMTP server details
-    from_email = EMAIL
-    password = PASSWORD
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as connection: 
-        email_password = password
-        connection.login(from_email, email_password )
-        connection.sendmail(from_addr=from_email, to_addrs=sender_email, 
-        msg=f"subject:Onyumbani Web Message \n\n Hi, {sender_name}\n\nYour message: \t{message} \n\nThank you for your message, customer service will get back to you soon\n\n Kind regards, \n\n Onyumbani Team")
  
