@@ -46,3 +46,10 @@ class Students:
         data = json.dumps(application_data)
         request_object = urllib3.request(method="POST",url=application_ref, headers=headers, body=data)
         return request_object.status
+        
+    @staticmethod
+    def get_applications(usertype, userId):
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        request_object = urllib3.request(method="GET",url=application_ref+f'/{usertype}/{userId}', headers=headers)
+        return eval(request_object.data.decode())
+

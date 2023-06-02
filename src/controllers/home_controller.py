@@ -125,4 +125,6 @@ def view_home(id):
     return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=tabs, host_data=host_data, location=location, errors=msg)
 
 
-
+@web_app.route('/host_views_home', methods =['GET', 'POST'])
+def host_views_home(id):
+    pass

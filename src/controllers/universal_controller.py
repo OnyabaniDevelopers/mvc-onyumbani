@@ -45,8 +45,9 @@ def index():
     tabs = {'log_status':'Sign In / Up', 'add_home':''}
     if 'loggedin' in session and session['loggedin'] == True:
         tabs = {'log_status': 'Log out'}
+        
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else 'Applications'
     
     all_homes = Homes.get_homes()
     
@@ -273,20 +274,4 @@ def review(type, id):
                 return redirect(url_for('view_home', id=id))
             #TODO: add else for student review (only for home owners)
     return redirect(url_for('view_home', id=id, errors='Failed to add comment'))       
-    
-@web_app.route('/view_application', methods =['GET', 'POST'])
-def view_application():
-    msg=""
-
-    # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
-    
-    if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
-
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
-    
-    all_homes = Homes.get_homes()
-    
-    return render_template('applications.html.j2', data=tabs, homes=all_homes, about_msg=msg)  
     

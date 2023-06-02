@@ -1,55 +1,11 @@
 {% extends "parent.html.j2" %}
 
-{% block head %}
-  <title>Payment</title>
-<head>
-  <title>Payment</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-{% endblock %}
 
 {% block style %}
 <style>
-body {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.horizontal-list {
-    list-style: none; /* Removes the default bullet points */
-    padding: 0; /* Removes any default padding */
-}
-.horizontal-list li {
-    display: inline-block; /* Displays the list items horizontally */
-    margin-right: 10px; /* Adds some space between the list items */
-}
-.navbar {
-    margin-bottom: 0;
-    border-radius: 0;
-    padding: 0px;
-}
-
-/* Hide the browser's default checkbox */
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: #F6F6F6;
-   color: black;
-   text-align: center;
-   padding: 0px;
-}
 
 #column-two{
-  background-color: #F6F6F6;
+  background-color: red;
 }
 
 #column-one {
@@ -85,10 +41,8 @@ body {
 {% endblock %}
 
 {% block content %}
-
-<div class="container-fluid">
     <div class="row">
-      <div class="col-md-7" id="column-one">
+      <div class="col-md-5" id="column-one">
         <div class="section-one">
             <pre style="font-family: 'Montserrat', sans-serif; font-size: 20px">
 <span style="color: #FF3062"><b>Pay: Ghc {{ price }}</b></span>
@@ -97,6 +51,7 @@ Pay via Ecobank
 Name: Ecobank
 Account Number: 14459303000404
 Account Name: O~Nyumbani
+Reference: Your name
             </pre>
         </div>
         <div class="section-two">
@@ -106,26 +61,18 @@ Pay via Momo
 Mobile Number: +233 246 379 202
 Mobile Name:  Onyumbani Housing
 Mobile Channel: MTN
+Reference: Your name
            </pre>
         </div> 
         <div class="section-three">
-            <button class="pink-button">Paid</button>
+            <button class="pink-button">Paid</button> 
             <a class="green-button">Cancel</a>
         </div>       
       </div>
       <div class="col-md-5" id="column-two">
-      <img src="/static/pics/biometric.png" height="600" alt="MDB Logo" loading="lazy">
+      <img src="/static/pics/biometric.png" height="600" alt="Logo" loading="lazy">
       </div>
     </div>
   </div>
-<div class="footer">
-  <div class="row">
-    <div class="col-md-7" style="background-color: white">
-    <p>© Copyright Nyumbani 2022</p>
-    </div>
-    <div class="col-md-5" style="background-color: #FF3062">
-    </div>
-  </div>
-</div>
     
 {% endblock %}

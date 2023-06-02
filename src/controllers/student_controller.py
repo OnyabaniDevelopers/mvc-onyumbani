@@ -76,6 +76,7 @@ def apply_housing(homeId):
     application_data['guests'] = {}
     application_data['applicant_email'] = session['email']
     application_data['owner_email'] = host_data['email']
+    application_data['status'] = 'Host Approval'
 
     guests_emails = []
     if request.form['guests'] != '0':
@@ -102,3 +103,38 @@ def apply_housing(homeId):
     
     else:
         return redirect(f'/view_home/{homeId}')
+        
+@web_app.route('/view_application', methods =['GET', 'POST'])
+def view_application():
+    msg=""
+
+    # change tab value for logout/login
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    applications=[]
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        
+        applications = Students.get_applications('student', session['userId'])
+    
+    all_homes = Homes.get_homes()
+    
+    states = ['Host approval', 'Make payment', 'Payment received', 'Ready to go']
+    
+    return render_template('applications.html.j2', data=tabs, homes=all_homes, about_msg=msg, applications=applications, states=states)  
+    
+@web_app.route('/make_payment/<price>')
+def make_payment(price):
+    msg=""
+    
+
+    # change tab value for logout/login
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    applications=[]
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        
+    return render_template('payment.html.j2',  data=tabs, price=price)

@@ -92,7 +92,7 @@
     <div class="row">
       <!-- Image Row -->
 
-      {% for home in homes %}
+      {% for home_key, home  in homes.items() %}
         <div class="home-box col-lg-3 col-md-4 col-sm-6 col-xs-12 homediv">
           <div class="thumbnail">
             <a href="/view_home/{{ home.get('homeId')}} " style="text-decoration: none">
