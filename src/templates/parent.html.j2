@@ -22,58 +22,64 @@
         <div>
             <nav class="navbar navbar-light bg-light fixed-top sticky-top" style="background-color: white">
               <div class="container-fluid">
-                {% if not log %}
-                    <a class="navbar-brand" href="{{ url_for('index') }}">
-                      <img
-                        src="{{ url_for('static', filename='pics/transparent1.png') }}"
-                        height="80"
-                        alt="Logo"
-                        loading="lazy"
-                      />
-                    </a>
-                {% endif %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                  {% if not log %}
+                      <a class="navbar-brand" href="{{ url_for('index') }}">
+                        <img
+                          src="{{ url_for('static', filename='pics/transparent1.png') }}"
+                          height="80"
+                          alt="Logo"
+                          loading="lazy"
+                        />
+                      </a>
+                  {% endif %}
+                </div>
                 
-                {% block nav %}			
-	        {% endblock %}
-            
-                <span class="navbar-text"> 
-                    {% if error_message %}
-                        <ul class="horizontal-list">
-                            <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="{{ url_for('end_process') }}">Cancel</a>
-                            </li>
-                        </ul>
-                    {% elif log %}
-                        <ul class="horizontal-list">
-                            <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" href="{{ url_for('index') }} ">Home</a>
-                            </li>
-                        </ul>
-                    {% else %}
-                        <ul class="horizontal-list">
-                            <li class="nav-item">
-                              <a class="nav-link" aria-current="page" href="{{ url_for('index') }}">Home</a>
-                            </li>
-                            {% if  data['add_home'] != "" %}
-                                <li class="nav-item">
-                                  <a class="nav-link" href="{{ url_for('add_home') }}">{{ data['add_home'] }}</a>
-                                </li>
-                            {% endif %}
-                            
-                            {% if  data['log_status'] == "Log out" %}
-                                <li class="nav-item">
-                                  <a class="nav-link" href="{{ url_for('view_profile') }}">Profile</a>
-                                </li>
-                            {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="{{ url_for('login') }}">{{ data['log_status'] }}</a>
-                            </li>
-                        </ul>
-                    {% endif %}
-                </span>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                  {% block nav %}			
+  	              {% endblock %}
+                </div>
+                
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                  <span class="navbar-text"> 
+                      {% if error_message %}
+                          <ul class="horizontal-list">
+                              <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ url_for('end_process') }}">Cancel</a>
+                              </li>
+                          </ul>
+                      {% elif log %}
+                          <ul class="horizontal-list">
+                              <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ url_for('index') }} ">Home</a>
+                              </li>
+                          </ul>
+                      {% else %}
+                          <ul class="horizontal-list">
+                              <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                              </li>
+                              {% if  data['add_home'] != "" %}
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('add_home') }}">{{ data['add_home'] }}</a>
+                                  </li>
+                              {% endif %}
+                              
+                              {% if  data['log_status'] == "Log out" %}
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('view_profile') }}">Profile</a>
+                                  </li>
+                              {% endif %}
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('login') }}">{{ data['log_status'] }}</a>
+                              </li>
+                          </ul>
+                      {% endif %}
+                  </span>
+                </div>
               </div>
             </nav>
             

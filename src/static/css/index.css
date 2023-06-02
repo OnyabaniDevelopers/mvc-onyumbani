@@ -37,14 +37,13 @@ a{
   
 }
 
-@media (max-width: 900px) { 
-  .navbar-brand{
-    margin: auto;
-  }
-  
-  .navbar-text{
-    margin: auto;
-  }
+.navbar-brand{
+  margin: auto;
+}
+
+.navbar-text{
+  margin: auto;
+  text-align: center;
 }
 
 li.nav-item .nav-link:hover{
@@ -151,7 +150,7 @@ li.nav-item a.active{
 }
 
 .custom-dropdown {
-  border: 2px solid #FF3062;
+  border: 2px solid #F5D662;
   padding: 10px;
   background-color: white;
   color: black;
@@ -460,23 +459,18 @@ input[type="text"], input[type="date"], input[type="email"] {
 
   /* The search field */
   #searchBox {
-    box-sizing: border-box;
-    background-position: 14px 12px;
-    background-repeat: no-repeat;
+    
     font-size: 16px;
-    padding: 14px 20px 12px 45px;
+    padding: 10px 30px;
     border: none;
-    border-bottom: 1px solid #ddd;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
   }
   
+  
   /* The search field when it gets focus/clicked on */
-  #searchBox:focus {outline: 3px solid #ddd;}
-
-  #searchBoxDiv {
-    margin: auto;
-    width: 30%;
-    padding: 10px;
-  }
+  #searchBox:focus {outline: 3px solid #F5D662;}
 
   .highlight {
     background-color: green;

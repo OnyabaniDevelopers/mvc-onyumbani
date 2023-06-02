@@ -4,47 +4,46 @@
 {% endblock %}
   
 {% block nav %}		
-  <span class="navbar-text">
-
-  <div class="dropdown custom-dropdown">
-        <a onclick="dropDownFunc()" class="" href="#">Select Filters</a>
-        <div id="filtersList" class="dropdown-content">
-          <form action="{{ url_for('index') }}">
-            <p>Location</p> 
-            <input type="text" name="location"  placeholder="Any">
-            <p>Maximum price</p> 
-            <input type="number" name="maxprice" placeholder="max">
-            <p>Availability</p> 
-            start<input type="date" name='startdate'>
-            <p></p>
-            end<input type="date" name='enddate'>
-            <p>Amenities</p> 
-            <span>Wifi<input type="checkbox" name="amenity1" value='wifi'></span><span>Electricity<input type="checkbox" name="amenity2" value='electricity' ></span>
-            <p></p>
-            <span>Gym<input type="checkbox" name="amenity3" value='gym'></span><span>Security<input type="checkbox" name="amenity4" value='security'></span>
-            <p></p>
-            <span>AirCon<input type="checkbox" name="amenity5" value='airconditioner'></span><span>Study room<input type="checkbox" name="amenity6" value='studyroom'></span>
-            <p></p>
-            <input type="submit" value="Apply Filters">
-          </form>
-        </div>
+  <div class="navbar-text col-sm-12">
+  <a href="{{ url_for('index' ) }}" style="color:#F5D662;">Clear Filters</a>
+    <div class="dropdown custom-dropdown">
+      <a onclick="dropDownFunc()" class="" href="#">Select Filters</a>
+      <div id="filtersList" class="dropdown-content">
+        <form action="{{ url_for('index') }}">
+          <p>Location</p> 
+          <input type="text" name="location"  placeholder="Any">
+          <p>Maximum price</p> 
+          <input type="number" name="maxprice" placeholder="max">
+          <p>Availability</p> 
+          start<input type="date" name='startdate'>
+          <p></p>
+          end<input type="date" name='enddate'>
+          <p>Amenities</p> 
+          <span>Wifi<input type="checkbox" name="amenity1" value='wifi'></span><span>Electricity<input type="checkbox" name="amenity2" value='electricity' ></span>
+          <p></p>
+          <span>Gym<input type="checkbox" name="amenity3" value='gym'></span><span>Security<input type="checkbox" name="amenity4" value='security'></span>
+          <p></p>
+          <span>AirCon<input type="checkbox" name="amenity5" value='airconditioner'></span><span>Study room<input type="checkbox" name="amenity6" value='studyroom'></span>
+          <p></p>
+          <input type="submit" value="Apply Filters">
+        </form>
       </div>
-   
-  </span>
+    </div>
+  </div>
  
 {% endblock %}
 
 {% block content %}
-
-<div id="searchBoxDiv">
-<a href="{{ url_for('index' ) }}">Clear Filters</a>
-   <input type="text" placeholder="Type keyword" id="searchBox" onkeyup="searchFunc()">
-   <p style='text-align:center; color:{{color}}'>{{msg}}</p>
-</div>
-
   
   <!-- section -->
   <div class="container-fluid">
+    <div class="col-sm-5"></div>
+    <div class="navbar-text col-sm-2">
+      <div id="searchBoxDiv" class=''>
+         <input type="text" placeholder="Type keyword" id="searchBox" class='form-control' onkeyup="searchFunc()">
+         <p style='text-align:center; color:{{color}}'>{{msg}}</p>
+      </div>
+    </div>
     <div class="row">
       <!-- Image Row -->
 
@@ -111,9 +110,6 @@ function searchFunc() {
 
     }
   }
-
-
-
 </script>
 
 {%endblock%}
