@@ -1,0 +1,68 @@
+{% extends "parent.html.j2" %}
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    .form-group {
+      margin-top: 40px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+      <div class="col-md-5" id="column-one">
+         <p style="color: #FF3062">{{msg}}</p>
+         <form action="{{ url_for('confirmpayment') }}" enctype="multipart/form-data" method="POST" class='row'>
+            <div class="form-group col-lg-6 col-md-12">
+                <label for="name">Name on Sender</label>
+                <div class="input-group">
+                <input type="text" class="form-control" name='paymentname' id="paymentname" placeholder="Enter your name">
+                </div>
+            </div>
+            <div class="form-group col-lg-6 col-md-12">
+                <label for="mode">Mode of Payment</label>
+                <div class="input-group">
+                <input type="text" class="form-control" name='mode' id="mode" placeholder="Enter your mode">
+                </div>
+            </div>
+            <div class="form-group col-lg-6 col-md-12">
+                <label for="reference">Transaction ID</label>
+                <div class="input-group">
+                <input type="text" class="form-control" name='transaction' id="transaction" placeholder="Enter transaction ID">
+                </div>
+            </div>
+            <div class="form-group col-lg-6 col-md-12">
+                <label for="reference">Payment Amount</label>
+                <div class="input-group">
+                <input type="text" class="form-control" name='amount' id="reference" placeholder="Enter amount">
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="input-group">
+                  <span style="margin-right: 10px;">Submit Proof here</span>
+                  <span class="input-group-btn">
+                    <span class="">
+                      <span class="fa fa-upload"></span>
+                      <input type="file" id="files" name='paymentimg' accept="image/png, image/jpeg, image/gif"/>
+                    </span>
+                  </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <button type='submit' class="pink-button">Confirm</button>
+                     <a style='color:white' class="green-button" href="{{ url_for('view_application') }}">Cancel</a>    
+                </div>
+            </div> 
+        </form>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-5" id="column-two" style="background-color: #203644;">
+        <img src="{{ url_for('static', filename='pics/image2.png') }}" height="400" alt="MDB Logo" loading="lazy" style="position: fixed;">
+      </div>
+    </div>
+{% endblock %}

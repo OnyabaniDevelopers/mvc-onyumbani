@@ -1,53 +1,14 @@
 {% extends "parent.html.j2" %}
 
 
-{% block style %}
-<style>
-
-#column-two{
-  background-color: red;
-}
-
-#column-one {
-  padding-left: 10%;
-  padding-top: 2%;
-}
-.pink-button {
-      background-color: #FF3062;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-      margin-right: 5%;
-    }
-.green-button {
-    background-color: #3DB249;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-}
-</style>
-{% endblock %}
-
 {% block content %}
     <div class="row">
-      <div class="col-md-5" id="column-one">
+      <div class="col-md-6" id="column-one">
         <div class="section-one">
-            <pre style="font-family: 'Montserrat', sans-serif; font-size: 20px">
+            <pre style="font-family: 'Montserrat', sans-serif; font-size: 18px">
 <span style="color: #FF3062"><b>Pay: Ghc {{ price }}</b></span>
 ___________________________
-Pay via Ecobank
+Pay via Bank
 Name: Ecobank
 Account Number: 14459303000404
 Account Name: O~Nyumbani
@@ -55,24 +16,22 @@ Reference: Your name
             </pre>
         </div>
         <div class="section-two">
-            <pre style="font-family: 'Montserrat', sans-serif; font-size: 20px">
+            <pre style="font-family: 'Montserrat', sans-serif; font-size: 18px">
 ___________________________
-Pay via Momo
+Pay via MTN Momo
+Mobile Channel: MTN
 Mobile Number: +233 246 379 202
 Mobile Name:  Onyumbani Housing
-Mobile Channel: MTN
 Reference: Your name
            </pre>
         </div> 
         <div class="section-three">
-            <button class="pink-button">Paid</button> 
-            <a class="green-button">Cancel</a>
+          <a style='color:white' class="pink-button" href="{{ url_for('confirmpayment') }}">Paid?</a>
+          <a style='color:white' class="green-button" href="{{ url_for('view_application') }}">Cancel</a>
         </div>       
       </div>
-      <div class="col-md-5" id="column-two">
-      <img src="/static/pics/biometric.png" height="600" alt="Logo" loading="lazy">
+      <div class="col-md-5" id="column-two"  style='background-color: #203644;'>
+        <img src="{{ url_for('static', filename='pics/biometric.png') }}" height="600" alt="Logo" loading="lazy">
       </div>
     </div>
-  </div>
-    
 {% endblock %}

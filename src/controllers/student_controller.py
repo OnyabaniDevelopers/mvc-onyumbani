@@ -31,9 +31,7 @@ def reserve_room(homeid, price):
     home_data = Homes.get_home(homeid)
     if request.method == 'POST' and request.form['numrooms'] and request.form['checkin']\
         and request.form['checkout'] and request.files['schoolrefimg']:
-
         
-
         # check number of rooms
         if int(home_data['numrooms']) < int(request.form['numrooms']):
             error_messages = "Required number of rooms is not available\n"
@@ -124,7 +122,7 @@ def view_application():
     
     return render_template('applications.html.j2', data=tabs, homes=all_homes, about_msg=msg, applications=applications, states=states)  
     
-@web_app.route('/make_payment/<price>')
+@web_app.route('/make_payment/<price>', methods =['GET', 'POST'])
 def make_payment(price):
     msg=""
     
@@ -138,3 +136,29 @@ def make_payment(price):
         tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
         
     return render_template('payment.html.j2',  data=tabs, price=price)
+    
+@web_app.route('/confirmpayment', methods =['GET', 'POST'])
+def confirmpayment():
+    msg=" "
+
+    # change tab value for logout/login
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    applications=[]
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        
+        if request.method == 'POST' and request.form['paymentname'] and request.form['mode']\
+            and request.form['transaction']  and request.form['amount'] and request.files['paymentimg']:
+            pass
+            
+        elif request.method == 'POST':
+            msg = "*Sorry, some required fields are missing, re-enter information"
+            
+        return render_template('payment1.html.j2', data=tabs, msg=msg)  
+        
+    else:
+        msg = "Please Log in first"
+        return redirect(url_for('login', log=msg))
+  
