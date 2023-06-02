@@ -5,27 +5,73 @@
   
 {% block nav %}		
   <div class="navbar-text col-sm-12">
-  <a href="{{ url_for('index' ) }}" style="color:#F5D662;">Clear Filters</a>
+    <a href="{{ url_for('index' ) }}" style="color:#708D81;">Clear Filters</a>
     <div class="dropdown custom-dropdown">
       <a onclick="dropDownFunc()" class="" href="#">Select Filters</a>
       <div id="filtersList" class="dropdown-content">
         <form action="{{ url_for('index') }}">
-          <p>Location</p> 
-          <input type="text" name="location"  placeholder="Any">
-          <p>Maximum price</p> 
-          <input type="number" name="maxprice" placeholder="max">
-          <p>Availability</p> 
-          start<input type="date" name='startdate'>
-          <p></p>
-          end<input type="date" name='enddate'>
-          <p>Amenities</p> 
-          <span>Wifi<input type="checkbox" name="amenity1" value='wifi'></span><span>Electricity<input type="checkbox" name="amenity2" value='electricity' ></span>
-          <p></p>
-          <span>Gym<input type="checkbox" name="amenity3" value='gym'></span><span>Security<input type="checkbox" name="amenity4" value='security'></span>
-          <p></p>
-          <span>AirCon<input type="checkbox" name="amenity5" value='airconditioner'></span><span>Study room<input type="checkbox" name="amenity6" value='studyroom'></span>
-          <p></p>
-          <input type="submit" value="Apply Filters">
+          <div class="row">
+            <h5>Location</h5> 
+            <span class=''><input type="text" name="location"  placeholder="Any" class='form-control'></span>
+          </div>
+          <div class="row">
+            <h5>Maximum price</h5> 
+            <span class=''><input type="number" name="maxprice" placeholder="max" class='form-control'></span>
+          </div>
+          <div class="row">
+            <h5>Availability</h5> 
+            <span class=''>start<input type="date" name='startdate' class='form-control'></span>
+            <span class=''>end<input type="date" name='enddate' class='form-control'></span>
+          </div>  
+          <div class="row">
+            <h5>Amenities</h5>
+            <div class="row" style='text-align: left;'>
+              <div class="col-5">
+                  <div class="col-12">
+                      <input type="checkbox" id="checkbox" value="wifi" name="amenity1"/>  
+                      <span style="margin-left: 4%"><label for="checkbox">Wifi</label> </span>
+                  </div>
+              </div>
+  
+              <div class="col-7">
+                  <div class="col-12">
+                      <input type="checkbox" id="checkbox" value="electricity" name="amenity2"/>
+                      <span style="margin-left: 4%"><label for="checkbox">Electricity</label> </span>                                        
+                  </div>
+              </div>
+  
+              <div class="col-5">
+                  <div class="col-12">
+                      <input type="checkbox" id="checkbox" value="gym" name="amenity3"/>  
+                      <span style="margin-left: 4%"><label for="checkbox">Gym</label> </span>                                                                                                           
+                  </div>
+              </div>
+              
+              <div class="col-7">
+                  <div class="col-12">
+                      <input type="checkbox" id="checkbox" value="security" name="amenity4"/>  
+                      <span style="margin-left: 4%"><label for="checkbox">Security</label></span>                                                                                                            
+                  </div>
+              </div>
+  
+              <div class="col-5">
+                  <div class="col-12">
+                      <input type="checkbox"id="checkbox" value="airconditioner" name="amenity5"/> 
+                      <span style="margin-left: 4%"><label for="checkbox">AC</label> </span>                                                                                                            
+                  </div>
+              </div>
+  
+              <div class="col-7">
+                  <div class="col-12">
+                      <input type="checkbox" id="checkbox" value="studyroom" name="amenity6"/>
+                      <span style="margin-left: 4%"><label for="checkbox">St. Room</label> </span>                                                                                                            
+                  </div>
+              </div>
+            </div>
+          </div>  
+          <div class="col-12" id="btn">
+                <button class="submit-button" style='margin:0'>Apply Filters</button>
+          </div>
         </form>
       </div>
     </div>
@@ -71,6 +117,7 @@
 function dropDownFunc() {
     document.getElementById("filtersList").classList.toggle("show");
   }
+  
 </script>
 
 <script>
