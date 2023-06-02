@@ -1,0 +1,56 @@
+{% extends "parent.html.j2" %}
+
+{% block content %}
+    <div id="main-body" class="row">
+        <div class="row home-tabb">
+            <div class="col-lg-3 col-sm-12">
+                <a href="" class="">
+                    <div class="home-image">
+                        <img src="{{ url_for('static', filename='homes/05.jpg') }}" height="70%" width="70%"/>         
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 desc">
+                Marrets Place <br>
+                Airport, Valley<br>
+                Ghc 340 / month<br>
+            </div>
+            <div class="col-lg-7 col-sm-12 desc">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <p>Host approval</p>
+                            </div>  
+                            <div class="col-sm-1">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div> 
+                            <div class="col-sm-2">
+                                <a href="" class=""><p>Made payment</p></a>
+                            </div>  
+                            <div class="col-sm-1">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div> 
+                            <div class="col-sm-2">
+                                <p>Payment received</p>
+                            </div>  
+                            <div class="col-sm-1">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div> 
+                            <div class="col-sm-2">
+                                <p>Ready to go</p>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <a class="submit-button" href="{{ url_for('index') }}" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none; margin-top: 0">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
