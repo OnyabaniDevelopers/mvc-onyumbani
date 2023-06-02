@@ -3,6 +3,7 @@ from src import web_app
 from flask import render_template, redirect, url_for, request, session
 from src.controllers.helper_functions import encrypt_num, get_dates_between, get_geocode
 from src.models.Hosts import Hosts
+from src.models.Reviews import Reviews
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
@@ -75,7 +76,7 @@ def add_room():
 
 @web_app.route('/view_home/<id>', methods =['GET', 'POST'])
 def view_home(id):
-    session['currentpage'] = f'/view_room/{id}'
+    # session['currentpage'] = url_for('view_home', id=id)
     
     msg=''
     
@@ -115,7 +116,13 @@ def view_home(id):
     if location == None:
         location = get_geocode(city_country)
 
-    return render_template('individualhome.html.j2', home_data=home_data, data=tabs, host_data=host_data, location=location, errors=msg)
+    
+    #load reviews
+    response = Reviews.get_reviews(id, 'home')
+ 
+    reviews = response[0] if response[1] == 200 else []
+
+    return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=tabs, host_data=host_data, location=location, errors=msg)
 
 
 
