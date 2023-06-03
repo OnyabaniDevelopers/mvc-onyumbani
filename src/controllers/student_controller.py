@@ -139,7 +139,7 @@ def make_payment(price):
     
 @web_app.route('/confirmpayment', methods =['GET', 'POST'])
 def confirmpayment():
-    msg=" "
+    msg="   "
 
     # change tab value for logout/login
     tabs = {'log_status':'Log in / Sign up', 'add_home':''}
