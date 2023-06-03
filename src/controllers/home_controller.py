@@ -10,6 +10,28 @@ from src.utils.session_processing import SessionProcessing
 
 from src.models.Homes import Homes
 
+@web_app.route('/view_listed', methods =['GET', 'POST'])
+def view_listed():
+
+    msg = ''
+    color = ''
+    all_homes = Homes.get_homes()
+
+    user_homes = {}
+
+    
+    # change tab value for logout/login
+    tabs = {'log_status':'Sign In / Up', 'add_home':''}
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else 'Applications'
+
+        for home_key, home  in all_homes.items():
+            if home['userId'] == session['userId']:
+                user_homes[home_key] = home
+    return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes)
+
+
 @web_app.route('/add_home', methods =['GET', 'POST'])
 def add_home():
     msg=' '
