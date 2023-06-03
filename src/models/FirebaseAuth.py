@@ -34,9 +34,12 @@ class Authentication:
 
     @staticmethod
     def get_user_info(email):
-        headers = {"content-type": "application/json; charset=UTF-8"}
-        request_object = urllib3.request(method="GET",url=request_ref+f"/{email}", headers=headers)
-        return eval(request_object.data.decode())
+        try:
+            headers = {"content-type": "application/json; charset=UTF-8"}
+            request_object = urllib3.request(method="GET",url=request_ref+f"/{email}", headers=headers)
+            return eval(request_object.data.decode())
+        except:
+            return 404
 
     @staticmethod
     def delete_user(uid):

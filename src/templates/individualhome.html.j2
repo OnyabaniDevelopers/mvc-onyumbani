@@ -68,7 +68,7 @@
               {% endfor %}
             </div>
             <div><p><b>Location: </b> {{home_data['homeaddress']}}, {{home_data['city']}}, {{home_data['country']}}</p></div>
-            <div id="map" style="height: 200px; width: 100%;">
+            <div id="map" style="height: 400px; width: 100%;">
                 
             </div>
 
@@ -104,16 +104,20 @@
 
     {% if  data['log_status'] == "Log out" %}
         
-    <form action="/review/home/{{home_data['homeId']}}" method='POST'>
-        <textarea type="text" name="reviewmessage" rows="2"></textarea>
-        <p></p>
-        Rating <select name='rating'>                                                      
+    <form action="/review/home/{{home_data['homeId']}}" method='POST' class='row'>
+      <div class='col-sm-4'>
+        <textarea type="text" name="reviewmessage" rows="3" cols='20'></textarea>
+      </div>
+      <div class='col-sm-2'>
+        Rating <select name='rating' class='form-control'>                                                      
           {% for i in range(1,6) %}
               <option name="rating" value="{{i}}">{{i}}</option> 
           {% endfor %}
         </select>
-        <p></p>   
-        <input type="submit" name='review-submit' id='submit' value="POST">
+      </div>
+      <div class='col-sm-2'>  
+        <input type="submit" class='submit-button' name='review-submit' id='submit' value="POST">
+      </div>
     </form>
 
     {% endif %}
