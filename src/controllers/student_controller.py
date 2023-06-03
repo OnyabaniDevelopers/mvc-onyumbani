@@ -114,7 +114,7 @@ def apply_housing(id_room_dates):
 
     if response == 200:
 
-        return render_template('applicationdone.html.j2')
+        return redirect(url_for('view_application'))
     
     else:
         return redirect(f'/view_home/{homeId}')
