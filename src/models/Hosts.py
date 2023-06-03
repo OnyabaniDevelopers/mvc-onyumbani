@@ -44,5 +44,5 @@ class Hosts:
         
         headers = {"content-type": "application/json; charset=UTF-8"}
         data = json.dumps(data)
-        request_object = urllib3.request(method="PUT",url=request_ref+f'/{app_id}', headers=headers, body=data)
+        request_object = urllib3.request(method="PUT",url=application_ref+f'/{app_id}', headers=headers, body=data)
         return request_object.status

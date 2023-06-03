@@ -17,7 +17,7 @@ def view_listed():
     msg = ''
     color = ''
     all_homes = Homes.get_homes()
-    applications = []
+    user_applications = {}
 
     user_homes = {}
 
@@ -34,7 +34,28 @@ def view_listed():
 
         applications = Students.get_applications('owner', session['userId'])
 
-    return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes, applications=applications)
+        for application in applications:
+            user_applications[application['appId']] = application
+        
+        if request.method == 'GET' and 'change' in request.args and 'id' in request.args:
+            print(request.args['change'])
+            appId = request.args['id']
+            if request.args['change'] == 'disapprove':
+                Hosts.update_application({'status':'disapproved'}, appId)
+            elif request.args['change'] == 'approve':
+                Hosts.update_application({'status':'Make payment'}, appId)
+
+            applications = Students.get_applications('owner', session['userId'])
+
+            for application in applications:
+                user_applications[application['appId']] = application
+
+            return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes, applications=user_applications)
+
+
+    
+
+    return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes, applications=user_applications)
 
 
 @web_app.route('/add_home', methods =['GET', 'POST'])

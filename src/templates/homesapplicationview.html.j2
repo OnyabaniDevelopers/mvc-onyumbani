@@ -114,7 +114,7 @@
             <div class="col-md-12">
                 <p style="text-align: center;">HOUSING APPLICATIONS</p>
 
-                {% for application in applications %}
+                {% for appId, application in applications.items() %}
                 <div class="row">
                     <div class="col-md-5 rounded-rectangle">
                         <div class="row">
@@ -129,10 +129,13 @@
                                 <small>Contact: {{application['studentcontact']}}</small>
                                 <small>Email: {{application['applicant_email']}}</small>
                                 <a href="/view_profile/student/{{ application['studentId'] }}"><small>show more</small></a>
+
+                                {%if application['status'] == 'Host approval'%}
                                 <div class="d-flex justify-content-md-end justify-content-center">
-                                    <button type="button" class="btn btn-danger" style="margin-right: 10%">disapprove</button>
-                                    <button type="button" class="btn btn-success">approve</button>
+                                    <a href="/view_listed?change=disapprove&id={{appId}}" class="btn btn-danger" style="margin-right: 10%">disapprove</a>
+                                    <a href="/view_listed?change=approve&id={{appId}}"" class="btn btn-success">approve</a>
                                 </div>
+                                {%endif%}
                             </div>
                             <div class="col-md-3">
                                 <p>Home</p>
