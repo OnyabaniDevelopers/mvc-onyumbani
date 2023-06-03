@@ -16,16 +16,16 @@
             <div class="col-lg-2 col-sm-12 desc">
                 {{ homes[application['homeId']]['homename'] }} <br>
                 {{homes[application['homeId']]['homeaddress']}}<br>
-                Ghc {{homes[application['homeId']]['roomprice']}} / month<br>
+                Ghc {{application['roomprice']}}<br>
             </div>
             <div class="col-lg-7 col-sm-12 desc">
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="row">
-                            {% for state in states %}
+                            {% for state in application['states'] %}
                                 {% if state == application['status'] and  state == 'Make payment'%}
                                     <div class="col-sm-2">
-                                        <a href="/make_payment/{{homes[application['homeId']]['roomprice']}}" class=""><p>Make payment</p></a>
+                                        <a href="/make_payment/{{application['roomprice']}}" class=""><p>Make payment</p></a>
                                     </div>  
                                     <div class="col-sm-1">
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -54,12 +54,15 @@
                                     </div> 
                                 {% endif %}
                             {% endfor %}
+
+                            <p style="color:red;">{{msg}}</p>
                         </div>
+
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <div class="input-group">
-                                <a class="submit-button" href="{{ url_for('index') }}" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none; margin-top: 0">Cancel</a>
+                                <a class="submit-button" href="/delete_application/{{application['appId']}}" style="background-color: #FF3062; color: white; text-align: center; text-decoration: none; margin-top: 0">Delete</a>
                             </div>
                         </div>
                     </div>
