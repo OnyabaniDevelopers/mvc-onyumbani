@@ -66,28 +66,28 @@ def index():
               or ('enddate' in request.args and request.args['enddate'])\
                 or len(amenities) != 0:
         
-        filtered_homes = []
-        for home in all_homes:
+        filtered_homes = {}
+        for home_key, home in all_homes.items():
 
             #check amenities
             if len(amenities):
                 if check_availability(amenities, home['amenities']):
-                    filtered_homes.append(home)
+                    filtered_homes[home_key] = home
 
             #check location filter
             if request.args['location'] and home['city'] == request.args['location']:
-                filtered_homes.append(home)
+                filtered_homes[home_key] = home
 
             # check price filter
             if request.args['maxprice'] and int(request.args['maxprice']) >= int(home['roomprice']):
-                filtered_homes.append(home)
+                filtered_homes[home_key] = home
             
             # check availability filter 
             if request.args['startdate'] and request.args['enddate']: 
                 available_dates = get_dates_between(home['initdate'], home['enddate'])
                 required_dates = get_dates_between(request.args['startdate'], request.args['enddate'])
                 if check_availability(required_dates, available_dates):
-                    filtered_homes.append(home)
+                    filtered_homes[home_key] = home
             
         return render_template('index.html.j2', msg=msg, color=color, data=tabs, homes=filtered_homes)
 
