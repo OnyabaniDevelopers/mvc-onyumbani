@@ -42,11 +42,12 @@ def index():
     color = ''
 
     # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    tabs = {'log_status':'Sign In / Up', 'add_home':''}
     if 'loggedin' in session and session['loggedin'] == True:
         tabs = {'log_status': 'Log out'}
+        
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else 'Applications'
     
     all_homes = Homes.get_homes()
     
@@ -96,7 +97,7 @@ def index():
 def view_profile():
     log = ' '
     color = ' '
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    tabs = {'log_status':'Sign In / Up', 'add_home':''}
     profile_data = {}
     if 'loggedin' in session and session['loggedin'] == True:
         tabs = {'log_status': 'Log out'}
@@ -125,7 +126,7 @@ def view_profile():
 # endpoint to view otheer users profile e.g student viewing owner or owner viewing student
 @web_app.route('/view_profile/<usertype>/<userId>')
 def view_profile_all(userId, usertype):
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    tabs = {'log_status':'Sign In / Up', 'add_home':''}
     profile_data = {}
     if 'loggedin' in session and session['loggedin'] == True:
         tabs = {'log_status': 'Log out'}
@@ -273,12 +274,4 @@ def review(type, id):
                 return redirect(url_for('view_home', id=id))
             #TODO: add else for student review (only for home owners)
     return redirect(url_for('view_home', id=id, errors='Failed to add comment'))       
-    
-    
-
-
-
-
-
-    
     

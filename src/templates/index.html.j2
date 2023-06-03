@@ -4,7 +4,7 @@
 {% endblock %}
   
 {% block nav %}		
-  <div class="navbar-text col-sm-12">
+  <div class="navbar-text rmdrop col-sm-12">
     <a href="{{ url_for('index' ) }}" style="color:#708D81;">Clear Filters</a>
     <div class="dropdown custom-dropdown">
       <a onclick="dropDownFunc()" class="" href="#">Select Filters</a>
@@ -83,7 +83,6 @@
   
   <!-- section -->
   <div class="container-fluid">
-    <div class="col-sm-5"></div>
     <div class="navbar-text col-sm-2">
       <div id="searchBoxDiv" class=''>
          <input type="text" placeholder="Type keyword" id="searchBox" class='form-control' onkeyup="searchFunc()">
@@ -93,7 +92,7 @@
     <div class="row">
       <!-- Image Row -->
 
-      {% for home in homes %}
+      {% for home_key, home  in homes.items() %}
         <div class="home-box col-lg-3 col-md-4 col-sm-6 col-xs-12 homediv">
           <div class="thumbnail">
             <a href="/view_home/{{ home.get('homeId')}} " style="text-decoration: none">
@@ -114,10 +113,10 @@
 
 {%block script%}
 <script>
-function dropDownFunc() {
+  function dropDownFunc() {
     document.getElementById("filtersList").classList.toggle("show");
-  }
-  
+  };
+ 
 </script>
 
 <script>

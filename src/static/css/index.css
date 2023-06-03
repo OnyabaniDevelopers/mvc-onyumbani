@@ -185,12 +185,12 @@ li.nav-item a.active{
 #main-body .home-tabb{
   border: 1px solid black;
   border-radius: 20px;
-  background-color: #D9D9D9;
-  margin: 20px 4%;
+  background-color: white;
+  margin-top: 20px;
 }
 
 .home-image{
-  margin: 20px auto;
+  margin: 14px auto;
   border-radius: 20px;
 }
 
@@ -203,7 +203,7 @@ li.nav-item a.active{
   text-align: center;
   margin-top: 10px;
   font-size: 15px;
-  line-height: 5px;
+  line-height: 15px;
 }
 
 .far-right .fa-solid{
@@ -462,6 +462,8 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
+.dshow {display:none;}
+
   /* The search field */
   #searchBox { 
     font-size: 16px;
@@ -481,3 +483,8 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
   }
 
 
+/* applications */
+.home-tabb .desc{
+  display: flex;
+  align-items: center;
+}

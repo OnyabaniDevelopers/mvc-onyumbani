@@ -2,6 +2,8 @@ import urllib3
 from src.models.constants import BASE_URL
 import json
 request_ref = BASE_URL + '/owners'
+application_ref = BASE_URL + '/applications'
+
 class Hosts:
 
     def __init__():
@@ -35,4 +37,12 @@ class Hosts:
 
         headers = {"content-type": "application/json; charset=UTF-8"}
         request_object = urllib3.request(method="DELETE",url=request_ref+f'/{email}/{owner_id}', headers=headers)
+        return request_object.status
+    
+    @staticmethod
+    def update_application(data, app_id):
+        
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        data = json.dumps(data)
+        request_object = urllib3.request(method="PUT",url=request_ref+f'/{app_id}', headers=headers, body=data)
         return request_object.status
