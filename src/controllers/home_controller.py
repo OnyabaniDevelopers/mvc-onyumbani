@@ -4,6 +4,7 @@ from flask import render_template, redirect, url_for, request, session
 from src.controllers.helper_functions import encrypt_num, get_dates_between, get_geocode
 from src.models.Hosts import Hosts
 from src.models.Reviews import Reviews
+from src.models.Students import Students
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
@@ -16,6 +17,7 @@ def view_listed():
     msg = ''
     color = ''
     all_homes = Homes.get_homes()
+    applications = []
 
     user_homes = {}
 
@@ -29,7 +31,10 @@ def view_listed():
         for home_key, home  in all_homes.items():
             if home['userId'] == session['userId']:
                 user_homes[home_key] = home
-    return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes)
+
+        applications = Students.get_applications('owner', session['userId'])
+
+    return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes, applications=applications)
 
 
 @web_app.route('/add_home', methods =['GET', 'POST'])

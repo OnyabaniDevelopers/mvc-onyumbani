@@ -73,6 +73,8 @@ def apply_housing(id_room_dates):
 
     host_data = Hosts.get_host(session['ownerId'])
 
+    profile_data = Students.get_student(session['userId'])
+
     num_days = len(get_dates_between(init_date, end_date))
     stay_price = round((int(price)/30)*num_days, 2)
 
@@ -92,6 +94,8 @@ def apply_housing(id_room_dates):
     application_data['initdate'] = init_date
     application_data['enddate'] = end_date
     application_data['roomprice'] = stay_price
+    application_data['studentname'] = f"{profile_data['firstname']} {profile_data['firstname']}"
+    application_data['studentcontact'] = profile_data['phonenumber']
 
     guests_emails = []
     if request.form['guests'] != '0':
