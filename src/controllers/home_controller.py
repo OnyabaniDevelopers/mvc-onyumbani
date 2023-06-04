@@ -103,7 +103,7 @@ def add_room():
         home_data = {}
         for record_key, record_value in session.items():
 
-            if record_key in ['loggedin', 'usertype']:
+            if record_key in ['loggedin', 'usertype', '_permanent']:
                 continue
 
             home_data[record_key] = record_value
@@ -114,7 +114,7 @@ def add_room():
 
         if response == 200:
             message = 'Home added successfully'
-            return redirect(url_for('index', error_message=msg))
+            return redirect(url_for('view_listed', error_message=msg))
         else:
             SessionProcessing.clear_session_images(images)
     elif request.method == 'POST':
@@ -195,5 +195,29 @@ def edithome():
         return render_template('edithome.html.j2', data=tabs, msg=msg)  
         
     else:
+        msg = "Please Log in first"
+        return redirect(url_for('login', log=msg))
+    
+@web_app.route('/delete_home/<homeId>/<ownerId>', methods =['GET'])
+def delete_home(homeId, ownerId):
+    msg = ' '
+    
+    if 'loggedin' in session and session['loggedin'] == True:
+            
+            applications = Students.get_applications('owner', ownerId)
+
+            response = Homes.delete_home(homeId)
+                
+            if response == 200:
+                msg='Delete successful'
+                for application in applications:
+                    if application['homeId'] == homeId:
+                        Students.delete_application(application['appId'])
+                return redirect(url_for('view_listed', log=msg))
+         
+            msg='Failed to delete'
+            return redirect(url_for('view_listed', log=msg, color='#FF3062'))
+        
+    else:      
         msg = "Please Log in first"
         return redirect(url_for('login', log=msg))

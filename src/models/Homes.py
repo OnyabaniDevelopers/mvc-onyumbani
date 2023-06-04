@@ -31,3 +31,17 @@ class Homes:
         request_object = urllib3.request(method="GET",url=request_ref+f'/{home_id}', headers=headers)
         return eval(request_object.data.decode())
     
+    @staticmethod
+    def delete_home(home_id):
+
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        request_object = urllib3.request(method="DELETE",url=request_ref+f'/{home_id}', headers=headers)
+        return request_object.status
+    
+    @staticmethod
+    def update_home(update_data, home_id):
+        
+        headers = {"content-type": "application/json; charset=UTF-8"}
+        data = json.dumps(update_data)
+        request_object = urllib3.request(method="PUT",url=request_ref+f'/{home_id}', headers=headers, body=data)
+        return request_object.status

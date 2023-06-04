@@ -10,7 +10,7 @@ from flask_socketio import SocketIO
 web_app = Flask("src")
 web_app.config["SESSION_PERMANENT"] = False
 web_app.config["SESSION_TYPE"] = "filesystem"
-web_app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=15)
+web_app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=45)
 
 Session(web_app)
 web_app.config['SECRET_KEY'] = 'onyumbani'
