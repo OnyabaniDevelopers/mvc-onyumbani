@@ -62,7 +62,7 @@ def confirm_payment(appId, paymentId):
     if 'loggedin' in session and session['loggedin'] == True:
 
         all_homes = Homes.get_homes()
-        application = Students.get_application(appId)
+        application = Students.get_application(appId)[0]
         home = all_homes[application['homeId']]
         room_taken_info = ""
 
