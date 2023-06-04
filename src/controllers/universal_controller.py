@@ -148,7 +148,7 @@ def view_profile_all(userId, usertype):
 @web_app.route('/about', methods=['GET', 'POST'])
 def about():
     '''About page controller'''
-    msg=""
+    msg=" "
 
     # change tab value for logout/login
     data = {'log_status':'Sign In / Up', 'usertype':''}
@@ -157,17 +157,22 @@ def about():
 
         data['usertype'] = session['usertype']
     
-    all_homes = Homes.get_homes()
+        # all_homes = Homes.get_homes()
 
-    if request.method == 'POST' and request.form['senderemail'] and request.form['sendername']\
-    and request.form['message']:
-        message =  f"Your message: \t{request.form['message']} \n\nThank you for your message, customer service will get back to you soon"
-        EmailNotifier.send_email(request.form['senderemail'], message, request.form['sendername'])
-        msg="Message was sent successfully"
+        if request.method == 'POST' and request.form['senderemail'] and request.form['sendername']\
+        and request.form['message']:
+            message =  f"Your message: \t{request.form['message']} \n\nThank you for your message, customer service will get back to you soon"
+            EmailNotifier.send_email(request.form['senderemail'], message, request.form['sendername'])
+            msg="Message was sent successfully"
+            
+            return render_template('about.html.j2', data=data, color='green', about_msg=msg)
+            
+        if request.method == 'POST':
+            msg="*Sorry, some required information are missing"
+            
+    elif request.method == 'POST':
+        msg = "Please Log in first"
         
-        return render_template('about.html.j2', data=data, homes=all_homes, about_msg=msg)
-
-    return render_template('about.html.j2', data=data, homes=all_homes, about_msg=msg)
 
     
 @web_app.route('/updateprofile', methods =['GET','POST'])
