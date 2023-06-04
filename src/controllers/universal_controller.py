@@ -172,6 +172,8 @@ def about():
             
     elif request.method == 'POST':
         msg = "Please Log in first"
+    
+    return render_template('about.html.j2', data=data, color='green', about_msg=msg)
         
 
     

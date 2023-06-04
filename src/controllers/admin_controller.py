@@ -54,3 +54,37 @@ def cancel_payment(appId, paymentId):
     else:      
         msg = "Please Log in first"
         return redirect(url_for('login', log=msg))
+
+@web_app.route('/confirm_payment/<appId>/<paymentId>', methods =['GET'])
+def confirm_payment(appId, paymentId):
+    msg = ' '
+    
+    if 'loggedin' in session and session['loggedin'] == True:
+
+        all_homes = Homes.get_homes()
+        application = Students.get_application(appId)
+        home = all_homes[application['homeId']]
+        room_taken_info = ""
+
+        if int(home['numrooms']) < int(application['numrooms']):
+            room_taken_info += "The room(s) required are not available<br>"
+        
+        available_dates = home['dateslist']
+        required_dates = get_dates_between(application['initdate'], application['enddate'])
+        if not check_availability(required_dates, available_dates):
+            room_taken_info += "The time period you want to stay is not available<br>"
+                
+        if not room_taken_info:
+            Hosts.update_application({'status':'Ready to go'}, appId)
+            home['numrooms'] = int(home['numrooms']) - int(application['numrooms'])
+            home['dateslist'] = [dt for dt in available_dates if dt not in required_dates]
+            Homes.update_home(home, application['homeId'])
+            msg='Payment confirmed successful'
+            return redirect(url_for('adminview', log=msg))
+         
+        msg=room_taken_info + 'Failed to confirm payment, try later'
+        return redirect(url_for('adminview', log=msg, color='#FF3062'))
+        
+    else:      
+        msg = "Please Log in first"
+        return redirect(url_for('login', log=msg))
