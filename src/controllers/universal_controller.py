@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import time
 from src import web_app, socketio
 from flask import render_template, redirect, url_for, request, session
@@ -266,7 +266,7 @@ def review(type, id):
     if request.method == 'POST' and request.form['rating'] and request.form['reviewmessage']:
 
         review_data = {}
-        review_data['dateposted'] = str(date.today())
+        review_data['dateposted'] = str(datetime.now().strftime("%Y-%m-%d, %H:%M:%S"))
         review_data['rating'] = int(request.form['rating'])
         review_data['reviewmessage'] = request.form['reviewmessage']
         review_data['email'] = session['email']
