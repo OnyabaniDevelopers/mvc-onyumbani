@@ -15,7 +15,7 @@
 <div style="margin-top: 3%;">
     <p style='text-align:center; color:#FF3062'> {{log}} </p>
     <div class="row">
-      <form action="" method="POST" >
+      <form action="{{url_for('edithome', id=homeId)}}" method="POST" >
         <div class="col-md-12">
             <div class="container-fluid" id="atn">
                 <div class="row">
@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <label for="name">Name of home</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="">
+                                        <input type="text" class="form-control" id="name" name="homename" value="{{home_data['homename']}}">
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label for="numroom">Number of rooms</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="numroom" name="numroom" placeholder="">
+                                        <input type="number" class="form-control" id="numroom" name="numrooms" value="{{home_data['numrooms']}}">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="numpeople">Number of people in the house</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="numpeople" name="numpeople" placeholder="">
+                                        <input type="text" class="form-control" id="numpeople" name="numpeople" value="{{home_data['numpeople']}}">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,15 @@
                                 <div class="form-group">
                                     <label for="amenities">New amenities</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="amenities" name="amenities" placeholder="">
+                                        <input type="text" class="form-control" id="amenities" name="otheramenities" value="{{home_data['otheramenities']}}">
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="desc">House description</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control" id="homedesc" name="homedescription">{{home_data['homedescription']}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -59,15 +67,15 @@
                                 <div class="form-group">
                                     <label for="price">Average price (Ghc)</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="price" name="price" placeholder="">
+                                        <input type="text" class="form-control" id="price" name="roomprice" value="{{home_data['roomprice']}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="desc">Description</label>
+                                    <label for="desc">Room description</label>
                                     <div class="input-group">
-                                        <textarea class="form-control" id="desc" name="desc" placeholder=""></textarea>
+                                        <textarea class="form-control" id="roomdesc" name="roomdescription">{{home_data['roomdescription']}}</textarea>
                                     </div>
                                 </div>
                             </div>

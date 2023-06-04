@@ -156,10 +156,6 @@ def view_home(id):
     if 'profileimageurl' not in host_data:
         host_data['profileimageurl'] = url_for('static', filename='pics/profile.png')
 
-    # get dates list
-    # dates_list = get_dates_between(home_data['initdate'], home_data['enddate'])
-    # home_data['dateslist'] = dates_list
-
     # get latitude and longitude for location
     full_address = f"{home_data['homeaddress']}, {home_data['city']}, {home_data['country']}"
     city_country = f"{home_data['city']}, {home_data['country']}"
@@ -176,27 +172,44 @@ def view_home(id):
     return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=data, host_data=host_data, location=location, errors=msg)
 
 
-@web_app.route('/edithome', methods =['GET', 'POST'])
-def edithome():
+@web_app.route('/edithome/<id>', methods =['GET', 'POST'])
+def edithome(id):
     msg="  "
+ 
 
     # change tab value for logout/login
-   
-    applications=[]
+    home_data = Homes.get_home(id)
     data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
         data = {'log_status': 'Log out'}
 
         data['usertype'] = session['usertype']
         
-        if request.method == 'POST' and request.form['paymentname'] and request.form['mode']\
-            and request.form['transaction']  and request.form['amount'] and request.files['paymentimg']:
-            pass
+        if request.method == 'POST' and request.form['roomdescription'] and request.form['homedescription']\
+            and request.form['roomprice']  and request.form['numpeople'] and request.form['numrooms']\
+                and request.form['homename']:
+            
+            # save data
+            new_home_data = {}
+            for entry, value in request.form.to_dict().items():
+                if entry == 'otheramenities' and not request.form['otheramenities']:
+                    continue
+                new_home_data[entry] = value
+            
+            response = Homes.update_home(new_home_data, id)
+
+            home_data = Homes.get_home(id)
+
+            if response == 200:
+                msg="Updated successfully"
+                return render_template('edithome.html.j2', data=data, msg=msg, home_data=home_data, homeId=id) 
+            else:
+                msg="Failed to update"
             
         elif request.method == 'POST':
             msg = "*Sorry, some required fields are missing, re-enter information"
             
-        return render_template('edithome.html.j2', data=data, msg=msg)  
+        return render_template('edithome.html.j2', data=data, msg=msg, home_data=home_data, homeId=id)  
         
     else:
         msg = "Please Log in first"

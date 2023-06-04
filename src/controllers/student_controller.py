@@ -161,7 +161,7 @@ def view_application():
                 room_taken_info += "The time period you want to stay is not available<br>" 
 
             
-            if room_taken_info:
+            if room_taken_info and application['status'] != 'Ready to go':
                 msg = room_taken_info
                 Hosts.update_application({'status':'closed'}, application['appId'])
                 application['status'] = 'closed'

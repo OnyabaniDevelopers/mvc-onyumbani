@@ -71,7 +71,7 @@
             <p class='small'>{{home.get('roomprice')}} / month / room</p>
           </div>
           <div class="d-flex justify-content-between">
-            <a href="{{ url_for('edithome')}}" class="">
+            <a href="edithome/{{home.get('homeId')}}" class="">
                 <span class="pencil">
                     <i class="fa-solid fa-pencil" style="color: #FF3062;"></i>
                 </span>
