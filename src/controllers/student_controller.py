@@ -4,6 +4,7 @@ from flask import render_template, redirect, url_for, request, session
 from src.controllers.helper_functions import check_availability, decrypt_num, get_dates_between
 from src.models.Homes import Homes
 from src.models.Hosts import Hosts
+from src.models.Payments import Payments
 from src.models.Students import Students
 from datetime import datetime, date
 from src.utils.email_notification_processing import EmailNotifier
@@ -18,10 +19,11 @@ def reserve_room(homeid, price):
     errors = ''
     session['currentpage'] = f'/reserve/{homeid}/{price}'
 
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
+        data = {'log_status': 'Log out'}
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+        data['usertype'] = session['usertype']
     
     else:      
         msg = "Please Log in first"
@@ -53,22 +55,24 @@ def reserve_room(homeid, price):
             session['schoolrefimg'] = ImageProcessing.upload_img(request.files['schoolrefimg'])
             session['ownerId'] = home_data['userId']
             dates = [request.form['checkin'], request.form['checkout']]
-            return render_template('reservation.html.j2', data=tabs, homeId=homeid, num_rooms=num_rooms, dates=dates, price=new_price)
+            homename = home_data['homename']
+            return render_template('reservation.html.j2', data=data, homeId=homeid, homename=homename, num_rooms=num_rooms, dates=dates, price=new_price)
         else:
             SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
             
     return redirect(url_for('view_home', id=homeid, errors=error_messages))
 
 
-@web_app.route('/apply/<id_room_dates>', methods=['POST', 'GET'])
-def apply_housing(id_room_dates):
+@web_app.route('/apply/<id_room_dates_name>', methods=['POST', 'GET'])
+def apply_housing(id_room_dates_name):
 
-    args_list = id_room_dates.split('aq')
+    args_list = id_room_dates_name.split('aq')
     homeId = args_list[0]
     num_rooms = args_list[1]
     init_date = args_list[2]
     end_date = args_list[3]
     price = args_list[4]
+    homename = args_list[5]
 
 
     host_data = Hosts.get_host(session['ownerId'])
@@ -96,6 +100,7 @@ def apply_housing(id_room_dates):
     application_data['roomprice'] = stay_price
     application_data['studentname'] = f"{profile_data['firstname']} {profile_data['firstname']}"
     application_data['studentcontact'] = profile_data['phonenumber']
+    application_data['homename'] = homename
 
     guests_emails = []
     if request.form['guests'] != '0':
@@ -128,12 +133,12 @@ def view_application():
     msg=""
 
     # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
     applications=[]
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
+        data = {'log_status': 'Log out'}
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        data['usertype'] = session['usertype']
         
         applications = Students.get_applications('student', session['userId'])
     
@@ -170,43 +175,66 @@ def view_application():
 
 
     
-    return render_template('applications.html.j2', data=tabs, homes=all_homes, msg=msg, applications=updated_applications)  
+    return render_template('applications.html.j2', data=data, homes=all_homes, msg=msg, applications=updated_applications)  
     
-@web_app.route('/make_payment/<roomprice>')
-def make_payment(roomprice):
+@web_app.route('/make_payment/<homeId>/<appId>/<roomprice>', methods =['GET', 'POST'])
+def make_payment(roomprice, homeId, appId):
     msg=""
     
     # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
-    
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
+        data = {'log_status': 'Log out'}
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
-    return render_template('payment.html.j2',  data=tabs, price=roomprice)
+        data['usertype'] = session['usertype']
+ 
+
+    return render_template('payment.html.j2',  data=data, price=roomprice, homeId=homeId, appId=appId)
     
         
     
-@web_app.route('/confirmpayment', methods =['GET', 'POST'])
-def confirmpayment():
+@web_app.route('/confirmpayment/<homeId>/<appId>', methods =['GET', 'POST'])
+def confirmpayment(homeId, appId):
     msg="   "
 
     # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
-    applications=[]
+    
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
+        data = {'log_status': 'Log out'}
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        data['usertype'] = session['usertype']
         
         if request.method == 'POST' and request.form['paymentname'] and request.form['mode']\
             and request.form['transaction']  and request.form['amount'] and request.files['paymentimg']:
-            pass
+            profile_data = Students.get_student(session['userId'])
+
+            payment_data = {}
+            for entry, value in request.form.to_dict().items():
+                payment_data[entry] = value
+
+            payment_data['date'] = str(date.today())
+            payment_data['paymentimg'] = ImageProcessing.upload_img(request.files['paymentimg'])
+            payment_data['studentid'] = session['userId']
+            payment_data['homeid'] = homeId
+            payment_data['applicationid'] = appId
+
+            response = Payments.make_payment(payment_data)
+
+            if response[1] == 200:
+                msg="Payment details submitted successfully"
+                Hosts.update_application({'status':'Payment received'}, appId)
+
+            else:
+                msg="Payment details submission was not successful"
+
+            return redirect(url_for('view_application'))
+
             
         elif request.method == 'POST':
             msg = "*Sorry, some required fields are missing, re-enter information"
             
-        return render_template('payment1.html.j2', data=tabs, msg=msg)  
+        return render_template('payment1.html.j2', data=data, msg=msg, homeId=homeId, appId=appId)  
         
     else:
         msg = "Please Log in first"
