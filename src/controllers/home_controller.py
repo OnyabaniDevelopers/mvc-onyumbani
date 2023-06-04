@@ -90,11 +90,12 @@ def add_room():
     if request.method == 'POST' and request.form['numpeople'] and request.form['roomprice']\
         and request.files['homeimgs'] and request.form['numrooms']\
             and request.form['roomdescription']:
-
+                    
         for entry, value in request.form.to_dict().items():
             session[entry] = value 
         
         session['homeimgs'] = []
+        session['roomprice'] = str(round(1.1 * int(session['roomprice'])))
         
         for image in request.files.getlist('homeimgs'):
             img_url = ImageProcessing.upload_img(image)
