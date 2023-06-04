@@ -36,6 +36,10 @@
     .small{
         font-size: 13px
     }
+    
+    #main-body{
+        margin-bottom: 50px;
+    }
 </style>
 
 {% endblock %}
@@ -48,7 +52,7 @@
       <p>LISTED HOMES</p>
       <ul class="horizontal-list">
         <li class="nav-item btn" style='background-color: black;'>
-            <a class="nav-link active" style='color: white;' aria-current="page" href="{{ url_for('add_home') }} ">Add Home</a>
+            <a class="" style='color: white;' aria-current="page" href="{{ url_for('add_home') }} ">Add Home</a>
         </li>
       </ul>
     </div>
@@ -58,16 +62,16 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 home-tabb">
           <a href="/view_home/{{ home.get('homeId')}}" style="text-decoration: none">
             <div class="home-image">
-                <img src="{{home.get('homeimgs')[0]}}" alt="Lights" style="width:100%; height: 220px; border-radius: 20px; margin-bottom: 5%">         
+                <img src="{{home.get('homeimgs')[0]}}" alt="Lights" style="width:100%; height: 200px; border-radius: 20px; margin-bottom: 5%">         
             </div>
           </a>
           <div class="home-details">
-            <p>{{home.get('homename')}}</p>
-            <p>{{home.get('homeaddress')}}, {{home.get('city')}}, {{home.get('country')}}</p>
-            <p>{{home.get('roomprice')}} / month / room</p>
+            <p class='small'>{{home.get('homename')}}</p>
+            <p class='small'>{{home.get('homeaddress')}}, {{home.get('city')}}, {{home.get('country')}}</p>
+            <p class='small'>{{home.get('roomprice')}} / month / room</p>
           </div>
           <div class="d-flex justify-content-between">
-            <a href="" class="">
+            <a href="{{ url_for('edithome')}}" class="">
                 <span class="pencil">
                     <i class="fa-solid fa-pencil" style="color: #FF3062;"></i>
                 </span>
@@ -102,7 +106,7 @@
                             {%if application['status'] == 'Host approval'%}
                             <div class="" style='margin-top: 10px'>
                                 <a href="/view_listed?change=disapprove&id={{appId}}" class="btn btn-danger" style="margin-right: 10%">disapprove</a>
-                                <a href="/view_listed?change=approve&id={{appId}}"" class="btn btn-success">approve</a>
+                                <a href="/view_listed?change=approve&id={{appId}}" class="btn btn-success">approve</a>
                             </div>
                             {%endif%}
                         </div>

@@ -173,6 +173,27 @@ def view_home(id):
     return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=tabs, host_data=host_data, location=location, errors=msg)
 
 
-@web_app.route('/host_views_home', methods =['GET', 'POST'])
-def host_views_home(id):
-    pass
+@web_app.route('/edithome', methods =['GET', 'POST'])
+def edithome():
+    msg="  "
+
+    # change tab value for logout/login
+    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    applications=[]
+    if 'loggedin' in session and session['loggedin'] == True:
+        tabs = {'log_status': 'Log out'}
+
+        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        
+        if request.method == 'POST' and request.form['paymentname'] and request.form['mode']\
+            and request.form['transaction']  and request.form['amount'] and request.files['paymentimg']:
+            pass
+            
+        elif request.method == 'POST':
+            msg = "*Sorry, some required fields are missing, re-enter information"
+            
+        return render_template('edithome.html.j2', data=tabs, msg=msg)  
+        
+    else:
+        msg = "Please Log in first"
+        return redirect(url_for('login', log=msg))
