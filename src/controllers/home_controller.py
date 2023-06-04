@@ -23,10 +23,10 @@ def view_listed():
 
     
     # change tab value for logout/login
-    tabs = {'log_status':'Sign In / Up', 'add_home':''}
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else 'Applications'
+        data = {'log_status': 'Log out'}
+        data['usertype'] = session['usertype']
 
         for home_key, home  in all_homes.items():
             if home['userId'] == session['userId']:
@@ -50,12 +50,12 @@ def view_listed():
             for application in applications:
                 user_applications[application['appId']] = application
 
-            return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes, applications=user_applications)
+            return render_template('homesapplicationview.html.j2', data=data, homes=user_homes, applications=user_applications)
 
 
     
 
-    return render_template('homesapplicationview.html.j2', data=tabs, homes=user_homes, applications=user_applications)
+    return render_template('homesapplicationview.html.j2', data=data, homes=user_homes, applications=user_applications)
 
 
 @web_app.route('/add_home', methods =['GET', 'POST'])
@@ -135,11 +135,11 @@ def view_home(id):
         msg = session['error_messages']
 
     # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
+        data = {'log_status': 'Log out'}
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else ""
+        data['usertype'] = session['usertype']
       
     home_data = Homes.get_home(id)
     home_data['numrooms'] = int(home_data['numrooms'])
@@ -170,7 +170,7 @@ def view_home(id):
  
     reviews = response[0] if response[1] == 200 else []
 
-    return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=tabs, host_data=host_data, location=location, errors=msg)
+    return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=data, host_data=host_data, location=location, errors=msg)
 
 
 @web_app.route('/edithome', methods =['GET', 'POST'])
@@ -178,12 +178,13 @@ def edithome():
     msg="  "
 
     # change tab value for logout/login
-    tabs = {'log_status':'Log in / Sign up', 'add_home':''}
+   
     applications=[]
+    data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
-        tabs = {'log_status': 'Log out'}
+        data = {'log_status': 'Log out'}
 
-        tabs['add_home'] = 'Add Home' if session['usertype'] == 'owner' else "Applications"
+        data['usertype'] = session['usertype']
         
         if request.method == 'POST' and request.form['paymentname'] and request.form['mode']\
             and request.form['transaction']  and request.form['amount'] and request.files['paymentimg']:
@@ -192,7 +193,7 @@ def edithome():
         elif request.method == 'POST':
             msg = "*Sorry, some required fields are missing, re-enter information"
             
-        return render_template('edithome.html.j2', data=tabs, msg=msg)  
+        return render_template('edithome.html.j2', data=data, msg=msg)  
         
     else:
         msg = "Please Log in first"

@@ -68,4 +68,13 @@ class Students:
         except:
             response = {"ERROR":"Unknown error"}
             return response, 503
+        
+    @staticmethod
+    def get_application(appId):
+        application = application_db.document(appId).get()
+
+        if application:
+            return application.to_dict(), 200
+
+        return {"ERROR":"Unknown error"}, 404
 

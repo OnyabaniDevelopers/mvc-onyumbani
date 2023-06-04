@@ -98,8 +98,8 @@
 
       {% for home_key, home  in homes.items() %}
         <div class="home-box col-lg-3 col-md-4 col-sm-6 col-xs-12 homediv">
-          {% if usertype and usertype == 'admin' %}
-          <a href="challenges.html" class="far-right">
+          {% if data['usertype'] == 'admin' %}
+          <a href="/delete_home/{{home.get('homeId')}}/{{home.get('userId')}}" class="far-right">
             <span class="cancel">
                 <i class="fa-sharp fa-solid fa-trash" style="color: #FF3062;"></i>
                 Delete Post
@@ -126,7 +126,7 @@
 {%block script%}
 <script>
 
-//TODO: Fix bug - The highlight does not remove for the first search of the second and third paragraphs
+//TODO: Fix bug - The highlight does not disappear for the first search of the second and third <p> tags
 function searchFunc() {
     var searchVal, p;
     searchVal = document.getElementById("searchBox").value.toUpperCase();

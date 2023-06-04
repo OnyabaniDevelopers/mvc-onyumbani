@@ -26,8 +26,11 @@ Reference: Your name
            </pre>
         </div> 
         <div class="section-three">
-          <a style='color:white' class="pink-button" href="{{ url_for('confirmpayment') }}">Paid?</a>
+        
+          <a type="submit" style='color:white' class="pink-button" href="/confirmpayment/{{ homeId }}/{{appId}}">Paid</a>
+        
           <a style='color:white' class="green-button" href="{{ url_for('view_application') }}">Cancel</a>
+          
         </div>       
       </div>
       <div class="col-md-5" id="column-two"  style='background-color: #203644;'>

@@ -32,104 +32,53 @@
 <div style="margin-top: 3%;">
     <p style="text-align: center; margin: 30px auto;">HOUSING APPLICATIONS</p>
     <div class="row">
+        {% for paymentid, payment in payments.items() %}
         <div class="col-sm-5 rounded-rectangle">
             <div class="row">
                 <div class="col-md-4">
                     <p style='font-weight: bold'>Student</p>
-                    <p class='small'>Ken West</p>
-                    <p class='small'>Contact: 055788959</p>
-                    <p class='small'>Email: rey@njnjkng.hj.kk</p>
+                    <p class='small'>{{ payment['application']['studentname'] }}</p>
+                    <p class='small'>Contact: {{ payment['application']['studentcontact'] }}</p>
+                    <p class='small'>Email: {{ payment['application']['applicant_email'] }}</p>
                 </div>
                 <div class="col-md-4">
                     <p style='font-weight: bold'>Home</p>
-                    <p class='small'>Marrets Place</p>
-                    <p class='small'>Airport, Valley</p>
-                    <p class='small'>Amount: Ghc 20000</p>
+                    <p class='small'>{{ payment['application']['homename'] }}</p>
+                    <!--<p class='small'>Airport, Valley</p>-->
+                    <p class='small'>Amount: {{ payment['application']['roomprice'] }}</p>
                 </div>
                 <div class="col-md-2">
                     <p style='font-weight: bold'>Details</p>
-                    <p class='small'>Payment made</p>
+                    <p class='small'>Date: {{payment['date']}}</p>
+                    <p class='small'>Amount: {{payment['amount']}}</p>
+                    <p class='small'>Mode: {{payment['mode']}}</p>
+                    {% if payment['application']['status'] == 'Ready to go' %}
+                        <p class='small'>Status: CONFIRMED</p>
+                    {% endif %}
                 </div>
                 <div class="col-md-2">
                     <div style="text-align:center">
-                        <img src="/static/pics/profile.png" class="rounded-circle" style="width: 100%; height: 100%;" alt="Avatar"/>
+                        <img src="{{payment['paymentimg']}}" class="rounded-circle" style="width: 100%; height: 100%;" alt="Avatar"/>
                     </div>
                 </div>
             </div>
-            <div class="row" style='text-align: center;'>
+
+            {% if payment['application']['status'] != 'Ready to go' %}
+                                <div class="row" style='text-align: center;'>
                 <p class='small' style='margin-top: 10px'> * contact student if amount is not upto </p>
                 <div class="">
-                    <a href="" class="btn btn-danger" style="margin-right: 10%">cancel</a>
+                    <a href="/cancel_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-danger" style="margin-right: 10%">cancel</a>
                     <a href="" class="btn btn-success">confirm</a>
                 </div>
             </div>
+            {% endif %}
+
         </div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-5 rounded-rectangle">
-            <div class="row">
-                <div class="col-md-4">
-                    <p style='font-weight: bold'>Student</p>
-                    <p class='small'>Ken West</p>
-                    <p class='small'>Contact: 055788959</p>
-                    <p class='small'>Email: rey@njnjkng.hj.kk</p>
-                </div>
-                <div class="col-md-4">
-                    <p style='font-weight: bold'>Home</p>
-                    <p class='small'>Marrets Place</p>
-                    <p class='small'>Airport, Valley</p>
-                    <p class='small'>Amount: Ghc 20000</p>
-                </div>
-                <div class="col-md-2">
-                    <p style='font-weight: bold'>Details</p>
-                    <p class='small'>Payment made</p>
-                </div>
-                <div class="col-md-2">
-                    <div style="text-align:center">
-                        <img src="/static/pics/profile.png" class="rounded-circle" style="width: 50%; height: 20%;" alt="Avatar"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style='text-align: center;'>
-                <p class='small' style='margin-top: 10px'> * contact student if amount is not upto </p>
-                <div class="">
-                    <a href="" class="btn btn-danger" style="margin-right: 10%">cancel</a>
-                    <a href="" class="btn btn-success">confirm</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-5 rounded-rectangle">
-            <div class="row">
-                <div class="col-md-4">
-                    <p style='font-weight: bold'>Student</p>
-                    <p class='small'>Ken West</p>
-                    <p class='small'>Contact: 055788959</p>
-                    <p class='small'>Email: rey@njnjkng.hj.kk</p>
-                </div>
-                <div class="col-md-4">
-                    <p style='font-weight: bold'>Home</p>
-                    <p class='small'>Marrets Place</p>
-                    <p class='small'>Airport, Valley</p>
-                    <p class='small'>Amount: Ghc 20000</p>
-                </div>
-                <div class="col-md-2">
-                    <p style='font-weight: bold'>Details</p>
-                    <p class='small'>Payment made</p>
-                </div>
-                <div class="col-md-2">
-                    <div style="text-align:center">
-                        <img src="/static/pics/profile.png" class="rounded-circle" style="width: 50%; height: 20%;" alt="Avatar"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style='text-align: center;'>
-                <p class='small' style='margin-top: 10px'> * contact student if amount is not upto </p>
-                <div class="">
-                    <a href="" class="btn btn-danger" style="margin-right: 10%">cancel</a>
-                    <a href="" class="btn btn-success">confirm</a>
-                </div>
-            </div>
-        </div>
+
+        {% endfor %}
+
+        
         
         
     </div>
