@@ -215,6 +215,6 @@ def end_process():
     images = SessionProcessing.clear_session(session)
     SessionProcessing.clear_session_images(images)
     
-    return redirect(url_for('index', msg="Sign up cancelled"))
+    return redirect(url_for('index', msg="operation cancelled", color='green'))
     
     
