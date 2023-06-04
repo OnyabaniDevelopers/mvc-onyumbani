@@ -7,6 +7,17 @@
 {% endblock %}
 
 
+{% block style %}
+    
+    <style>
+      #pills-desc .row{
+        margin-bottom: 10px;
+      }
+    </style>
+    
+{% endblock %}
+
+
 {% block content %} 
   <div class="contain">
     <!--- Title ------>
@@ -51,7 +62,7 @@
           
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-desc" role="tabpanel" aria-labelledby="pills-desc-tab">
-              <div>{{ home_data['homedescription']}}</div>
+              <div class="row">{{ home_data['homedescription']}}</div>
               <div class="row">
               <p><b>Available amenities</b></p>
               {% for amenity in home_data['amenities'] %}
@@ -63,7 +74,7 @@
                 </div>
               {% endfor %}
             </div>
-            <div><p><b>Location: </b> {{home_data['homeaddress']}}, {{home_data['city']}}, {{home_data['country']}}</p></div>
+            <div class="row"><p><b>Location: </b> {{home_data['homeaddress']}}, {{home_data['city']}}, {{home_data['country']}}</p></div>
             <div id="map" style="height: 400px; width: 100%;">
                 
             </div>
