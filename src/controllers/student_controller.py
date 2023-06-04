@@ -46,7 +46,7 @@ def reserve_room(homeid, price):
         if checkout_date < checkin_date:
             error_messages = "Check in date and check out date are inconsistent\n"
 
-        available_dates = get_dates_between(home_data['initdate'], home_data['enddate'])
+        available_dates = home_data['dateslist']
         required_dates = get_dates_between(request.form['checkin'], request.form['checkout'])
         if not check_availability(required_dates, available_dates):
             error_messages = "The time period you want to stay is not available"
@@ -155,7 +155,7 @@ def view_application():
             if int(home['numrooms']) < int(application['numrooms']):
                 room_taken_info += "The room(s) required are not available<br>"
             
-            available_dates = get_dates_between(home['initdate'], home['enddate'])
+            available_dates = home['dateslist']
             required_dates = get_dates_between(application['initdate'], application['enddate'])
             if not check_availability(required_dates, available_dates):
                 room_taken_info += "The time period you want to stay is not available<br>" 

@@ -101,9 +101,12 @@ def add_room():
             session['homeimgs'].append(img_url)
 
         home_data = {}
+        # get dates list
+        dates_list = get_dates_between(session['initdate'], session['enddate'])
+        home_data['dateslist'] = dates_list
         for record_key, record_value in session.items():
 
-            if record_key in ['loggedin', 'usertype', '_permanent']:
+            if record_key in ['loggedin', 'usertype', '_permanent', 'initdate', 'enddate']:
                 continue
 
             home_data[record_key] = record_value
@@ -154,8 +157,8 @@ def view_home(id):
         host_data['profileimageurl'] = url_for('static', filename='pics/profile.png')
 
     # get dates list
-    dates_list = get_dates_between(home_data['initdate'], home_data['enddate'])
-    home_data['dateslist'] = dates_list
+    # dates_list = get_dates_between(home_data['initdate'], home_data['enddate'])
+    # home_data['dateslist'] = dates_list
 
     # get latitude and longitude for location
     full_address = f"{home_data['homeaddress']}, {home_data['city']}, {home_data['country']}"
