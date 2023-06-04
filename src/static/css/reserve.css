@@ -6,7 +6,7 @@
 @media (max-width: 768px) {
     .container{
         display: block !important;
-        height: 90vh;
+        /* height: 90vh; */
     }
     
     body{

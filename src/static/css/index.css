@@ -277,7 +277,7 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
   width: 200px;
 }
 
-.submit-button:hover {
+.submit-button:hover {  
   background-color: #333;
 }
 

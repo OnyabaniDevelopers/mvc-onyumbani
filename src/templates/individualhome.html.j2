@@ -14,12 +14,6 @@
         margin-bottom: 10px;
       }
       
-    @media (max-width: 768px) {
-      #reservation {
-        margin-bottom: 2000px ;
-      }
-  
-}
     </style>
     
 {% endblock %}
@@ -148,7 +142,7 @@
                   <div class="col-md-4" id="divImageMediaPreview">
                       <img src="{{ host_data['profileimageurl'] }}" class="rounded-circle" style="width: 100%; height: 90%;" alt="Avatar" />
                   </div>
-                  <div class="col-md-4 col-sm-12">
+                  <div class="col-md-5 col-sm-12">
                     <p>Name: </p>
                     <p>{{ host_data['firstname'] }} {{ host_data['lastname'] }}</p>
                     <p>Contact: </p>
@@ -156,7 +150,7 @@
                     <p>Email: </p>
                     <p>{{ host_data['email'] }}</p>
                   </div>
-                  <div class="col-md-4 col-sm-12">
+                  <div class="col-md-3 col-sm-12">
                     <a href="/view_profile/owner/{{ host_data['nationalId'] }}">show more</a>
                   </div>   
                 </div>
