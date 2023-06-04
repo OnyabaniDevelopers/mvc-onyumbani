@@ -31,4 +31,4 @@ def adminview():
         
     else:
         msg = "Please login as admin first"
-        return redirect(url_for('login', log=msg))
+        return redirect(url_for('login', msg=msg))

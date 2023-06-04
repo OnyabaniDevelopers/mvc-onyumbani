@@ -112,18 +112,18 @@
     {% if  data['log_status'] == "Log out" %}
         
     <form action="/review/home/{{home_data['homeId']}}" method='POST' class='row'>
-      <div class='col-sm-4'>
-        <textarea type="text" name="reviewmessage" rows="3" cols='20'></textarea>
+      <div class='col-6'>
+        <textarea type="text" name="reviewmessage" style='width: 100%;'></textarea>
       </div>
-      <div class='col-sm-2'>
+      <div class='col-2'>
         Rating <select name='rating' class='form-control'>                                                      
           {% for i in range(1,6) %}
               <option name="rating" value="{{i}}">{{i}}</option> 
           {% endfor %}
         </select>
       </div>
-      <div class='col-sm-2'>  
-        <input type="submit" class='submit-button' name='review-submit' id='submit' value="POST">
+      <div class='col-4'>  
+        <input type="submit" style='background-color: black; color: white' class='form-control align-middle' name='review-submit' id='submit' value="POST">
       </div>
     </form>
 
