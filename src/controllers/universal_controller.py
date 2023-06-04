@@ -265,7 +265,7 @@ def review(type, id):
 
         review_data = {}
         review_data['dateposted'] = str(date.today())
-        review_data['rating'] = request.form['rating']
+        review_data['rating'] = int(request.form['rating'])
         review_data['reviewmessage'] = request.form['reviewmessage']
         review_data['email'] = session['email']
         review_data['image'] = ''

@@ -13,6 +13,13 @@
       #pills-desc .row{
         margin-bottom: 10px;
       }
+      
+    @media (max-width: 768px) {
+      #reservation {
+        margin-bottom: 2000px ;
+      }
+  
+}
     </style>
     
 {% endblock %}
@@ -66,10 +73,10 @@
               <div class="row">
               <p><b>Available amenities</b></p>
               {% for amenity in home_data['amenities'] %}
-                <div class="col-sm-3">
+                <div class="col-3">
                   <div class="row">
-                    <div class="col-sm-3"><i class="fa-regular fa-circle fa-lg" style="color: rgb(15, 207, 15);"></i></div>
-                    <div class="col-sm-9"><p>{{ amenity }}</p></div>              
+                    <div class="col-3"><i class="fa-regular fa-circle fa-lg" style="color: rgb(15, 207, 15);"></i></div>
+                    <div class="col-9"><p>{{ amenity }}</p></div>              
                   </div>
                 </div>
               {% endfor %}
@@ -89,19 +96,23 @@
             <div class="main-review">
                 <div class="row">
                     <div class='col-md-2'>
-                    
                         {% if review['image'] == "" %}
-                            <img src="/static/pics/profile.png" class="rounded-circle" style="height: 50px; width:50px">
+                            <img src="/static/pics/profile.png" class="rounded-circle" style="height: 80px; width:80px">
                         {% else %} 
-                            <img src={{ review.get('image') }} class="rounded-circle" style="height: 50px; width:50px">;
+                            <img src={{ review.get('image') }} class="rounded-circle" style="height: 80px; width:80px">;
                         {% endif %}
                     </div>
                     <div class='col-md-10'>
-                        <span id='name' style="font-size: 15px;">{{ review.get('email') }}</span>
-                        <span id='date' style="font-size: 15px;">{{ review.get('dateposted') }}</span>
+                        <div class='row'>
+                          <div class='col-7' id='name' style="font-size: 15px;">{{ review.get('email') }}</div>
+                          <div class='col-5' id='date' style="font-size: 15px; text-align: right">{{ review.get('dateposted') }}</div>
+                        </div>
                         <p id="reviewing">{{ review.get('reviewmessage') }}</p> 
 
-                        <p id="reviewing">Rating: {{ review.get('rating') }}</p> 
+                        Rating: 
+                        {% for i in range(review.get('rating')) %}
+                          <span><i class="fa fa-star" style="color: #e9d71c;"></i></span>
+                        {% endfor %}
                     </div>
                 </div>  
                 <hr>
@@ -112,18 +123,19 @@
     {% if  data['log_status'] == "Log out" %}
         
     <form action="/review/home/{{home_data['homeId']}}" method='POST' class='row'>
-      <div class='col-6'>
-        <textarea type="text" name="reviewmessage" style='width: 100%;'></textarea>
+      <div class='col-7'>
+        <textarea type="text" name="reviewmessage" style='width: 100%;' placeholder='Add your comment'></textarea>
       </div>
       <div class='col-2'>
-        Rating <select name='rating' class='form-control'>                                                      
+        <p style='margin-bottom: 0; font-size: 13px'>Rating </p>
+        <select name='rating' class='form-control'>                                                      
           {% for i in range(1,6) %}
               <option name="rating" value="{{i}}">{{i}}</option> 
           {% endfor %}
         </select>
       </div>
-      <div class='col-4'>  
-        <input type="submit" style='background-color: black; color: white' class='form-control align-middle' name='review-submit' id='submit' value="POST">
+      <div class='col-3' style='margin:auto'>  
+        <input type="submit" style='background-color: black; color: white' class='form-control' name='review-submit' id='submit' value="POST">
       </div>
     </form>
 
