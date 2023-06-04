@@ -52,6 +52,7 @@
                     <p class='small'>Date: {{payment['date']}}</p>
                     <p class='small'>Amount: {{payment['amount']}}</p>
                     <p class='small'>Mode: {{payment['mode']}}</p>
+                    <p class='small'>Mode: {{payment['transaction']}}</p>
                     {% if payment['application']['status'] == 'Ready to go' %}
                         <p class='small'>Status: CONFIRMED</p>
                     {% endif %}
@@ -65,10 +66,10 @@
 
             {% if payment['application']['status'] != 'Ready to go' %}
                                 <div class="row" style='text-align: center;'>
-                <p class='small' style='margin-top: 10px'> * contact student if amount is not upto </p>
+                <p class='small' style='margin-top: 10px'> * contact student if amount is not upto {{payment['application']['roomprice'] }} </p>
                 <div class="">
                     <a href="/cancel_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-danger" style="margin-right: 10%">cancel</a>
-                    <a href="" class="btn btn-success">confirm</a>
+                    <a href="/confirm_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-success">confirm</a>
                 </div>
             </div>
             {% endif %}
