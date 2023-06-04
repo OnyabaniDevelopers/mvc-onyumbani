@@ -277,7 +277,7 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
   width: 200px;
 }
 
-.submit-button:hover {
+.submit-button:hover {  
   background-color: #333;
 }
 
@@ -312,11 +312,17 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
 
 /* login */
 #ctnt {
-  padding-right: 30%;
-  padding-left: 30%;
   text-align: center;
   margin-top: 5%;
 }
+
+@media (min-width: 768px) {
+  #ctnt {
+    padding-right: 30%;
+    padding-left: 30%;
+  }
+}
+
 .custom-input {
   background-color: #D9D9D9;
   color: #333;
