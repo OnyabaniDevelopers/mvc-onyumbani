@@ -530,3 +530,20 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
   background-color: #D9D9D9;
   margin: 20px 4%;
 }
+
+/* reviews in profile 2 */
+#reviewslead{
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  padding-right: 10;
+  text-align: left;
+  /* width: 70%; */
+  height: 320px;
+}
+
+#reviews{
+  height: 230px;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
