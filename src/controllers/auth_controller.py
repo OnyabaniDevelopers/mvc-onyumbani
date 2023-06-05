@@ -79,11 +79,11 @@ def login():
         elif request.method == 'POST':
             msg = '*Fill all fields'
             
-        return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+        return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
             
     except:
         msg = 'Incorrect username / password !. Please try again'
-        return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+        return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
 
 '''
 Signing in process
