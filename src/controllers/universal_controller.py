@@ -128,6 +128,7 @@ def view_profile():
 def view_profile_all(userId, usertype):
 
     profile_data = {}
+    reviews=[]
     data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
         data = {'log_status': 'Log out'}
@@ -141,8 +142,15 @@ def view_profile_all(userId, usertype):
         
     if 'profileimg' not in profile_data:
         profile_data['profileimg'] = url_for('static', filename='pics/profile.png')
+        
+    if usertype == 'student':
+        #load reviews
+        response = Reviews.get_reviews(userId, 'student')
+         
+        reviews = response[0] if response[1] == 200 else []
+        
     
-    return render_template('viewprofile2.html.j2', data=data, profile_data=profile_data)
+    return render_template('viewprofile2.html.j2', data=data, profile_data=profile_data, usertype=usertype, reviews=reviews)
 
 
 @web_app.route('/about', methods=['GET', 'POST'])
@@ -277,8 +285,8 @@ def review(type, id):
         if response[1] == 200:
 
             if type == 'home':
-
                 return redirect(url_for('view_home', id=id))
-            #TODO: add else for student review (only for home owners)
+            elif type == 'student':
+                return redirect(f'/view_profile/{type}/{id}')
     return redirect(url_for('view_home', id=id, errors='Failed to add comment'))       
     
