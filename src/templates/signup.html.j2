@@ -22,6 +22,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
+                                <p id="finame" style="color:red; font-size:13px"></p>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your firstname">
                                 </div>
@@ -30,6 +31,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
+                                <p id="laname" style="color:red; font-size:13px"></p>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your lastname">
                                 </div>
@@ -41,6 +43,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="dob">Date of Birth</label>
+                                <p id="dobb" style="color:red; font-size:13px"></p>
                                 <div class="input-group">
                                  <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter your firstname">
                                 </div>
@@ -65,6 +68,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="homeaddress">Home Address</label>
+                                <p id="homead" style="color:red; font-size:13px"></p>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="homeaddress" name="homeaddress" placeholder="Enter your home address">
                                     <div class="input-group-append">
@@ -80,7 +84,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="firstname">Email</label>
+                                <label for="email">Email</label>
+                                <p id="em" style="color:red; font-size:13px"></p>
                                 <div class="input-group">
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
                                 <div class="input-group-append">
@@ -93,7 +98,7 @@
                         </div>
                     </div>    
                     <div class="row">
-                        <p id="addhere" style="color:red;"></p>
+                        <p id="addhere" style="color:red; font-size:13px"></p>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password">Password</label>
@@ -137,47 +142,159 @@
 
 {% block script %}
     <script>
+        const nameRegex = /([0-9_-]*[a-z][0-9_-]*){3}/;
+        const btn = document.getElementById("popUpYes");
+        let fnameval = false;
+        let lnameval = false;
+        let eval = false;
+        let datee = false;
+        let add = false;
+        let bbtn = false;
+        
         $(document).on('change', '#firstname', function() {
             const fname = document.getElementById('firstname');
-            const nameRegex = /^[a-z ,.'-]+$/i
+            const finame = document.getElementById('finame');
+            fnameval = false;
             
+            if (nameRegex.test(fname.value)) { 
+                fnameval = true;
+                finame.innerHTML = "";
+                fname.style.border = "green solid 2px";
+            }
+            else{
+                fname.style.border = "red solid 2px";
+                finame.innerHTML = "Should be more than 2 characters";
+            }
             
-        }
+            if (bbtn && add && eval && fnameval && lnameval && datee){
+                btn.style.backgroundColor = "green";
+                btn.removeAttribute("disabled");
+            }
+            else{
+                btn.style.backgroundColor = "black";
+                btn.setAttribute("disabled", "");
+            }
+        })
         
         $(document).on('change', '#lastname', function() {
             const lname = document.getElementById('lastname');
-            const nameRegex = /^[a-z ,.'-]+$/i
+            const laname = document.getElementById('laname');
+            lnameval = false;
             
+            if (nameRegex.test(lname.value)) { 
+                lnameval = true;
+                laname.innerHTML = "";
+                lname.style.border = "green solid 2px";
+            }
+            else{
+                lname.style.border = "red solid 2px";
+                laname.innerHTML = "Should be more than 2 characters";
+            }  
             
-        }
+            if (bbtn && add && eval && fnameval && lnameval && datee){
+                btn.style.backgroundColor = "green";
+                btn.removeAttribute("disabled");
+            }
+            else{
+                btn.style.backgroundColor = "black";
+                btn.setAttribute("disabled", "");
+            }
+        })
+        
+        $(document).on('change', '#dob', function() {
+            const dob = document.getElementById('dob');
+            const dobb = document.getElementById('dobb');
+            datee = false;
+            
+            const d = new Date();
+            let year = d.getFullYear();
+            var diff = year - (parseInt(dob.value.split("-")[0]));
+
+            if (diff > 15){
+                datee = true;
+                dobb.innerHTML = "";
+                dob.style.border = "green solid 2px";
+            }
+            else{
+                dob.style.border = "red solid 2px";
+                dobb.innerHTML = "Should be 15 years or more";
+            }  
+            
+            if (bbtn && add && eval && fnameval && lnameval && datee){
+                btn.style.backgroundColor = "green";
+                btn.removeAttribute("disabled");
+            }
+            else{
+                btn.style.backgroundColor = "black";
+                btn.setAttribute("disabled", "");
+            }
+        })
         
         $(document).on('change', '#email', function() {
             const email = document.getElementById('email');
             const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            const em = document.getElementById('em');
+            eval = false;
             
+            if (emailRegex.test(email.value)) { 
+                eval = true;
+                em.innerHTML = "";
+                email.style.border = "green solid 2px";
+            }
+            else{
+                email.style.border = "red solid 2px";
+                em.innerHTML = "Email is not valid";
+            }
             
-        }
+            if (bbtn && add && eval && fnameval && lnameval && datee){
+                btn.style.backgroundColor = "green";
+                btn.removeAttribute("disabled");
+            }
+            else{
+                btn.style.backgroundColor = "black";
+                btn.setAttribute("disabled", "");
+            }
+        })
         
         $(document).on('change', '#homeaddress', function() {
              const address = document.getElementById('homeaddress');
-             const addressRegex = /^[a-z ,.'-]+$/i
+             const homead = document.getElementById('homead');
+             add = false;
+            
+            if (nameRegex.test(address.value)) { 
+                add = true;
+                homead.innerHTML = "";
+                address.style.border = "green solid 2px";
+            }
+            else{
+                address.style.border = "red solid 2px";
+                homead.innerHTML = "Should be more than 3 character";
+            }
+            
+            if (bbtn && add && eval && fnameval && lnameval && datee){
+                btn.style.backgroundColor = "green";
+                btn.removeAttribute("disabled");
+            }
+            else{
+                btn.style.backgroundColor = "black";
+                btn.setAttribute("disabled", "");
+            }
              
-        }
+        })
     
         $(document).on('change', '.password', function() {
                 const password1 = document.getElementById('password');
                 const password2 = document.getElementById('confirmpassword');
                 const addhere = document.getElementById('addhere');
-                const btn = document.getElementById("popUpYes");
                 const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+                bbtn = false;
                 
                 if (passwordRegex.test(password1.value)) {                 
                     if (password1.value == password2.value) {
                         password1.style.border = "green solid 2px";
                         password2.style.border = "green solid 2px";
                         addhere.innerHTML = "";
-                        btn.style.backgroundColor = "green";
-                        btn.removeAttribute("disabled");
+                        bbtn = true;
                     }
                     else{
                         password1.style.border = "red solid 2px";
@@ -189,9 +306,20 @@
                   password1.style.border = "red solid 2px";
                   password2.style.border = "red solid 2px";
                   addhere.innerHTML = "*Password must have a combination of letters, numbers and symbols and between 7 and 15 characters";
-                }    
+                }  
+                
+                if (bbtn && add && eval && fnameval && lnameval){
+                    btn.style.backgroundColor = "green";
+                    btn.removeAttribute("disabled");
+                }
+                else{
+                    btn.style.backgroundColor = "black";
+                    btn.setAttribute("disabled", "");
+                }
             }
         )
+        
+        
         $(document).on('change', '.file-input', function() {
             var filesCount = $(this)[0].files.length;
             var textbox = $(this).prev();
