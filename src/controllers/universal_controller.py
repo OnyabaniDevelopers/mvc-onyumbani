@@ -118,7 +118,7 @@ def view_profile():
             log = request.args.get('log')
             color = request.args.get('color')
     
-        return render_template('viewprofile.html.j2', data=data, profile_data=profile_data, log=log, color=color)
+        return render_template('usersView/viewprofile.html.j2', data=data, profile_data=profile_data, log=log, color=color)
      
     msg = "Please Log in first"
     return redirect(url_for('login', msg=msg))
@@ -150,7 +150,7 @@ def view_profile_all(userId, usertype):
         reviews = response[0] if response[1] == 200 else []
         
     
-    return render_template('viewprofile2.html.j2', data=data, profile_data=profile_data, usertype=usertype, reviews=reviews)
+    return render_template('usersView/viewprofile2.html.j2', data=data, profile_data=profile_data, usertype=usertype, reviews=reviews)
 
 
 @web_app.route('/about', methods=['GET', 'POST'])

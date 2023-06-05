@@ -56,7 +56,7 @@ def reserve_room(homeid, price):
             session['ownerId'] = home_data['userId']
             dates = [request.form['checkin'], request.form['checkout']]
             homename = home_data['homename']
-            return render_template('reservation.html.j2', data=data, homeId=homeid, homename=homename, num_rooms=num_rooms, dates=dates, price=new_price)
+            return render_template('usersView/reservation.html.j2', data=data, homeId=homeid, homename=homename, num_rooms=num_rooms, dates=dates, price=new_price)
         else:
             SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
             
@@ -189,7 +189,7 @@ def make_payment(roomprice, homeId, appId):
         data['usertype'] = session['usertype']
  
 
-    return render_template('payment.html.j2',  data=data, price=roomprice, homeId=homeId, appId=appId)
+    return render_template('usersView/payment.html.j2',  data=data, price=roomprice, homeId=homeId, appId=appId)
     
         
     
@@ -234,7 +234,7 @@ def confirmpayment(homeId, appId):
         elif request.method == 'POST':
             msg = "*Sorry, some required fields are missing, re-enter information"
             
-        return render_template('payment1.html.j2', data=data, msg=msg, homeId=homeId, appId=appId)  
+        return render_template('usersView/payment1.html.j2', data=data, msg=msg, homeId=homeId, appId=appId)  
         
     else:
         msg = "Please Log in first"

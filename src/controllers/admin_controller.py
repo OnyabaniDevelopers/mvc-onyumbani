@@ -29,7 +29,7 @@ def adminview():
                 payment['application'] = application_data[0]
             updated_payments[paymentid] = payment
  
-        return render_template('adminapplication.html.j2', data=data, msg=msg, payments=updated_payments)  
+        return render_template('usersView/adminapplication.html.j2', data=data, msg=msg, payments=updated_payments)  
         
     else:
         msg = "Please login as admin first"
