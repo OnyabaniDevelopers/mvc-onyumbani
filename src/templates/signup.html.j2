@@ -137,6 +137,33 @@
 
 {% block script %}
     <script>
+        $(document).on('change', '#firstname', function() {
+            const fname = document.getElementById('firstname');
+            const nameRegex = /^[a-z ,.'-]+$/i
+            
+            
+        }
+        
+        $(document).on('change', '#lastname', function() {
+            const lname = document.getElementById('lastname');
+            const nameRegex = /^[a-z ,.'-]+$/i
+            
+            
+        }
+        
+        $(document).on('change', '#email', function() {
+            const email = document.getElementById('email');
+            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            
+            
+        }
+        
+        $(document).on('change', '#homeaddress', function() {
+             const address = document.getElementById('homeaddress');
+             const addressRegex = /^[a-z ,.'-]+$/i
+             
+        }
+    
         $(document).on('change', '.password', function() {
                 const password1 = document.getElementById('password');
                 const password2 = document.getElementById('confirmpassword');
@@ -149,6 +176,7 @@
                         password1.style.border = "green solid 2px";
                         password2.style.border = "green solid 2px";
                         addhere.innerHTML = "";
+                        btn.style.backgroundColor = "green";
                         btn.removeAttribute("disabled");
                     }
                     else{
