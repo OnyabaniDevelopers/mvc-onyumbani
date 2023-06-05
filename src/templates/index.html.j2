@@ -5,10 +5,10 @@
   
 {% block nav %}		
   <div class="navbar-text rmdrop col-sm-12">
-    <a href="{{ url_for('index' ) }}" style="color:#708D81;">Clear Filters</a>
+    <a href="{{ url_for('index' ) }}" style="color:#708D81; font-size: 11px" class='btn btn-secondary'>Clear Filters</a>
     <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Select Filters
+      <button style='font-size: 11px' class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filters
       </button>
       <div id="filtersList" class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
         <form action="{{ url_for('index') }}">
@@ -85,13 +85,12 @@
   <!-- section -->
   <div class="container-fluid">
     <div class="row" style='margin: 20px auto'>
-      <div class="col-lg-3 col-md-4"></div>
-      <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="col-lg-3 col-md-4 col-sm-12" style='margin:auto'>
         <div id="searchBoxDiv" class=''>
            <input type="text" placeholder="Type keyword" id="searchBox" class='form-control' onkeyup="searchFunc()">
-           <p style='text-align:center; color:{{color}}'>{{msg}}</p>
         </div>
       </div>
+      <p style='text-align:center; color:{{color}}'>{{msg}}</p>
     </div>
     <div class="row">
       <!-- Image Row -->
