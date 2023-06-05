@@ -20,7 +20,7 @@ gcloud==0.17.0
 geocoder==1.38.1
 google-api-core==2.11.0
 google-api-python-client==2.86.0
-google-auth==2.18.1
+google-auth==2.19.1
 google-auth-httplib2==0.1.0
 google-cloud-core==2.3.2
 google-cloud-firestore==2.11.1

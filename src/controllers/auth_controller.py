@@ -244,7 +244,7 @@ def forgot_password():
 
         msg1 = "Reset link was sent to the email, reset password and login again"
 
-        return render_template('login.html.j2', log = log, msg1=msg1, color='#FF3062')
+        return render_template('login.html.j2', log = log, msg1=msg1, color='green')
         
 
     return render_template('forgetpassword.html.j2', log=log)
