@@ -59,7 +59,6 @@ class Authentication:
     @staticmethod
     def send_email_verification(email, name):
         link = auth.generate_email_verification_link(email, action_code_settings=None, app=None)
-        print(link)
         message = f'Welcome to O~nyumbani Housing\n\nPlease copy the link below to your browser to verify your account\n{link}'
         EmailNotifier.send_email(email, message, name)
 
@@ -67,6 +66,13 @@ class Authentication:
     def is_verified(email):
         data = auth.get_user_by_email(email, app=None)
         return data.email_verified
+    
+    @staticmethod
+    def reset_password(email):
+        link = firebase_admin.auth.generate_password_reset_link(email, action_code_settings=None, app=None)
+        message = f'Welcome to O~nyumbani Housing\n\nPlease copy the link below to your browser to reset your password\n{link}'
+        EmailNotifier.send_email(email, message, '')
+
    
             
     

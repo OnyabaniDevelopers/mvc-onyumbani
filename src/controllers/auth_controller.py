@@ -231,5 +231,22 @@ def end_process():
     SessionProcessing.clear_session_images(images)
     
     return redirect(url_for('index', msg="operation cancelled", color='green'))
+
+
+@web_app.route('/forgot_password', methods =['GET','POST'])
+def forgot_password():
+
+    log=' '
+
+    if request.method == 'POST' and request.form['email']:
+        email = request.form['email']
+        Authentication.reset_password(email)
+
+        msg1 = "Reset link was sent to the email, reset password and login again"
+
+        return render_template('login.html.j2', log = log, msg1=msg1, color='#FF3062')
+        
+
+    return render_template('forgetpassword.html.j2', log=log)
     
     
