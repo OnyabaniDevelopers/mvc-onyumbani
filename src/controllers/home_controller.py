@@ -129,7 +129,7 @@ def add_room():
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
         
-    return render_template('addroom.html.j2', error_message=msg)
+    return render_template('homesView/addroom.html.j2', error_message=msg)
 
 @web_app.route('/view_home/<id>', methods =['GET', 'POST'])
 def view_home(id):

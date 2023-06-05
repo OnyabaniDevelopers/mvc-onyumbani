@@ -175,7 +175,7 @@ def view_application():
 
 
     
-    return render_template('applications.html.j2', data=data, homes=all_homes, msg=msg, applications=updated_applications)  
+    return render_template('usersView/applications.html.j2', data=data, homes=all_homes, msg=msg, applications=updated_applications)  
     
 @web_app.route('/make_payment/<homeId>/<appId>/<roomprice>', methods =['GET', 'POST'])
 def make_payment(roomprice, homeId, appId):
