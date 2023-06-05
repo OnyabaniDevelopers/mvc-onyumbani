@@ -36,50 +36,54 @@ def login():
                 msg = 'Logged out successfully !'
             return redirect(url_for('index', msg = msg, color = color))
 
-
-    if request.method == 'POST' and request.form['email'] and request.form['password']:
-        email = request.form['email']
-        password = request.form['password']
-        if Authentication.is_verified(email):
-            user = Authentication.login(email, password)
-            
-            if user.status == 200:
-                user_info = Authentication.get_user_info(email)
-                Authentication.is_verified(email)
-
-                user_dict = json.loads(user.data.decode())
-
-                session.permanent = True
+    try:
+        if request.method == 'POST' and request.form['email'] and request.form['password']:
+            email = request.form['email']
+            password = request.form['password']
+            if Authentication.is_verified(email):
+                user = Authentication.login(email, password)
                 
-                # split1 = user.data.decode().split('"idToken": "')[1]
-                # split2 = split1.split('"registered":')[0]
-                # split3 = split2.strip()[:-2]
-            
-                session['idToken'] = user_dict['idToken']
-                
-                for key, value in user_info.items():
-                    session[key] = value
+                if user.status == 200:
+                    user_info = Authentication.get_user_info(email)
+                    Authentication.is_verified(email)
 
-                # save session data
-                session['loggedin'] = True
-            
+                    user_dict = json.loads(user.data.decode())
 
-                msg = 'Logged in successfully !'
+                    session.permanent = True
+                    
+                    # split1 = user.data.decode().split('"idToken": "')[1]
+                    # split2 = split1.split('"registered":')[0]
+                    # split3 = split2.strip()[:-2]
                 
-                # if 'currentpage' in session and session['currentpage']: 
-                #     return redirect(session['currentpage'])
-                # else:
-                return redirect(url_for('index', msg = msg, color = 'green'))
-            
+                    session['idToken'] = user_dict['idToken']
+                    
+                    for key, value in user_info.items():
+                        session[key] = value
+
+                    # save session data
+                    session['loggedin'] = True
+                
+
+                    msg = 'Logged in successfully !'
+                    
+                    # if 'currentpage' in session and session['currentpage']: 
+                    #     return redirect(session['currentpage'])
+                    # else:
+                    return redirect(url_for('index', msg = msg, color = 'green'))
+                
+                else:
+                    msg = 'Incorrect username / password !'
             else:
-                msg = 'Incorrect username / password !'
-        else:
-            msg="Please verify your account with the link sent to your email"
-            return redirect(url_for('index', msg = msg, color = 'red'))
-    elif request.method == 'POST':
-        msg = '*Fill all fields'
-    
-    return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+                msg="Please verify your account with the link sent to your email"
+                return redirect(url_for('index', msg = msg, color = 'red'))
+        elif request.method == 'POST':
+            msg = '*Fill all fields'
+            
+        return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+            
+    except:
+        msg = 'Incorrect username / password !. Please try again'
+        return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
 
 '''
 Signing in process
@@ -107,6 +111,7 @@ def sign_up_one():
 
             
         return redirect(url_for('sign_up_two'))
+        
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
 
@@ -132,6 +137,7 @@ def sign_up_two():
             return redirect(url_for('sign_up_student'))
         else:
             return redirect(url_for('sign_up_host'))
+            
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
     return render_template('signup2.html.j2', log=msg)
@@ -172,6 +178,7 @@ def sign_up_student():
         SessionProcessing.clear_session_images(images)
         message = '*Sorry, Failed to create account'
         return redirect(url_for('sign_up_one', msg=message))
+        
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
 

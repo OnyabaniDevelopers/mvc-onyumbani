@@ -13,8 +13,62 @@
                     <div class="row">
                     <div class="col-md-6" id="img-section1">
                         <div id="divImageMediaPreview">
-                            <img src="{{ profile_data['profileimg'] }}" class="rounded-circle" style="width: 350px; height: 320px" alt="Avatar" />
+                            <img src="{{ profile_data['profileimg'] }}" class="rounded-circle" style="width: 250px; height: 220px" alt="Avatar" />
                         </div>
+                        <div id='reviewslead'>
+                        {% if usertype=='student'%}
+                            <div id="reviews">
+                                {% for review in reviews %} 
+                                <div class="row single-review">
+                                    <div class="main-review">
+                                        <div class="row">
+                                            <div class='col-md-12 col-lg-2'>
+                                                {% if review['image'] == "" %}
+                                                    <img src="/static/pics/profile.png" class="rounded-circle" style="height: 80px; width:80px">
+                                                {% else %} 
+                                                    <img src={{ review.get('image') }} class="rounded-circle" style="height: 80px; width:80px">;
+                                                {% endif %}
+                                            </div>
+                                            <div class='col-md-12 col-lg-10''>
+                                                <div class='row'>
+                                                  <div class='col-lg-7 col-md-12' id='name' style="font-size: 15px;">{{ review.get('email') }}</div>
+                                                  <div class='col-lg-5 col-md-12' id='date' style="font-size: 15px; text-align: right">{{ review.get('dateposted') }}</div>
+                                                </div>
+                                                <p id="reviewing">{{ review.get('reviewmessage') }}</p> 
+                            
+                                                Rating: 
+                                                {% for i in range(review.get('rating')) %}
+                                                  <span><i class="fa fa-star" style="color: #e9d71c;"></i></span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>  
+                                        <hr>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>  
+                            {% if  data['log_status'] == "Log out" %}
+                                
+                                <form action="/review/student/{{profile_data['nationalId']}}" method='POST' class='row'>
+                                  <div class='col-7'>
+                                    <textarea type="text" name="reviewmessage" style='width: 100%;' placeholder='Add your comment'></textarea>
+                                  </div>
+                                  <div class='col-2'>
+                                    <p style='margin-bottom: 0; font-size: 13px'>Rating </p>
+                                    <select name='rating' class='form-control'>                                                      
+                                      {% for i in range(1,6) %}
+                                          <option name="rating" value="{{i}}">{{i}}</option> 
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                  <div class='col-3' style='margin:auto'>  
+                                    <input type="submit" style='background-color: black; color: white' class='form-control' name='review-submit' id='submit' value="POST">
+                                  </div>
+                                </form>                 
+                            {% endif %}
+                            
+                        {% endif %}
+                        </div> 
                     </div>
                     <div class="col-md-6" id="sec-section">
                         <div class="row">

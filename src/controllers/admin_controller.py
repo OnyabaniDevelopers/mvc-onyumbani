@@ -15,7 +15,7 @@ def adminview():
 
     # change tab value for logout/login
     data = {'log_status':'Sign In / Up', 'usertype':''}
-    if 'loggedin' in session and session['loggedin'] == True:
+    if 'loggedin' in session and session['loggedin'] == True and session['usertype'] == 'admin':
         data = {'log_status': 'Log out'}
 
         data['usertype'] = session['usertype']
@@ -33,13 +33,13 @@ def adminview():
         
     else:
         msg = "Please login as admin first"
-        return redirect(url_for('login', log=msg))
+        return redirect(url_for('login', msg=msg))
     
 @web_app.route('/cancel_payment/<appId>/<paymentId>', methods =['GET'])
 def cancel_payment(appId, paymentId):
     msg = ' '
     
-    if 'loggedin' in session and session['loggedin'] == True:
+    if 'loggedin' in session and session['loggedin'] == True and session['usertype'] == 'admin':
 
         response = Payments.delete_payment(paymentId)
                 
@@ -52,14 +52,14 @@ def cancel_payment(appId, paymentId):
         return redirect(url_for('adminview', log=msg, color='#FF3062'))
         
     else:      
-        msg = "Please Log in first"
-        return redirect(url_for('login', log=msg))
+        msg = "Please login as admin first"
+        return redirect(url_for('login', msg=msg))
 
 @web_app.route('/confirm_payment/<appId>/<paymentId>', methods =['GET'])
 def confirm_payment(appId, paymentId):
     msg = ' '
     
-    if 'loggedin' in session and session['loggedin'] == True:
+    if 'loggedin' in session and session['loggedin'] == True and session['usertype'] == 'admin':
 
         all_homes = Homes.get_homes()
         application = Students.get_application(appId)[0]
@@ -86,5 +86,5 @@ def confirm_payment(appId, paymentId):
         return redirect(url_for('adminview', log=msg, color='#FF3062'))
         
     else:      
-        msg = "Please Log in first"
+        msg = "Please login as admin first"
         return redirect(url_for('login', log=msg))
