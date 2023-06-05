@@ -65,6 +65,14 @@ def add_home():
         and request.form['homedescription'] and request.files['ownershipimg']\
                     and request.form['city'] and request.form['country']\
                     and request.form['initdate'] and request.form['enddate']:
+                    
+        if request.form['initdate'] > request.form['enddate']:
+            msg = "*Sorry, the end date should be after the start date"
+            return render_template('addhome.html.j2', error_message=msg)
+            
+        if len(get_dates_between(request.form['initdate'], request.form['enddate'])) < 7:
+            msg = "*Sorry, the home should be available for more than a week"
+            return render_template('addhome.html.j2', error_message=msg)
         
         session['homeId'] = f"{int(time.time() * 1000)}"
         session['amenities'] = []
