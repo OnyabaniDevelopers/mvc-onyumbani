@@ -75,6 +75,12 @@
                 </div>
               {% endfor %}
             </div>
+            <div class="col-9">
+                  <div class="row">
+                    <div class="col-1"><i class="fa-regular fa-circle fa-lg" style="color: rgb(15, 207, 15);"></i></div>
+                    <div class="col-9"><p>Other amenities: {{ home_data['otheramenities'] }}</p></div>              
+                  </div>
+                </div>
             <div class="row"><p><b>Location: </b> {{home_data['homeaddress']}}, {{home_data['city']}}, {{home_data['country']}}</p></div>
             <div id="map" style="height: 400px; width: 100%;">
                 

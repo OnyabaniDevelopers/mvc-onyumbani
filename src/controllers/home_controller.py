@@ -38,7 +38,7 @@ def view_listed():
             user_applications[application['appId']] = application
         
         if request.method == 'GET' and 'change' in request.args and 'id' in request.args:
-            print(request.args['change'])
+            
             appId = request.args['id']
             if request.args['change'] == 'disapprove':
                 Hosts.update_application({'status':'disapproved'}, appId)

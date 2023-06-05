@@ -277,7 +277,7 @@ def review(type, id):
         review_data['dateposted'] = str(datetime.now().strftime("%Y-%m-%d, %H:%M:%S"))
         review_data['rating'] = int(request.form['rating'])
         review_data['reviewmessage'] = request.form['reviewmessage']
-        review_data['email'] = session['email']
+        review_data['email'] = session['email'].split('@')[0]
         review_data['image'] = ''
 
         response = Reviews.add_review(id, type, review_data)
