@@ -40,38 +40,42 @@ def login():
     if request.method == 'POST' and request.form['email'] and request.form['password']:
         email = request.form['email']
         password = request.form['password']
-
-        user = Authentication.login(email, password)
-        
-        if user.status == 200:
-            user_info = Authentication.get_user_info(email)
-
-            user_dict = json.loads(user.data.decode())
-
-            session.permanent = True
+        if Authentication.is_verified(email):
+            user = Authentication.login(email, password)
             
-            # split1 = user.data.decode().split('"idToken": "')[1]
-            # split2 = split1.split('"registered":')[0]
-            # split3 = split2.strip()[:-2]
-        
-            session['idToken'] = user_dict['idToken']
-            
-            for key, value in user_info.items():
-                session[key] = value
+            if user.status == 200:
+                user_info = Authentication.get_user_info(email)
+                Authentication.is_verified(email)
 
-            # save session data
-            session['loggedin'] = True
-        
+                user_dict = json.loads(user.data.decode())
 
-            msg = 'Logged in successfully !'
+                session.permanent = True
+                
+                # split1 = user.data.decode().split('"idToken": "')[1]
+                # split2 = split1.split('"registered":')[0]
+                # split3 = split2.strip()[:-2]
             
-            # if 'currentpage' in session and session['currentpage']: 
-            #     return redirect(session['currentpage'])
-            # else:
-            return redirect(url_for('index', msg = msg, color = 'green'))
-        
+                session['idToken'] = user_dict['idToken']
+                
+                for key, value in user_info.items():
+                    session[key] = value
+
+                # save session data
+                session['loggedin'] = True
+            
+
+                msg = 'Logged in successfully !'
+                
+                # if 'currentpage' in session and session['currentpage']: 
+                #     return redirect(session['currentpage'])
+                # else:
+                return redirect(url_for('index', msg = msg, color = 'green'))
+            
+            else:
+                msg = 'Incorrect username / password !'
         else:
-            msg = 'Incorrect username / password !'
+            msg="Please verify your account with the link sent to your email"
+            return redirect(url_for('index', msg = msg, color = 'red'))
     elif request.method == 'POST':
         msg = '*Fill all fields'
     
@@ -146,6 +150,7 @@ def sign_up_student():
         user_data = {}
         email = session['email']
         password = session['password']
+        name = session['firstname']
         for record_key, record_value in session.items():
 
             if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken']:
@@ -160,6 +165,7 @@ def sign_up_student():
             create_user_response = Authentication.signup(email, password)
             session.clear()
             if create_user_response == 200:
+                Authentication.send_email_verification(email, name)
                 message = 'Account created successfully'
                 return redirect(url_for('login', msg=message))
         
@@ -181,6 +187,7 @@ def sign_up_host():
         session['nextofkin'] = {'name': request.form['nokfullname'], 'number': request.form['noknumber'], 'address': request.form['nokaddress']}
 
         user_data = {}
+        name = session['firstname']
         for record_key, record_value in session.items():
             if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken']:
                 continue
@@ -197,6 +204,7 @@ def sign_up_host():
             create_user_response = Authentication.signup(email, password)
             session.clear()
             if create_user_response == 200:
+                Authentication.send_email_verification(email, name)
                 message = 'Account created successfully'
                 return redirect(url_for('login', msg=message))
             
