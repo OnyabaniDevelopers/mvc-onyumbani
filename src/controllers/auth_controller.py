@@ -83,7 +83,7 @@ def login():
         return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
             
     except:
-        msg = 'Incorrect username / password !. Please try again'
+        msg = 'Incorrect username / password. Please try again'
         return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
 
 '''

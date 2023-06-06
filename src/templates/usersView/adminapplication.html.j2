@@ -1,10 +1,5 @@
 {% extends "parent.html.j2" %}
 
-{% block head %}
-
-
-{% endblock %}
-
 {% block style %}
 
 <style>
@@ -30,59 +25,118 @@
 
 {% block content %}
 <div style="margin-top: 3%;">
-    <p style="text-align: center; margin: 30px auto;">HOUSING APPLICATIONS</p>
-    <div class="row">
-        {% for paymentid, payment in payments.items() %}
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8 rounded-rectangle">
-            <div class="row">
-                <div class="col-md-3">
-                    <p style='font-weight: bold'>Student</p>
-                    <p class='small'>{{ payment['application']['studentname'] }}</p>
-                    <p class='small'>Contact: {{ payment['application']['studentcontact'] }}</p>
-                    <p class='small'>Email: {{ payment['application']['applicant_email'] }}</p>
-                </div>
-                <div class="col-md-2">
-                    <p style='font-weight: bold'>Home</p>
-                    <p class='small'>{{ payment['application']['homename'] }}</p>
-                    <!--<p class='small'>Airport, Valley</p>-->
-                    <p class='small'>Amount: {{ payment['application']['roomprice'] }}</p>
-                </div>
-                <div class="col-md-3">
-                    <p style='font-weight: bold'>Details</p>
-                    <p class='small'>Date: {{payment['date']}}</p>
-                    <p class='small'>Amount: {{payment['amount']}}</p>
-                    <p class='small'>Mode: {{payment['mode']}}</p>
-                    <p class='small'>Mode: {{payment['transaction']}}</p>
-                    {% if payment['application']['status'] == 'Ready to go' %}
-                        <p class='small'>Status: CONFIRMED</p>
-                    {% endif %}
-                </div>
-                <div class="col-md-3">
-                    <div style="text-align:center">
-                        <img src="{{payment['paymentimg']}}" class="" style="width: 100%; height: 100%;" alt="Avatar"/>
-                    </div>
-                </div>
-            </div>
-
-            {% if payment['application']['status'] != 'Ready to go' %}
-                                <div class="row" style='text-align: center;'>
-                <p class='small' style='margin-top: 10px'> * contact student if amount is not upto {{payment['application']['roomprice'] }} </p>
-                <div class="">
-                    <a href="/cancel_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-danger" style="margin-right: 10%">cancel</a>
-                    <a href="/confirm_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-success">confirm</a>
-                </div>
-            </div>
-            {% endif %}
-
+    <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-students-tab" data-bs-toggle="pill" data-bs-target="#pills-students" type="button" role="tab" aria-controls="pills-students" aria-selected="true">Students</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-owners-tab" data-bs-toggle="pill" data-bs-target="#pills-owners" type="button" role="tab" aria-controls="pills-owners" aria-selected="false">Home Owners</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-appli-tab" data-bs-toggle="pill" data-bs-target="#pills-appli" type="button" role="tab" aria-controls="pills-appli" aria-selected="false">Applications</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade" id="pills-students" role="tabpanel" aria-labelledby="pills-students-tab">
+        <div id="main-body" class="row">
+            {% for id, details in students.items() %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 home-tabb">
+                  <div class="home-image">
+                    <img src="{{details.get('studentidimg')}}" alt="Lights" style="width:100%; height: 200px; border-radius: 20px; margin-bottom: 5%">         
+                  </div>
+                  <div class="row" style='margin-bottom: 20px'>
+                      <div class="col-4">
+                        <img src="{{details.get('profileimg')}}" alt="Lights" style="width:100%; height:80%; border-radius: 50%;">
+                      </div>
+                      <div class="col-8" style='padding: auto'>
+                        <p class='small'>{{details.get('firstname')}} {{details.get('lastname')}}</p>
+                        <p class='small'>ID number: {{details.get('nationalId')}}</p>
+                        <p class='small'>{{details.get('email')}}</p>
+                        <p class='small'>{{details.get('phonenumber')}}</p>
+                      </div>
+                  </div>
+                </div> 
+            {% endfor %}
         </div>
-        <div class="col-sm-1"></div>
-
-        {% endfor %}
-
+      </div>
+      <div class="tab-pane fade" id="pills-owners" role="tabpanel" aria-labelledby="pills-owners-tab">
+        <div id="main-body" class="row">
+            {% for id, details in owners.items() %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 home-tabb">
+                  <div class="home-image">
+                    <img src="{{details.get('nationalidimg')}}" alt="Lights" style="width:100%; height: 200px; border-radius: 20px; margin-bottom: 5%">         
+                  </div>
+                  <div class="row" style='margin-bottom: 20px'>
+                      <div class="col-4">
+                        <img src="{{details.get('profileimg')}}" alt="Lights" style="width:100%; height:80%; border-radius: 50%;">
+                      </div>
+                      <div class="col-8" style='padding: auto'>
+                        <p class='small'>{{details.get('firstname')}} {{details.get('lastname')}}</p>
+                        <p class='small'>ID number: {{details.get('nationalId')}}</p>
+                        <p class='small'>{{details.get('email')}}</p>
+                        <p class='small'>{{details.get('phonenumber')}}</p>
+                      </div>
+                  </div>
+                </div> 
+            {% endfor %}
+        </div>
+      </div>
+      <div class="tab-pane fade show active" id="pills-appli" role="tabpanel" aria-labelledby="pills-appli-tab">
+        <p style="text-align: center; margin: 30px auto;">HOUSING APPLICATIONS</p>
+        <div class="row">
+            {% for paymentid, payment in payments.items() %}
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 rounded-rectangle">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p style='font-weight: bold'>Student</p>
+                            <p class='small'>{{ payment['application']['studentname'] }}</p>
+                            <p class='small'>Contact: {{ payment['application']['studentcontact'] }}</p>
+                            <p class='small'>Email: {{ payment['application']['applicant_email'] }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p style='font-weight: bold'>Home</p>
+                            <p class='small'>{{ payment['application']['homename'] }}</p>
+                            <!--<p class='small'>Airport, Valley</p>-->
+                            <p class='small'>Amount: {{ payment['application']['roomprice'] }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p style='font-weight: bold'>Details</p>
+                            <p class='small'>Date: {{payment['date']}}</p>
+                            <p class='small'>Amount: {{payment['amount']}}</p>
+                            <p class='small'>Mode: {{payment['mode']}}</p>
+                            <p class='small'>Mode: {{payment['transaction']}}</p>
+                            {% if payment['application']['status'] == 'Ready to go' %}
+                                <p class='small'>Status: CONFIRMED</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-3">
+                            <div style="text-align:center">
+                                <img src="{{payment['paymentimg']}}" class="" style="width: 100%; height: 100%;" alt="Avatar"/>
+                            </div>
+                        </div>
+                    </div>
         
+                    {% if payment['application']['status'] != 'Ready to go' %}
+                                        <div class="row" style='text-align: center;'>
+                        <p class='small' style='margin-top: 10px'> * contact student if amount is not upto {{payment['application']['roomprice'] }} </p>
+                        <div class="">
+                            <a href="/cancel_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-danger" style="margin-right: 10%; padding: 0.3rem">cancel</a>
+                            <a href="/confirm_payment/{{payment['application']['appId']}}/{{paymentid}}" class="btn btn-success"  style="padding: 0.3rem">confirm</a>
+                        </div>
+                    </div>
+                    {% endif %}
         
-        
+                </div>
+                <div class="col-sm-1"></div>
+            {% endfor %}   
+        </div>  
+      </div>
     </div>
 </div>   
 {% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOx2Perl8ixzncFwkjV5SdDgFDI12xUqY&callback=initMap"></script>
+{% endblock %}  

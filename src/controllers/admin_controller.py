@@ -20,16 +20,25 @@ def adminview():
 
         data['usertype'] = session['usertype']
         
-        payments = Payments.get_payments()[0]
+        payments = Payments.get_payments()
+        students =  Students.get_students()
+        owners = Hosts.get_owners()
+        
+        if payments[1] != 200 and students[1] != 200 and owners[1] != 200:
+            msg = "Try again!"
+            return redirect(url_for('index', msg=msg, color='FF3062')) 
+            
+            
         updated_payments = {}
-        for paymentid, payment in payments.items():
+        for paymentid, payment in payments[0].items():
             
             application_data = Students.get_application(payment['applicationid'])
             if application_data[1] == 200:
                 payment['application'] = application_data[0]
             updated_payments[paymentid] = payment
- 
-        return render_template('usersView/adminapplication.html.j2', data=data, msg=msg, payments=updated_payments)  
+            
+        return render_template('usersView/adminapplication.html.j2', data=data, msg=msg, payments=updated_payments, students=students[0], owners=owners[0])  
+        
         
     else:
         msg = "Please login as admin first"
