@@ -38,8 +38,8 @@ def clear_session():
 def index():
     '''Index page controller'''
     
-    msg = ''
-    color = ''
+    msg = ' '
+    color = 'FF3062'
 
     # change tab value for logout/login
     data = {'log_status':'Sign In / Up', 'usertype':''}

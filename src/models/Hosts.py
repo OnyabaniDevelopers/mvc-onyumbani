@@ -4,10 +4,11 @@ import json
 from src import database
 
 
+owners_db =  database.collection('owners')
+
 request_ref = BASE_URL + '/owners'
 application_ref = BASE_URL + '/applications'
 
-hosts_db = database.collection('owners')
 
 class Hosts:
 
@@ -60,3 +61,15 @@ class Hosts:
         data = json.dumps(data)
         request_object = urllib3.request(method="PUT",url=application_ref+f'/{app_id}', headers=headers, body=data)
         return request_object.status
+        
+    @staticmethod
+    def get_owners():
+    
+        try:       
+            owners = {data.id:data.to_dict() for data in owners_db.stream()}     
+            
+            return owners, 200
+        
+        except Exception as e:
+        
+            return {"ERROR":str(e)}, 503

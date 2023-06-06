@@ -5,7 +5,8 @@ import json
 from src import database
 
 application_db = database.collection('applications')
-students_db = database.collection('students')
+
+students_db =  database.collection('students')
 
 request_ref = BASE_URL + '/students'
 application_ref = BASE_URL + '/applications'
@@ -89,3 +90,14 @@ class Students:
 
         return {"ERROR":"Unknown error"}, 404
 
+    @staticmethod
+    def get_students():
+        
+        try:       
+            students = {data.id:data.to_dict() for data in students_db.stream()}     
+
+            return students, 200
+        
+        except Exception as e:
+
+            return {"ERROR":str(e)}, 503
