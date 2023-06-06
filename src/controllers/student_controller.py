@@ -119,13 +119,15 @@ def apply_housing(id_room_dates_name):
         message = f"{session['email']}, entered you as guests. Please follow this link to confirm"
         EmailNotifier.send_email(guests_emails, message, ' ')
 
-    SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
+    images = SessionProcessing.clear_session(session)
 
     if response == 200:
 
         return redirect(url_for('view_application'))
     
     else:
+        
+        SessionProcessing.clear_session_images(images)
         return redirect(f'/view_home/{homeId}')
         
 @web_app.route('/view_application', methods =['GET', 'POST'])
