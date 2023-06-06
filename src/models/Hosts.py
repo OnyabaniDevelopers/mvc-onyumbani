@@ -3,10 +3,12 @@ from src.models.constants import BASE_URL
 import json
 from src import database
 
+
 owners_db =  database.collection('owners')
 
 request_ref = BASE_URL + '/owners'
 application_ref = BASE_URL + '/applications'
+
 
 class Hosts:
 
@@ -35,6 +37,15 @@ class Hosts:
         headers = {"content-type": "application/json; charset=UTF-8"}
         request_object = urllib3.request(method="GET",url=request_ref+f'/{owner_id}', headers=headers)
         return eval(request_object.data.decode())
+    
+    @staticmethod
+    def get_all_hosts():
+        try:
+            hosts_records = {data.to_dict()['nationalId']:data.to_dict() for data in hosts_db.stream()}
+
+            return hosts_records, 200
+        except:
+            return {"ERROR":"Unknown error"}, 503
         
     @staticmethod
     def delete_host(owner_id, email):
