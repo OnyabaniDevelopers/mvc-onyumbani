@@ -8,6 +8,8 @@ from src.models.Students import Students
 from src.utils.image_processing import ImageProcessing
 from src.utils.session_processing import SessionProcessing
 
+COMMISSION = 0.1
+
 
 from src.models.Homes import Homes
 
@@ -30,11 +32,13 @@ def view_listed():
 
         for home_key, home  in all_homes.items():
             if home['userId'] == session['userId']:
+                home['roomprice'] = str(round((1/(1 + COMMISSION)) * int(home['roomprice'])))
                 user_homes[home_key] = home
 
         applications = Students.get_applications('owner', session['userId'])
 
         for application in applications:
+            application['roomprice'] = str(round((1/(1 + COMMISSION)) * int(application['roomprice'])))
             user_applications[application['appId']] = application
         
         if request.method == 'GET' and 'change' in request.args and 'id' in request.args:
@@ -100,7 +104,7 @@ def add_room():
             session[entry] = value 
         
         session['homeimgs'] = []
-        session['roomprice'] = str(round(1.1 * int(session['roomprice'])))
+        session['roomprice'] = str(round((1 + COMMISSION) * int(session['roomprice'])))
         
         for image in request.files.getlist('homeimgs'):
             img_url = ImageProcessing.upload_img(image)
@@ -175,6 +179,7 @@ def view_home(id):
  
     reviews = response[0] if response[1] == 200 else []
 
+
     return render_template('homesView/individualhome.html.j2', home_data=home_data, reviews=reviews, data=data, host_data=host_data, location=location, errors=msg)
 
 
@@ -185,6 +190,7 @@ def edithome(id):
 
     # change tab value for logout/login
     home_data = Homes.get_home(id)
+    home_data['roomprice'] = str(round((1/(1 + COMMISSION)) * int(home_data['roomprice'])))
     data = {'log_status':'Sign In / Up', 'usertype':''}
     if 'loggedin' in session and session['loggedin'] == True:
         data = {'log_status': 'Log out'}
@@ -202,9 +208,12 @@ def edithome(id):
                     continue
                 new_home_data[entry] = value
             
+            new_home_data['roomprice'] = str(round((1 + COMMISSION) * int(new_home_data['roomprice'])))
             response = Homes.update_home(new_home_data, id)
 
             home_data = Homes.get_home(id)
+
+            home_data['roomprice'] = str(round((1/(1 + COMMISSION)) * int(home_data['roomprice']), 2))
 
             if response == 200:
                 msg="Updated successfully"
