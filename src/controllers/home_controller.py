@@ -50,12 +50,9 @@ def view_listed():
             for application in applications:
                 user_applications[application['appId']] = application
 
-            return render_template('homesapplicationview.html.j2', data=data, homes=user_homes, applications=user_applications)
+            return render_template('usersView/homesapplicationview.html.j2', data=data, homes=user_homes, applications=user_applications)
 
-
-    
-
-    return render_template('homesapplicationview.html.j2', data=data, homes=user_homes, applications=user_applications)
+    return render_template('usersView/homesapplicationview.html.j2', data=data, homes=user_homes, applications=user_applications)
 
 
 @web_app.route('/add_home', methods =['GET', 'POST'])
@@ -68,11 +65,11 @@ def add_home():
                     
         if request.form['initdate'] > request.form['enddate']:
             msg = "*Sorry, the end date should be after the start date"
-            return render_template('addhome.html.j2', error_message=msg)
+            return render_template('homesView/addhome.html.j2', error_message=msg)
             
         if len(get_dates_between(request.form['initdate'], request.form['enddate'])) < 7:
             msg = "*Sorry, the home should be available for more than a week"
-            return render_template('addhome.html.j2', error_message=msg)
+            return render_template('homesView/addhome.html.j2', error_message=msg)
         
         session['homeId'] = f"{int(time.time() * 1000)}"
         session['amenities'] = []
@@ -89,7 +86,7 @@ def add_home():
     elif request.method == 'POST':
         SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
         msg = "*Sorry, some required fields are missing, re-enter information"
-    return render_template('addhome.html.j2', error_message=msg)
+    return render_template('homesView/addhome.html.j2', error_message=msg)
 
 
 @web_app.route('/add_room', methods =['GET', 'POST'])
@@ -132,7 +129,7 @@ def add_room():
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
         
-    return render_template('addroom.html.j2', error_message=msg)
+    return render_template('homesView/addroom.html.j2', error_message=msg)
 
 @web_app.route('/view_home/<id>', methods =['GET', 'POST'])
 def view_home(id):
@@ -178,7 +175,7 @@ def view_home(id):
  
     reviews = response[0] if response[1] == 200 else []
 
-    return render_template('individualhome.html.j2', home_data=home_data, reviews=reviews, data=data, host_data=host_data, location=location, errors=msg)
+    return render_template('homesView/individualhome.html.j2', home_data=home_data, reviews=reviews, data=data, host_data=host_data, location=location, errors=msg)
 
 
 @web_app.route('/edithome/<id>', methods =['GET', 'POST'])
@@ -211,14 +208,14 @@ def edithome(id):
 
             if response == 200:
                 msg="Updated successfully"
-                return render_template('edithome.html.j2', data=data, msg=msg, home_data=home_data, homeId=id) 
+                return render_template('homesView/edithome.html.j2', data=data, msg=msg, home_data=home_data, homeId=id) 
             else:
                 msg="Failed to update"
             
         elif request.method == 'POST':
             msg = "*Sorry, some required fields are missing, re-enter information"
             
-        return render_template('edithome.html.j2', data=data, msg=msg, home_data=home_data, homeId=id)  
+        return render_template('homesView/edithome.html.j2', data=data, msg=msg, home_data=home_data, homeId=id)  
         
     else:
         msg = "Please Log in first"

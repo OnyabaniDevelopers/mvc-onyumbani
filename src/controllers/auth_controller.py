@@ -74,16 +74,17 @@ def login():
                 else:
                     msg = 'Incorrect username / password !'
             else:
+                Authentication.send_email_verification(email, '')
                 msg="Please verify your account with the link sent to your email"
                 return redirect(url_for('index', msg = msg, color = 'red'))
         elif request.method == 'POST':
             msg = '*Fill all fields'
             
-        return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+        return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
             
     except:
         msg = 'Incorrect username / password !. Please try again'
-        return render_template('login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+        return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
 
 '''
 Signing in process
@@ -115,7 +116,7 @@ def sign_up_one():
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
 
-    return render_template('signup.html.j2', log=msg)
+    return render_template('authView/signup.html.j2', log=msg)
 
 
 @web_app.route('/sign_up_two', methods =['GET','POST'])
@@ -140,7 +141,7 @@ def sign_up_two():
             
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
-    return render_template('signup2.html.j2', log=msg)
+    return render_template('authView/signup2.html.j2', log=msg)
 
 
 @web_app.route('/sign_up_student', methods =['GET','POST'])
@@ -182,7 +183,7 @@ def sign_up_student():
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
 
-    return render_template('signup3.html.j2', log=msg)
+    return render_template('authView/signup3.html.j2', log=msg)
 
 
 @web_app.route('/sign_up_host', methods =['GET','POST'])
@@ -222,7 +223,7 @@ def sign_up_host():
     elif request.method == 'POST':
         msg = '*Sorry, some required information are missing'
         
-    return render_template('signup4.html.j2', log=msg)
+    return render_template('authView/signup4.html.j2', log=msg)
 
 @web_app.route('/end_process', methods =['GET','POST'])
 def end_process():
@@ -247,6 +248,7 @@ def forgot_password():
         return render_template('login.html.j2', log = log, msg1=msg1, color='green')
         
 
-    return render_template('forgetpassword.html.j2', log=log)
+    return render_template('authView/forgetpassword.html.j2', log=log)
+
     
     
