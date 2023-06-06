@@ -5,6 +5,7 @@ import json
 from src import database
 
 application_db = database.collection('applications')
+students_db = database.collection('students')
 
 request_ref = BASE_URL + '/students'
 application_ref = BASE_URL + '/applications'
@@ -36,6 +37,16 @@ class Students:
         headers = {"content-type": "application/json; charset=UTF-8"}
         request_object = urllib3.request(method="GET",url=request_ref+f'/{student_id}', headers=headers)
         return eval(request_object.data.decode())
+    
+    @staticmethod
+    def get_all_students():
+        try:
+            students_records = {data.to_dict()['nationalId']:data.to_dict() for data in students_db.stream()}
+
+            return students_records, 200
+        except:
+            return {"ERROR":"Unknown error"}, 503
+
         
     @staticmethod
     def delete_student(student_id, email):
