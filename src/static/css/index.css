@@ -30,9 +30,13 @@ a{
   border-radius: 0;
 }
 
+.nav-link {
+  padding: 0.5rem 0.4rem;
+}
+
 @media (min-width: 768px) {
   .navbar {
-    padding: 5px 200px ;
+    padding: 5px 100px;
   }
   
 }
@@ -528,7 +532,7 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
   border: 1px solid black;
   border-radius: 20px;
   background-color: #D9D9D9;
-  margin: 20px 4%;
+  /* margin: 20px 4%; */
 }
 
 /* reviews in profile 2 */
@@ -546,4 +550,8 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
   height: 230px;
   overflow-y:scroll;
   overflow-x:hidden;
+}
+
+.btn {
+  padding: 0.25rem;
 }

@@ -15,8 +15,8 @@
                         <div id="divImageMediaPreview">
                             <img src="{{ profile_data['profileimg'] }}" class="rounded-circle" style="width: 250px; height: 220px" alt="Avatar" />
                         </div>
-                        <div id='reviewslead'>
                         {% if usertype=='student'%}
+                        <div id='reviewslead'>
                             <div id="reviews">
                                 {% for review in reviews %} 
                                 <div class="row single-review">
@@ -66,9 +66,8 @@
                                   </div>
                                 </form>                 
                             {% endif %}
-                            
-                        {% endif %}
                         </div> 
+                        {% endif %}
                     </div>
                     <div class="col-md-6" id="sec-section">
                         <div class="row">
