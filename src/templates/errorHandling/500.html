@@ -1,0 +1,11 @@
+{% extends "parent.html.j2" %}
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+  
+{% block content %}
+    <div style="width: 40%; margin: auto auto;">
+        <h1>INTERNAL SERVER ERROR</h1>
+        <a href="{{url_for('index')}}">Try Again</a>
+    </div> 
+{% endblock %}
