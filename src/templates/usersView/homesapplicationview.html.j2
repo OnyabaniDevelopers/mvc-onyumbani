@@ -84,9 +84,9 @@
                             <p class='small'>{{application['studentname']}}</p>
                             <p class='small'>Contact: {{application['studentcontact']}}</p>
                             <p class='small'>Email: {{application['applicant_email']}}</p>
-                            <a href="/view_profile/student/{{ application['studentId'] }}"><p class='small'>view profile card</p></a>
-                            <a href="{{ application['School-Reference'] }}"><p class='small'>view school reference</p></a>
-
+                            <a href="/view_profile/student/{{ application['studentId'] }}" target="_blank"><p class='small'>view profile card</p></a>
+                            <a href="{{ application['School-Reference'] }}" target="_blank"><p class='small'>view school reference</p></a>
+                            <a href="" target="_blank"><p class='small'>view student test result</p></a>
 
                             {%if application['status'] == 'Host approval'%}
                             <div class="" style='margin-top: 10px'>

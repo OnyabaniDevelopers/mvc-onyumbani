@@ -105,7 +105,7 @@
                             <p class='small'>Date: {{payment['date']}}</p>
                             <p class='small'>Amount: {{payment['amount']}}</p>
                             <p class='small'>Mode: {{payment['mode']}}</p>
-                            <p class='small'>Mode: {{payment['transaction']}}</p>
+                            <p class='small'>ID: {{payment['transaction']}}</p>
                             {% if payment['application']['status'] == 'Ready to go' %}
                                 <p class='small'>Status: CONFIRMED</p>
                             {% endif %}
@@ -115,6 +115,8 @@
                         <a class='small' href="{{payment['paymentimg']}}" target="_blank">View payment proof</a>
                         <p></p>
                          <a class='small' href="{{payment['application']['School-Reference']}}" target="_blank">View school reference</a>
+                        <p></p>
+                        <a class='small' href="" target="_blank">View student test result</a>
                     </div>
                 </div>
                     </div>
