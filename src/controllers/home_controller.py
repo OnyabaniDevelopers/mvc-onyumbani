@@ -1,4 +1,5 @@
 import time
+from datetime import datetime, timedelta, date
 from src import web_app
 from flask import render_template, redirect, url_for, request, session
 from src.controllers.helper_functions import encrypt_num, get_dates_between, get_geocode
@@ -156,6 +157,16 @@ def view_home(id):
       
     home_data = Homes.get_home(id)
     home_data['numrooms'] = int(home_data['numrooms'])
+    all_dates = home_data['dateslist']
+    
+    for ind in range(len(all_dates)):
+        if datetime.strptime(all_dates[ind], '%Y-%m-%d').date() > date.today():
+            num = ind
+            break
+            
+    home_data['dateslist'] = home_data['dateslist'][num:]
+    
+    Homes.update_home(home_data, id)
 
     # encrypt prize before adding data
     encrypt_price = encrypt_num(home_data['roomprice'])

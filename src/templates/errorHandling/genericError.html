@@ -4,9 +4,12 @@
 {% endblock %}
   
 {% block content %}
-    <div style="width: 40%; margin: auto auto;">
+    <div class="vertical-center" style="text-align: center">
+        
+        <p>{{ error}}</p>
+    
+        <div class="embed"><iframe src="{{url_for('static', filename='pics/5033.gif') }}" width="500" height="380" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
         <h1>SOMETHING WENT WRONG</h1>
-        <p>{{error}}</p>
         <a href="{{url_for('index')}}">Reload</a>
     </div> 
 {% endblock %}

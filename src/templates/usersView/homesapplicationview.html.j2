@@ -32,7 +32,7 @@
     <!-- section -->
   <div class="container-fluid">
     <div class="navbar-text col-sm-12">
-      <p>LISTED HOMES</p>
+      <p style='font-weight:bold'>LISTED HOMES</p>
       <ul class="horizontal-list">
         <li class="nav-item btn" style='background-color: black;'>
             <a class="" style='color: white;' aria-current="page" href="{{ url_for('add_home') }} ">Add Home</a>
@@ -41,6 +41,9 @@
     </div>
     <div id="main-body" class="row">
       <!-- Image Row -->
+      {% if not homes %}
+        <p style='text-align: center'> No home uploaded so far </p>
+      {% endif %}
       {% for home_key, home  in homes.items() %}
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 home-tabb">
           <a href="/view_home/{{ home.get('homeId')}}" style="text-decoration: none">
@@ -69,8 +72,11 @@
       {% endfor %}  
     </div>
     </div>
-        <p style="text-align: center;">HOUSING APPLICATIONS</p>
+        <p style="text-align: center; font-weight:bold">HOUSING APPLICATIONS</p>
         <div class="row">
+            {% if not applications %}
+                <p style='text-align: center'> There is no application at the moment </p>
+            {% endif %}
             {% for appId, application in applications.items() %}
                 <div class="col-sm-12 rounded-rectangle">
                     <div class="row">

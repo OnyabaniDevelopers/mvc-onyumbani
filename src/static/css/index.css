@@ -555,3 +555,15 @@ input[type="text"], input[type="date"], input[type="email"], input[type="number"
 .btn {
   padding: 0.25rem;
 }
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.embed{
+  margin: auto;
+}

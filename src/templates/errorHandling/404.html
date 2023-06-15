@@ -4,7 +4,8 @@
 {% endblock %}
   
 {% block content %}
-    <div style="width: 40%; margin: auto auto;">
-        <h1>PAGE NOT FOUND</h1>
+    <div class="vertical-center">
+        <div class="embed"><iframe src={{url_for('static', filename='pics/404.gif') }} width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+        <h1 style="text-align: center">PAGE NOT FOUND</h1>
     </div> 
 {% endblock %}
