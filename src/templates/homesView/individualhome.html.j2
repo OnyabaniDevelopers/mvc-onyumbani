@@ -162,6 +162,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="pills-availability" role="tabpanel" aria-labelledby="pills-availability-tab">
+                <p style='text-align: center;'>* Scroll up/down or use page down/up </p>
                 <smart-calendar months="2" calendar-mode="classic" id="calendar" important-dates="{{ home_data['dateslist'] }}" style="width: 90%;"> 
                 </smart-calendar>
             </div>
@@ -175,16 +176,16 @@
         </div>
         
         <!-- Reserve Form and the house information -->
-        
+        {%if data and data['usertype']=='student' %}
         <div class="col-md-1">
         </div>
         
         <div id="reservation" class="col-lg-4 col-md-12">
           <form class="w-full max-w-lg" action="{{ '/reserve/'+ home_data['homeId'] + '/' + home_data['encryptprice']  }}" method='POST' enctype="multipart/form-data">
 
-            {% if  data['log_status'] == "Log out" %}
+            {% if  data['log_status'] == "Log out"  %}
 
-                          <div class="row">
+              <div class="row">
                 <div class="col-6">
                     <div class="form-group">  
                         <label for="checkin">Check-In</label>
@@ -250,6 +251,7 @@
           </div> 
           </form>
         </div>
+      {% endif %}
       </div>
       <div class="footer">
         <p>© Copyright Nyumbani 2022</p>

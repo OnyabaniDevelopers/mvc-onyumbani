@@ -4,7 +4,8 @@
 {% endblock %}
   
 {% block content %}
-    <div style="width: 40%; margin: auto auto;">
+    <div class="vertical-center" style="text-align: center">
+        <div class="embed"><iframe src="{{url_for('static', filename='pics/500.gif') }}" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
         <h1>INTERNAL SERVER ERROR</h1>
         <a href="{{url_for('index')}}">Try Again</a>
     </div> 

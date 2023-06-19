@@ -4,8 +4,9 @@
 {% endblock %}
   
 {% block content %}
-    <div style="width: 40%; margin: auto auto;">
-        <h1>CONNECTION FAILED</h1>
+    <div class="vertical-center" style="text-align: center">
+        <div class="embed"><iframe src="{{url_for('static', filename='pics/5033.gif') }}" width="500" height="380" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+        <h1>CONNECTION FAILED <br> Check your internet</h1>
         <a href="{{url_for('index')}}">Reload</a>
     </div> 
 {% endblock %}

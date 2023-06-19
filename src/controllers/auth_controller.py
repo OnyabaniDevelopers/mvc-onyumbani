@@ -15,9 +15,11 @@ def login():
     
     msg = ' '
     msg1 = ''
+    color = '#FF3062'
     
     if 'msg' in request.args:
         msg1 = request.args.get('msg')
+        color = 'green'
 
     #log out user
     if 'loggedin' in session and session['loggedin'] == True:
@@ -77,10 +79,12 @@ def login():
                 Authentication.send_email_verification(email, '')
                 msg="Please verify your account with the link sent to your email"
                 return redirect(url_for('index', msg = msg, color = 'red'))
+                
         elif request.method == 'POST':
             msg = '*Fill all fields'
+            color = '#FF3062'
             
-        return render_template('authView/login.html.j2', log = msg, msg1=msg1, color='#FF3062')
+        return render_template('authView/login.html.j2', log = msg, msg1=msg1, color=color)
             
     except:
         msg = 'Incorrect username / password. Please try again'
@@ -100,7 +104,8 @@ def sign_up_one():
     if request.method == 'POST' and request.form['password'] and request.form['confirmpassword']\
         and request.form['lastname'] and request.form['firstname'] and request.form['homeaddress']\
             and request.form['dob'] and request.form['usertype'] and request.form['email']\
-                and request.form['password'] == request.form['confirmpassword']:
+            and request.files['profileimage'] and request.files['profileimage'].filename != ''\
+            and request.form['password'] == request.form['confirmpassword']:
         # save session data
 
         for entry, value in request.form.to_dict().items():
@@ -160,7 +165,7 @@ def sign_up_student():
         name = session['firstname']
         for record_key, record_value in session.items():
 
-            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken']:
+            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken', '_permanent']:
                 continue
             user_data[record_key] = record_value
 
@@ -173,7 +178,7 @@ def sign_up_student():
             session.clear()
             if create_user_response == 200:
                 Authentication.send_email_verification(email, name)
-                message = 'Account created successfully'
+                message = 'Account created successfully. Verify the account in your email'
                 return redirect(url_for('login', msg=message))
         
         SessionProcessing.clear_session_images(images)
@@ -197,7 +202,7 @@ def sign_up_host():
         user_data = {}
         name = session['firstname']
         for record_key, record_value in session.items():
-            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken']:
+            if record_key in ['password', 'confirmpassword', 'loggedin', 'currentpage', 'idToken', '_permanent']:
                 continue
             user_data[record_key] = record_value
         
@@ -213,7 +218,7 @@ def sign_up_host():
             session.clear()
             if create_user_response == 200:
                 Authentication.send_email_verification(email, name)
-                message = 'Account created successfully'
+                message = 'Account created successfully. Verify the account in your email'
                 return redirect(url_for('login', msg=message))
             
         SessionProcessing.clear_session_images(images)

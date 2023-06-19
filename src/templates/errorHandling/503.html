@@ -4,8 +4,9 @@
 {% endblock %}
   
 {% block content %}
-    <div style="width: 40%; margin: auto auto;">
+    <div class="vertical-center" style="text-align: center">
+        <div class="embed"><iframe src="{{url_for('static', filename='pics/5033.gif') }}"  width="500" height="380" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
         <h1>OOPS, SOMETHING HAPPENED. HOLD ON WHILE WE FIX IT</h1>
         <a href="{{url_for('index')}}">Try Again</a>
-    </div> 
+    </div> {{url_for('static', filename='pics/transparent2.png') }}
 {% endblock %}

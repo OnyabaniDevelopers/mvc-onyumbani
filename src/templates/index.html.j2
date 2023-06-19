@@ -98,12 +98,21 @@
       {% for home_key, home  in homes.items() %}
         <div class="home-box col-lg-3 col-md-4 col-sm-6 col-xs-12 homediv">
           {% if data['usertype'] == 'admin' %}
-          <a href="/delete_home/{{home.get('homeId')}}/{{home.get('userId')}}" class="far-right">
-            <span class="cancel">
+          <div class="">
+            <button style='font-size: 11px' class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="cancel">
                 <i class="fa-sharp fa-solid fa-trash" style="color: #FF3062;"></i>
                 Delete Post
-            </span>
-          </a>
+              </span>
+            </button>
+            <div id="filtersList" class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenu">
+              <p> Are you sure you want to delete this post?</p>
+              <div class='row'>
+                <a style='color:white' class="col-6 green-button" href="/delete_home/{{home.get('homeId')}}/{{home.get('userId')}}">Delete</a>      
+                <a style='color:white; margin-right: 0' class="col-6 pink-button" href="{{ url_for('index') }}">Cancel</a>
+              </div>
+            </div>
+          </div>                                                          
           {% endif %}
           <div class="thumbnail">
             <a href="/view_home/{{ home.get('homeId')}} " style="text-decoration: none">
