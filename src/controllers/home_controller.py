@@ -256,9 +256,17 @@ def delete_home(homeId, ownerId):
                 for application in applications:
                     if application['homeId'] == homeId:
                         Students.delete_application(application['appId'])
+                        
+                if session['usertype'] == 'admin':
+                    return redirect(url_for('index', log=msg))
+                        
                 return redirect(url_for('view_listed', log=msg))
          
             msg='Failed to delete'
+            
+            if session['usertype'] == 'admin':
+                return redirect(url_for('index', log=msg))
+                    
             return redirect(url_for('view_listed', log=msg, color='#FF3062'))
         
     else:      
