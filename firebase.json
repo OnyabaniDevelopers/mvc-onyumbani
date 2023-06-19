@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "index",
+
+        "run": {
+      "serviceId": "index", 
+      "region": "us-central1",    
+      "pinTag": true              
+    }
+
+      }
+    ]
+  }
+}
