@@ -53,10 +53,6 @@ def login():
 
                     session.permanent = True
                     
-                    # split1 = user.data.decode().split('"idToken": "')[1]
-                    # split2 = split1.split('"registered":')[0]
-                    # split3 = split2.strip()[:-2]
-                
                     session['idToken'] = user_dict['idToken']
                     
                     for key, value in user_info.items():
@@ -74,7 +70,7 @@ def login():
                     return redirect(url_for('index', msg = msg, color = 'green'))
                 
                 else:
-                    msg = 'Incorrect username / password !'
+                    msg = 'Incorrect email / password !'
             else:
                 Authentication.send_email_verification(email, '')
                 msg="Please verify your account with the link sent to your email"

@@ -63,6 +63,8 @@ def view_listed():
 @web_app.route('/add_home', methods =['GET', 'POST'])
 def add_home():
     msg=' '
+
+    current_date = datetime.today().strftime('%Y-%m-%d')
     if request.method == 'POST' and request.form['homename'] and request.form['homeaddress']\
         and request.form['homedescription'] and request.files['ownershipimg']\
                     and request.form['city'] and request.form['country']\
@@ -70,11 +72,11 @@ def add_home():
                     
         if request.form['initdate'] > request.form['enddate']:
             msg = "*Sorry, the end date should be after the start date"
-            return render_template('homesView/addhome.html.j2', error_message=msg)
+            return render_template('homesView/addhome.html.j2', error_message=msg, currDate = current_date)
             
         if len(get_dates_between(request.form['initdate'], request.form['enddate'])) < 7:
             msg = "*Sorry, the home should be available for more than a week"
-            return render_template('homesView/addhome.html.j2', error_message=msg)
+            return render_template('homesView/addhome.html.j2', error_message=msg, currDate = current_date)
         
         session['homeId'] = f"{int(time.time() * 1000)}"
         session['amenities'] = []
@@ -91,7 +93,7 @@ def add_home():
     elif request.method == 'POST':
         SessionProcessing.clear_session_images(SessionProcessing.clear_session(session))
         msg = "*Sorry, some required fields are missing, re-enter information"
-    return render_template('homesView/addhome.html.j2', error_message=msg)
+    return render_template('homesView/addhome.html.j2', error_message=msg, currDate = current_date)
 
 
 @web_app.route('/add_room', methods =['GET', 'POST'])
