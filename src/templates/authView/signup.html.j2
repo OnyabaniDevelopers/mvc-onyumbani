@@ -243,7 +243,17 @@
                             var img = $("<img />");
                             img.attr("style", "width: 70%; height: 70%; padding: 0px");
                             img.attr("src", e.target.result);
+                            img.attr("id", "changeimg")
+                            const endname = fileName.split('.')[1];
+                            
                             dvPreview.append(img);
+                            
+                            if (endname == "pdf"){
+                                chimg = document.getElementById("changeimg");
+                            
+                                chimg.src = "/static/pics/pdf.png";
+                            }
+                            
                     }
                 reader.readAsDataURL(file[0]);                
             });

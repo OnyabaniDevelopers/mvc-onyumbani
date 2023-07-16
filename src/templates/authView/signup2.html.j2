@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <div class="input-group">
                               <span class="input-group-btn">
-                                <span style="margin-right: 10px;">Submit National Id (or birth certificate) here</span>
+                                <span style="margin-right: 10px;">Submit national Id / birth certificate / passport / drivers license / Ghana card image </span>
                                 <span class="btn btn-file">
                                     <span class="fa fa-upload">
                                         <label class="upload-icon">
@@ -63,7 +63,8 @@
         
                 <div class="form-outline">
                     <label class="form-label" for="textAreaExample">Bio and Interests</label>
-                    <textarea class="form-control" type="text" id="textAreaExample1" name="bio" rows="4">Enter a paragraph about yourself and your interests</textarea>
+                    <p style="font-size: 13px;">Enter a paragraph about yourself and your interests </p>
+                    <textarea class="form-control" type="text" id="textAreaExample1" name="bio" rows="4"></textarea>
                 </div>
 
                 <div class="col-md-12" id="btn" style="margin-top: 2%;">
@@ -98,8 +99,17 @@
                     reader.onload = function (e) {
                         var img = $("<img />");
                         img.attr("style", "width: 240px; padding: 10px;");
-                        img.attr("src", e.target.result);
+                        img.attr("src", e.target.result); 
+                        img.attr("id", "changeimg")
+                        const endname = fileName.split('.')[1];
+                        
                         dvPreview.append(img);
+                        
+                        if (endname == "pdf"){
+                            chimg = document.getElementById("changeimg");
+                        
+                            chimg.src = "/static/pics/pdf.png";
+                        }
                     }
                 reader.readAsDataURL(file[0]);                
                 }
