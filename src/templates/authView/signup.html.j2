@@ -14,7 +14,7 @@
                         <img src="/static/pics/Osuani-Final-Colour.jpg" class="rounded-circle" style="width: 300px; height: 280px" alt="Avatar" />
                     </div>
                     <label class="upload-icon">
-                        <input type="file" onchange="previewImage(event)" name="profileimage" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif">
+                        <input type="file" onchange="previewImage(event)" name="profileimage" class="file-input" accept=".jfif,.jpg,.jpeg,.png,.gif,.pdf">
                     </label>
                 </div>
                 <div class="col-md-6" id="sec-section">
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="dob">Date of Birth</label>
                                 <div class="input-group">
-                                 <input type="date" class="form-control" id="dob" name="dob" placeholder="" min="1960-06-02" max="2010-06-08">
+                                 <input type="date" class="form-control" id="dob" name="dob" placeholder="" min="1920-06-02" max="2010-06-08">
                                 </div>
                             </div>
                         </div>
@@ -100,11 +100,16 @@
                                 <label for="password">Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control password" id="password" name="password" placeholder="Enter your password">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text password-toggle">
-                                        <i class="fa fa-lock"></i>
+                                    <div id="toggleBtn" onclick="togglePasswordVisibility()">
+                                        <span id="slash1" class="input-group-text password-toggle">
+                                            <i class="fa fa-eye"></i>
                                         </span>
                                     </div>
+                                    <!--<div class="input-group-append">
+                                        <span class="input-group-text password-toggle">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -113,11 +118,16 @@
                                 <label for="password">Confirm Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control password" id="confirmpassword" name="confirmpassword" placeholder="Enter your password">
-                                    <div class="input-group-append">
+                                    <div id="toggleBtn2" onclick="togglePasswordVisibility2()">
+                                        <span id="slash2" class="input-group-text password-toggle">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                    </div>
+                                    <!-- <div class="input-group-append">
                                         <span class="input-group-text password-toggle">
                                         <i class="fa fa-lock"></i>
                                         </span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -177,7 +187,12 @@
                 bbtn = false;
                 
                 if (passwordRegex.test(password1.value)) {                 
-                    if (password1.value == password2.value) {
+                    if (password2.value == ""){
+                        password1.style.border = "green solid 2px";
+                        password2.style.border = "";
+                        addhere.innerHTML = "";
+                    }
+                    else if (password1.value == password2.value) {
                         password1.style.border = "green solid 2px";
                         password2.style.border = "green solid 2px";
                         addhere.innerHTML = "";
@@ -226,7 +241,7 @@
                         var reader = new FileReader();
                         reader.onload = function (e) {
                             var img = $("<img />");
-                            img.attr("style", "width: 270px; height: 250px; padding: 10px; border-radius: 50%");
+                            img.attr("style", "width: 70%; height: 70%; padding: 0px");
                             img.attr("src", e.target.result);
                             dvPreview.append(img);
                     }
@@ -237,6 +252,38 @@
                 }
             }
         );
+        
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var toggleButton = document.getElementById("toggleBtn");
+            var slash1 = document.getElementById("slash1");
+        
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                slash1.innerHTML = '<i class="fa fa-eye-slash"></i>'
+                //toggleButton.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                slash1.innerHTML = '<i class="fa fa-eye"></i>'
+                //toggleButton.textContent = "Show";
+            }
+        }
+        
+        function togglePasswordVisibility2() {
+            var passwordInput2 = document.getElementById("confirmpassword");
+            var toggleButton2 = document.getElementById("toggleBtn2");
+            var slash2 = document.getElementById("slash2");
+        
+            if (passwordInput2.type === "password") {
+                passwordInput2.type = "text";
+                slash2.innerHTML = '<i class="fa fa-eye-slash"></i>'
+                //toggleButton2.textContent = "Hide";
+            } else {
+                passwordInput2.type = "password";
+                slash2.innerHTML = '<i class="fa fa-eye"></i>'
+                //toggleButton2.textContent = "Show";
+            }
+        }
     </script>
 {% endblock %}  
 

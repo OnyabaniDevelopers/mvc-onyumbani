@@ -35,11 +35,16 @@
                                     <label for="password">Password</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-                                        <div class="input-group-append">
+                                        <div id="toggleBtn" onclick="togglePasswordVisibility()">
+                                            <span id="slash" class="input-group-text password-toggle">
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                        <!--<div class="input-group-append">
                                             <span class="input-group-text password-toggle">
                                                 <i class="fa fa-lock"></i>
                                             </span>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -65,3 +70,22 @@
     </div>
 {% endblock %}
 
+{% block script %}
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var toggleButton = document.getElementById("toggleBtn");
+            var slash = document.getElementById("slash");
+        
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                slash.innerHTML = '<i class="fa fa-eye-slash"></i>'
+                //toggleButton.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                slash.innerHTML = '<i class="fa fa-eye"></i>'
+                //toggleButton.textContent = "Show";
+            }
+        }
+    </script>
+{% endblock %}  
