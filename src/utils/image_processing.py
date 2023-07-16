@@ -12,7 +12,11 @@ class ImageProcessing:
 
         # saving the image to storage
         blob = bucket.blob(filename)
-        blob.upload_from_file(image, content_type='image/png')
+        extension = image.filename.split('.')[-1]
+        if extension == 'pdf':
+            blob.upload_from_file(image, content_type='application/pdf')
+        else:
+            blob.upload_from_file(image, content_type='image/png')
 
         # Getting the image url
         return blob.public_url
