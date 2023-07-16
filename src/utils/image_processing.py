@@ -12,7 +12,9 @@ class ImageProcessing:
 
         # saving the image to storage
         blob = bucket.blob(filename)
+        
         extension = image.filename.split('.')[-1]
+        # save pdfs
         if extension == 'pdf':
             blob.upload_from_file(image, content_type='application/pdf')
         else:

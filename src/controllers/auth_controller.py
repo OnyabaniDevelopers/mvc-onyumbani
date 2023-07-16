@@ -103,7 +103,6 @@ def sign_up_one():
             and request.files['profileimage'] and request.files['profileimage'].filename != ''\
             and request.form['password'] == request.form['confirmpassword']:
         # save session data
-
         for entry, value in request.form.to_dict().items():
             session[entry] = value
 
